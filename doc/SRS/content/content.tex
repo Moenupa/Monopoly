@@ -1,0 +1,125 @@
+\chapter{Introduction}
+\label{ch:intro}
+
+\section{Purpose}
+
+The purpose of this document is to build a command-line version of the game Monopoly. In the game, players roll dices to move around the game board triggering events, and win by economical domination. \par
+
+\section{Document Conventions}
+
+This document adopts the following abbreviation conventions. \par
+
+\begin{center}[]
+\begin{tabular}{ c|c }
+Abbreviation & Full Form \\
+[0.5ex] \hline\hline
+ER & Entity Relationship \\
+ID & Identifier \\
+SRS & Software Requirement Specifications (Document) \\
+\end{tabular}
+\end{center}
+
+%<Describe any standards or typographical conventions that were followed when writing this SRS, such as fonts or highlighting that have special significance. For example, state whether priorities  for higher-level requirements are assumed to be inherited by detailed requirements, or whether every requirement statement is to have its own priority.> \par
+
+\section{Intended Audience and Reading Suggestions}
+
+This document is most useful for development team, project managers, supervisors and documentation writers. \par
+
+The rest of this document are organized according to the following:
+\begin{itemize}
+  \item Chapter \textit{\hyperref[ch:intro]{Introduction}} provides basic information on this project and this document.
+  \item Chapter \textit{\hyperref[ch:overall-desc]{Overall Description}} presents an overview of this project, describing its functions, users, environments and development in details.
+  \item Chapter \textit{\hyperref[ch:sys-req]{System Requirements}} indicates all the functional and non-functional requirements in more detail.
+  \item Chapter \textit{\hyperref[ch:apdx]{Appendices}} includes the most detailed yet trivial information related to this project or this document.
+\end{itemize}
+
+%<Describe the different types of reader that the document is intended for, such as developers, project managers, marketing staff, users, testers, and documentation writers. Describe what the rest of this SRS contains and how it is organized. Suggest a sequence for reading the document, beginning with the overview sections and proceeding through the sections that are most pertinent to each reader type.>*
+
+\section{Product Scope}
+
+This document specifies requirements for the command-line game Monopoly. \par
+
+This software allows users to:
+\begin{itemize}
+  \item View the game board and players' token (subject to change in each round)
+  \item Roll the in-game virtual dices to make a move
+  \item Manage in-game assets (e.g. money, estates)
+  \item Deal with in-game triggered events
+  \item Save/load a game
+\end{itemize}
+
+The software runs offline without connection to any server, and stores game on local disk. The software displays game progress and interacts with users through command-line prompts and inputs respectively. 
+
+\section{References}
+
+\begin{itemize}
+  \item COMP3211 Software Engineering Course Project Description
+  \item \href{https://en.wikipedia.org/wiki/Monopoly_(game)}{Monopoly - Wikipedia}
+  \item \href{https://www.overleaf.com/latex/templates/cse355-software-requirements-specification-layout/pvjpzxthtngc}{SRS Template}
+  \item \href{https://www.reqview.com/papers/ReqView-Example_Software_Requirements_Specification_SRS_Document.pdf}{SRS Example}
+\end{itemize}
+
+\chapter{Overall Description}
+\label{ch:overall-desc}
+
+\section{Product Perspective}
+
+\subsection{System Interfaces}
+
+The application runs in the latest version of Python shell on Windows, Mac and Linux.
+
+\subsection{User Interfaces}
+
+The application offers a command line interface, displaying board, prompts and available options.
+
+\subsection{Software Interfaces}
+
+The application allows storing and loading a game in JSON format.
+
+\subsection{Memory Constraints}
+
+The application requires 1 GB or above memory.
+
+\section{Product Functions}
+
+<Summarize the major functions the product must perform or must let the user perform. Details will be provided in Section 3, so only a high level summary (such as a bullet list) is needed here. Organize the functions to make them understandable to any reader of the SRS. A picture of the major groups of related requirements and how they relate, such as a top level data flow diagram or object class diagram, is often effective.>
+
+\section{User Classes and Characteristics}
+
+<Identify the various user classes that you anticipate will use this product. User classes may be differentiated based on frequency of use, subset of product functions used, technical expertise, security or privilege levels, educational level, or experience. Describe the pertinent characteristics of each user class. Certain requirements may pertain only to certain user classes. Distinguish the most important user classes for this product from those who are less important to satisfy.>
+
+\section{Operating Environment}
+
+<Describe the environment in which the software will operate, including the hardware platform, operating system and versions, and any other software components or applications with which it must peacefully coexist.>
+
+\section{Design and Implementation Constraints}
+
+<Describe any items or issues that will limit the options available to the developers. These might include: corporate or regulatory policies; hardware limitations (timing requirements, memory requirements); interfaces to other applications; specific technologies, tools, and databases to be used; parallel operations; language requirements; communications protocols; security considerations; design conventions or programming standards (for example, if the customer’s organization will be responsible for maintaining the delivered software).>
+
+\section{User Documentation}
+
+<List the user documentation components (such as user manuals, on-line help, and tutorials) that will be delivered along with the software. Identify any known user documentation delivery formats or standards.>
+
+\section{Assumptions and Dependencies}
+
+<List any assumed factors (as opposed to known facts) that could affect the requirements stated in the SRS. These could include third-party or commercial components that you plan to use, issues around the development or operating environment, or constraints. The project could be affected if these assumptions are incorrect, are not shared, or change. Also identify any dependencies the project has on external factors, such as software components that you intend to reuse from another project, unless they are already documented elsewhere (for example, in the vision and scope document or the project plan).>
+
+\newpage
+
+\chapter{System Requirements}
+\label{ch:sys-req}
+
+
+\section{Functional Requirements}
+\subsection{Unknown}
+\subsection{Unknown}
+\subsection{Unknown}
+\section{Non Functional Requirements}
+\subsection{Unknown}
+\subsection{Unknown}
+\subsection{Unknown}
+
+\chapter{Appendices}
+\label{ch:apdx}
+\section{Glossary}
+\section{Index}
