@@ -39,15 +39,15 @@ public class Player {
         this.position = position;
     }
 
-    public void move(int step){
+    public void move(int step) {
 
     }
 
-    public void goToJail(){
+    public void goToJail() {
 
     }
 
-    public void bankrupt(){
+    public void bankrupt() {
 
     }
 
@@ -63,8 +63,8 @@ public class Player {
         return bankrupted;
     }
 
-    public int rollDice(){
+    public int rollDice() {
         var rand = new Random();
-        return rand.nextInt(4)+1;
+        return rand.nextInt(4) + 1;
     }
 }

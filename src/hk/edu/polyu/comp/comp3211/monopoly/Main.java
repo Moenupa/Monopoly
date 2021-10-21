@@ -13,12 +13,12 @@ public class Main {
     public static void main(String[] args) {
         in = new Scanner(System.in);
         setUI(new StartMenu());
-        while(true){
+        while (true) {
             curUI.terminal();
         }
     }
 
-    public static Scanner GetScanner(){
+    public static Scanner GetScanner() {
         return in;
     }
 

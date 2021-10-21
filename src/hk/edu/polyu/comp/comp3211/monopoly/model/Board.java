@@ -7,7 +7,9 @@ public class Board {
     private ISquare[] squares;
     private int round;
     private int p_index;
-    public Board(int num) {}
+
+    public Board(int num) {
+    }
 
     public Player[] getPlayers() {
         return players;
@@ -33,11 +35,11 @@ public class Board {
         this.p_index = p_index;
     }
 
-    public void save(String name){
+    public void save(String name) {
 
     }
 
-    public void load(String name){
+    public void load(String name) {
 
     }
 }
