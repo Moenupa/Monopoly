@@ -26,6 +26,7 @@ title __MODEL's Class Diagram__\n
   namespace hk.edu.polyu.comp.comp3211.monopoly {
     namespace model {
       class hk.edu.polyu.comp.comp3211.monopoly.model.Player {
+          {static} ~ SALARY : int
           - bankrupted : boolean
           - inJail : int
           - money : int

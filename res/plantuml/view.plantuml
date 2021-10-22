@@ -5,6 +5,7 @@ title __VIEW's Class Diagram__\n
   namespace hk.edu.polyu.comp.comp3211.monopoly {
     namespace view {
       class hk.edu.polyu.comp.comp3211.monopoly.view.Printer {
+          + Print()
           + Printer()
       }
     }

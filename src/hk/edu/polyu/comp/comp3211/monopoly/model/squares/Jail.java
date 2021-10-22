@@ -12,7 +12,7 @@ public class Jail implements ISquare{
      *   <li>if the player just passes:
      *      <p>this square has no effect</p></li>
      *   <li>if the player is at in-jail status:
-     *     <p>cannot make a move, and can only get out by:
+     *     <p>cannot make a move, and can only get out by:</p>
      *     <ol>
      *       <li>throwing doubles (two dice with same results) within next 3 turns
      *         <p>(and if so, immediately moves by the throw);</p></li>
@@ -20,7 +20,7 @@ public class Jail implements ISquare{
      *       <li>if still not out within 3 turns, paying $150 (must) to get out
      *         <p>(and if <code>cond.2</code> or <code>cond.3</code> is met,
      *           the player can throw once and move).</p></li>
-     *     </ol></p></li></ul>
+     *     </ol></li></ul>
      * @param player dest. player
      */
     @Override
