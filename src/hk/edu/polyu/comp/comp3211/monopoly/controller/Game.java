@@ -7,6 +7,15 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.*;
 public class Game implements IBase {
     private Board board;
     private Printer printer;
+
+    /**
+     * First print game board, current round and player;
+     * If he is in jail, refer to the document
+     * Otherwise, prompt the user to roll the dice(user needs to input something);
+     * Then player should move forward; then call the execute method of the arriving square.
+     * Note that user can save, load or quit at this time.
+     * At the beginning of each round, check if the game ends. If so, print the game result and switch to the Endgame Interface
+     */
     @Override
     public void terminal() {
 
