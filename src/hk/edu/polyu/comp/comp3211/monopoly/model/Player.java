@@ -24,6 +24,7 @@ public class Player {
      * from square 1-20 (or index 0-19)
      */
     private int position;
+
     /**
      * Array of properties owned by the player
      */
@@ -35,7 +36,7 @@ public class Player {
     private int inJail;
     /**
      * Whether the player is bankrupted
-     * and should be remove from the game
+     * and should be removed from the game
      */
     private boolean bankrupted;
 
@@ -44,6 +45,14 @@ public class Player {
      * and scan input from user
      */
     public Player() {
+    }
+
+    /**
+     * initialize a player
+     * @param name name of the user
+     */
+    public Player(String name){
+
     }
 
     /**
@@ -79,6 +88,14 @@ public class Player {
     }
 
     /**
+     * Add to th balance of the player
+     * @param money money to add
+     */
+    public void addMoney(int money){
+        this.money += money;
+    }
+
+    /**
      * Get the position of the player
      * @return position of the player
      */
@@ -102,6 +119,14 @@ public class Player {
      */
     public void move(int step){
 
+    }
+
+    /**
+     * Get the array of properties
+     * @return the array of properties
+     */
+    public Property[] getProperties() {
+        return properties;
     }
 
     /**
@@ -143,7 +168,7 @@ public class Player {
     }
 
     /**
-     * Roll a dice which is uniformly distributed from 1-4
+     * Roll a die which is uniformly distributed from 1-4
      * @return the result (ranged from 1-4)
      */
     public int rollDice(){
