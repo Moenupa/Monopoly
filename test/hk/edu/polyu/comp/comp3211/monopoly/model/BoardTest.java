@@ -1,18 +1,20 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
+
 import org.junit.jupiter.api.*;
 
 import java.util.*;
 import java.util.stream.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class BoardTest {
     Board board1, board2;
     Board test;
-    static final String[] PLAYER_NAMES =
-            {"player1", "player2", "player3", "player4", "player5","player6", "player7", "player8"};
+    static final String[] PLAYER_NAMES = {
+        "player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8"
+    };
     static final int[] SECTION = {2, 6};
     String[] playerNameSet1, playerNameSet2;
 
@@ -20,7 +22,7 @@ class BoardTest {
     public void setUp() {
         // valid boards for further testing
         this.playerNameSet1 = Arrays.copyOfRange(PLAYER_NAMES, 0, SECTION[0]);
-        this.playerNameSet2 = Arrays.copyOfRange(PLAYER_NAMES, SECTION[0], SECTION[0]+SECTION[1]);
+        this.playerNameSet2 = Arrays.copyOfRange(PLAYER_NAMES, SECTION[0], SECTION[0] + SECTION[1]);
 
         this.board1 = new Board(playerNameSet1);
         this.board2 = new Board(playerNameSet2);
@@ -32,9 +34,12 @@ class BoardTest {
     @Test
     void BoardTest() {
         // new Board() should throw error when not initialized with 2-6 players
-        Exception exception1 = assertThrows(Exception.class, () -> {
-            this.test = new Board(7);
-        });
+        Exception exception1 =
+                assertThrows(
+                        Exception.class,
+                        () -> {
+                            this.test = new Board(7);
+                        });
 
         // "2-6 players" is one of game constraints
         String expectedMessage = "2-6 players";
@@ -49,7 +54,8 @@ class BoardTest {
         List<Player> players2 = Arrays.asList(this.board2.getPlayers());
         // store the names of the players in an array
         // names = players.map(e => e.name)
-        List<String> playerNames2 = players2.stream().map(Player::getName).collect(Collectors.toList());
+        List<String> playerNames2 =
+                players2.stream().map(Player::getName).collect(Collectors.toList());
 
         assertTrue(hasSamePlayers(playerNames2, Arrays.asList(playerNameSet2)));
     }
@@ -68,15 +74,12 @@ class BoardTest {
         map.put(Oops.class, Arrays.asList(16));
 
         map.forEach(
-                (k, v) ->
-                {
+                (k, v) -> {
                     v.forEach(
-                            (e) ->
-                            {
-                                assertEquals(k, squares[e-1].getClass());
+                            (e) -> {
+                                assertEquals(k, squares[e - 1].getClass());
                             });
-                }
-        );
+                });
     }
 
     @Test
@@ -95,7 +98,8 @@ class BoardTest {
 
         // has the same players with same names, money, etc.
         List<Player> players2_load = Arrays.asList(board2_load.getPlayers());
-        List<String> playerNames2_load = players2_load.stream().map(Player::getName).collect(Collectors.toList());
+        List<String> playerNames2_load =
+                players2_load.stream().map(Player::getName).collect(Collectors.toList());
 
         assertTrue(hasSamePlayers(playerNames2_load, Arrays.asList(playerNameSet2)));
     }

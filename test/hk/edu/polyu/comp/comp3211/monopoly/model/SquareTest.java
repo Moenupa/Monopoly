@@ -1,15 +1,14 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SquareTest {
 
     @BeforeEach
-    void setUp() {
-    }
+    void setUp() {}
 
     @Test
     void test() {
@@ -17,30 +16,23 @@ class SquareTest {
     }
 
     @Test
-    void chanceSquareTest() {
-    }
+    void chanceSquareTest() {}
 
     @Test
-    void freeSquareTest() {
-    }
+    void freeSquareTest() {}
 
     @Test
-    void goSquareTest() {
-    }
+    void goSquareTest() {}
 
     @Test
-    void jailSquareTest() {
-    }
+    void jailSquareTest() {}
 
     @Test
-    void oopsSquareTest() {
-    }
+    void oopsSquareTest() {}
 
     @Test
-    void propertySquareTest() {
-    }
+    void propertySquareTest() {}
 
     @Test
-    void taxSquareTest() {
-    }
+    void taxSquareTest() {}
 }
