@@ -31,6 +31,13 @@ public class Board {
     public Board(int num) {}
 
     /**
+     * Initialize the board with fixed number of squares
+     * and customized number of players (2-6)
+     * @param names array of player names
+     */
+    protected Board(String[] names) {}
+
+    /**
      * Get all players in the board
      * @return array of players
      */
