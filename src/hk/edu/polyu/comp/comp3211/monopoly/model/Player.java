@@ -20,7 +20,7 @@ public class Player {
     /** Whether the player is "IN JAIL" 0 if not */
     private int inJail;
     /** Whether the player is bankrupted and should be removed from the game */
-    private boolean bankrupted;
+    private boolean bankrupted = false;
 
     /** initialize a player and scan input from user */
     public Player() {}
