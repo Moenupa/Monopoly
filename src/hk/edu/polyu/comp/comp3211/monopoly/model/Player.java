@@ -23,20 +23,14 @@ public class Player {
     private boolean bankrupted;
 
     /** initialize a player and scan input from user */
-    public Player() {
-
-    }
+    public Player() {}
 
     /**
      * initialize a player
      *
      * @param name name of the user
      */
-    public Player(String name) {
-        this.name = name;
-        this.inJail = 0;
-        this.bankrupted = false;
-    }
+    public Player(String name) {}
 
     /**
      * Get the name of the player
@@ -107,13 +101,7 @@ public class Player {
      *
      * @param step number of steps
      */
-    public void move(int step) {
-        position += step;
-        if (position > 19) {
-            position = position % 20;
-            addMoney(SALARY);
-        }
-    }
+    public void move(int step) {}
 
     /**
      * Get the array of properties
@@ -125,14 +113,10 @@ public class Player {
     }
 
     /** The player goes to jail */
-    public void goToJail() {
-
-    }
+    public void goToJail() {}
 
     /** The player is bankrupt */
-    public void bankrupt() {
-        bankrupted = true;
-    }
+    public void bankrupt() {}
 
     /**
      * Get the "IN JAIL" status of the player
