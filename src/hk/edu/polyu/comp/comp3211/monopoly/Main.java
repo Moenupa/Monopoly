@@ -6,7 +6,12 @@ import java.util.Scanner;
 
 @SuppressWarnings("InfiniteLoopStatement")
 public class Main {
-    private static IBase curUI;
+    /**
+     * Set to true to enable test mode. where all user input is ignored and the methods will take the default action.
+     */
+    public static boolean TEST = false;
+
+    private static IBase curUI; // current UI;
 
     /** Should be the only scanner used throughout the application */
     private static Scanner in;
