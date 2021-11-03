@@ -16,13 +16,13 @@ class SquareTest {
     Go go;
     Oops oops;
     Jail jail;
+    Property property;
+    Tax tax;
     Player player1, player2, player3;
 
     @BeforeEach
     void setUp() {
-<<<<<<< HEAD
         Main.TEST = true;
-=======
 
         this.player1 = new Player("player");
 
@@ -30,7 +30,6 @@ class SquareTest {
         this.go = new Go();
         this.oops = new Oops();
         this.jail = new Jail();
->>>>>>> freeman
     }
 
     @Test
