@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +13,7 @@ class PlayerTest {
     @BeforeEach
     void setUp() {
         this.testPlayers = new Player[2];
+        Main.TEST = true;
     }
 
     @Test

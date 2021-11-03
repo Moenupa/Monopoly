@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
 
 import org.junit.jupiter.api.*;
@@ -29,6 +30,7 @@ class BoardTest {
 
         this.board2.setP_index(4);
         this.board2.setRound(3);
+        Main.TEST = true;
     }
 
     @Test
