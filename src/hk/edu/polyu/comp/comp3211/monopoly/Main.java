@@ -7,7 +7,8 @@ import java.util.Scanner;
 @SuppressWarnings("InfiniteLoopStatement")
 public class Main {
     /**
-     * Set to true to enable test mode. where all user input is ignored and the methods will take the default action.
+     * Set to true to enable test mode. where all user input is ignored and the methods will take
+     * the default action.
      */
     public static boolean TEST = false;
 

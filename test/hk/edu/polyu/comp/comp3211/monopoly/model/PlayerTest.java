@@ -61,14 +61,14 @@ class PlayerTest {
                 player.getMoney(),
                 Player.SALARY
                         * 2); // Test if the function works well if player goes through the starting
-                              // point
+        // point
         player.setPosition(18);
         player.move(2);
         assertEquals(
                 player.getMoney(),
                 Player.SALARY
                         * 3); // Test if the function works well if the player steps on the starting
-                              // point
+        // point
     }
 
     @Test
