@@ -5,9 +5,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * The In-Jail/Just-Visiting square of the board
- */
+/** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
     /**
      * Generate an effect to a player
@@ -31,14 +29,13 @@ public class Jail implements ISquare {
      *
      * @param player dest. player
      */
-
     private int[] rollDiceResult = new int[2];
+
     private Map<Player, Integer> inJailRound = new HashMap<>();
     private boolean payFineForTest;
 
     @Override
-    public void execute(Player player) {
-    }
+    public void execute(Player player) {}
 
     public void setRollDIceResult(int[] result) {
         rollDiceResult[0] = result[0];
@@ -53,10 +50,6 @@ public class Jail implements ISquare {
         payFineForTest = pay;
     }
 
-    /**
-     * Paying a fine to get out of jail
-     */
-    public void payFine(Player player) {
-
-    }
+    /** Paying a fine to get out of jail */
+    public void payFine(Player player) {}
 }

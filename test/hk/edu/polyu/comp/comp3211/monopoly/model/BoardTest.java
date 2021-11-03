@@ -16,19 +16,13 @@ class BoardTest {
     static final String[] PLAYER_NAMES = {
         "player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8"
     };
-    static final int[] PROPERTY_INDEX = {
-            2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 18, 20
-    };
+    static final int[] PROPERTY_INDEX = {2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 18, 20};
     static final String[] PROPERTY_NAMES = {
         "central", "wan chai", "stanley", "shek o", "mong kok", "tsing yi",
         "shatin", "tuen mun", "tai po", "sai kung", "yuen long", "tai o"
     };
-    static final int[] PROPERTY_SELL = {
-            800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600
-    };
-    static final int[] PROPERTY_RENT = {
-            90, 65, 60, 10, 40, 15, 75, 20, 25, 10, 25, 25
-    };
+    static final int[] PROPERTY_SELL = {800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600};
+    static final int[] PROPERTY_RENT = {90, 65, 60, 10, 40, 15, 75, 20, 25, 10, 25, 25};
     static final int[] SECTION = {2, 6};
     String[] playerNameSet1, playerNameSet2;
 
@@ -110,7 +104,6 @@ class BoardTest {
             assertEquals(cur.getPrice(), PROPERTY_SELL[i]);
             assertEquals(cur.getRent(), PROPERTY_RENT[i]);
         }
-
     }
 
     @Test
