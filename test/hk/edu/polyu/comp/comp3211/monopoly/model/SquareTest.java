@@ -175,8 +175,26 @@ class SquareTest {
     }
 
     @Test
-    void propertySquareTest() {}
+    void propertySquareTest() {
+        // test property (Name: Central, Price: 800, Rent: 90)
+        this.property = new Property("Central", 800, 90);
+
+        property.setOwner(player1);// player1 buy the property
+        assertEquals(player1.getMoney(), 700); // check player1 money
+        assertEquals(this.property.getOwner(), player1); // check property owner
+
+
+        this.player2 = new Player();
+        property.execute(player2);// player2 enter the property
+        assertEquals(player1.getMoney(), 790); // check player1 money
+        assertEquals(player2.getMoney(), 1410); // check player2 money
+    }
 
     @Test
-    void taxSquareTest() {}
+    void taxSquareTest() {
+        this.tax = new Tax();
+        tax.execute(player1);
+        int currentMoney = player1.getMoney();
+        assertEquals(currentMoney, 1350);
+    }
 }
