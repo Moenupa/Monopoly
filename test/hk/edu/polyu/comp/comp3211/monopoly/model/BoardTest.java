@@ -99,7 +99,7 @@ class BoardTest {
                 });
 
         for (int i = 0; i < 12; i++) {
-            Property cur = (Property) squares[PROPERTY_INDEX[i]];
+            Property cur = (Property) squares[PROPERTY_INDEX[i] - 1];
             assertEquals(cur.getName(), PROPERTY_NAMES[i]);
             assertEquals(cur.getPrice(), PROPERTY_SELL[i]);
             assertEquals(cur.getRent(), PROPERTY_RENT[i]);
