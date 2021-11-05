@@ -14,24 +14,18 @@ public class Board {
     private int p_index;
 
     // constants, storing all property values
-    /**
-     * the position of the square (numbered from 1-20)
-     */
+    /** the position of the square (numbered from 1-20) */
     private static final int[] PROPERTY_INDEX = {2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 18, 20};
-    /**
-     * the name of the properties
-     */
+    /** the name of the properties */
     private static final String[] PROPERTY_NAMES = {
-            "central", "wan chai", "stanley", "shek o", "mong kok", "tsing yi",
-            "shatin", "tuen mun", "tai po", "sai kung", "yuen long", "tai o"
+        "central", "wan chai", "stanley", "shek o", "mong kok", "tsing yi",
+        "shatin", "tuen mun", "tai po", "sai kung", "yuen long", "tai o"
     };
-    /**
-     * the selling price of the properties
-     */
-    private static final int[] PROPERTY_SELL = {800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600};
-    /**
-     * the rental price of the properties
-     */
+    /** the selling price of the properties */
+    private static final int[] PROPERTY_SELL = {
+        800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600
+    };
+    /** the rental price of the properties */
     private static final int[] PROPERTY_RENT = {90, 65, 60, 10, 40, 15, 75, 20, 25, 10, 25, 25};
 
     /**
@@ -139,9 +133,7 @@ public class Board {
      */
     public void load(String name) {}
 
-    /**
-     * Initialize the board's squares according to definitions
-     */
+    /** Initialize the board's squares according to definitions */
     private void init_squares() {
         if (squares != null) return;
 
@@ -152,11 +144,8 @@ public class Board {
 
         // initialize every property
         for (int i = 0; i < 12; i++) {
-            squares[PROPERTY_INDEX[i] - 1] = new Property(
-                    PROPERTY_NAMES[i],
-                    PROPERTY_SELL[i],
-                    PROPERTY_RENT[i]
-            );
+            squares[PROPERTY_INDEX[i] - 1] =
+                    new Property(PROPERTY_NAMES[i], PROPERTY_SELL[i], PROPERTY_RENT[i]);
         }
 
         // the 4th square is tax
@@ -175,9 +164,7 @@ public class Board {
         // the board is initialized with 1+12+(1+1+1+1)+3=20 squares
     }
 
-    /**
-     * Reset board's <code>round</code> and <code>p_index</code> to 0
-     */
+    /** Reset board's <code>round</code> and <code>p_index</code> to 0 */
     private void reset_rounding_info() {
         this.round = 0;
         this.p_index = 0;
