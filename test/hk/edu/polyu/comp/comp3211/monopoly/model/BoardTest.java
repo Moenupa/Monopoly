@@ -6,6 +6,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.*;
@@ -26,8 +27,8 @@ class BoardTest {
     static final int[] SECTION = {2, 6};
     String[] playerNameSet1, playerNameSet2;
 
-    @BeforeAll
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         // valid boards for further testing
         this.playerNameSet1 = Arrays.copyOfRange(PLAYER_NAMES, 0, SECTION[0]);
         this.playerNameSet2 = Arrays.copyOfRange(PLAYER_NAMES, SECTION[0], SECTION[0] + SECTION[1]);
@@ -35,8 +36,8 @@ class BoardTest {
         this.board1 = new Board(playerNameSet1);
         this.board2 = new Board(playerNameSet2);
 
-        this.board2.setP_index(4);
         this.board2.setRound(3);
+        this.board2.setP_index(4);
         Main.TEST = true;
     }
 
@@ -44,8 +45,8 @@ class BoardTest {
     void getBoardStatusTest() {
         assertEquals(0, this.board1.getRound(), "Board1 round not equal to 0");
         assertEquals(0, this.board1.getP_index(), "Board1 p_index not equal to 0");
-        assertEquals(4, this.board2.getRound(), "Board2 round not equal to 4");
-        assertEquals(3, this.board2.getP_index(), "Board2 p_index not equal to 3");
+        assertEquals(3, this.board2.getRound(), "Board2 round not equal to 4");
+        assertEquals(4, this.board2.getP_index(), "Board2 p_index not equal to 3");
     }
 
     @Test
@@ -63,7 +64,7 @@ class BoardTest {
         String actualMessage = exception1.getMessage();
 
         // and should prompt a message containing relevant information
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertTrue(actualMessage.contains(expectedMessage), "NOT THROW EXCEPTION containing '2-6 players'");
     }
 
     @Test
@@ -74,7 +75,7 @@ class BoardTest {
         List<String> playerNames2 =
                 players2.stream().map(Player::getName).collect(Collectors.toList());
 
-        assertTrue(hasSamePlayers(playerNames2, Arrays.asList(playerNameSet2)));
+        assertTrue(hasSamePlayers(playerNames2, Arrays.asList(playerNameSet2)), "PLAYERS NOT EQUAL");
     }
 
     @Test
@@ -100,9 +101,9 @@ class BoardTest {
 
         for (int i = 0; i < 12; i++) {
             Property cur = (Property) squares[PROPERTY_INDEX[i] - 1];
-            assertEquals(cur.getName(), PROPERTY_NAMES[i]);
-            assertEquals(cur.getPrice(), PROPERTY_SELL[i]);
-            assertEquals(cur.getRent(), PROPERTY_RENT[i]);
+            assertEquals(cur.getName(), PROPERTY_NAMES[i], "PROPERTY NAME NOT EQUAL");
+            assertEquals(cur.getPrice(), PROPERTY_SELL[i], "PROPERTY SELL PRICE NOT EQUAL");
+            assertEquals(cur.getRent(), PROPERTY_RENT[i], "PROPERTY RENT PRICE NOT EQUAL");
         }
     }
 
@@ -110,22 +111,28 @@ class BoardTest {
     void saveAndLoadTest() {
         // saving and loading
         final String save_name = "test_board_2";
-        board2.save(save_name);
+        Board board2_load;
+        try {
+            board2.save(save_name);
+            board2_load = Board.load(save_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false, "EXCEPTION OCCUR");
+            return;
+        }
 
-        Board board2_load = new Board(6);
-        board2_load.load(save_name);
 
         // compare the status before/after saving+loading
         // round index and active player index
-        assertEquals(board2.getRound(), board2_load.getRound());
-        assertEquals(board2.getP_index(), board2_load.getP_index());
+        assertEquals(board2.getRound(), board2_load.getRound(), "ROUND INDEX NOT EQUAL");
+        assertEquals(board2.getP_index(), board2_load.getP_index(), "P INDEX NOT EQUAL");
 
         // has the same players with same names, money, etc.
         List<Player> players2_load = Arrays.asList(board2_load.getPlayers());
         List<String> playerNames2_load =
                 players2_load.stream().map(Player::getName).collect(Collectors.toList());
 
-        assertTrue(hasSamePlayers(playerNames2_load, Arrays.asList(playerNameSet2)));
+        assertTrue(hasSamePlayers(playerNames2_load, Arrays.asList(playerNameSet2)), "PLAYERS NOT EQUAL");
     }
 
     private boolean hasSamePlayers(List<String> list1, List<String> list2) {

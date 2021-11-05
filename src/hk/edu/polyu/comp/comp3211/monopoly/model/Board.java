@@ -2,8 +2,10 @@ package hk.edu.polyu.comp.comp3211.monopoly.model;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
 
+import java.io.*;
+
 /** A board, containing players, squares, and game status */
-public class Board {
+public class Board implements Serializable {
     /** The array of players in the board */
     private Player[] players;
     /** The array of squares in the board */
@@ -12,6 +14,10 @@ public class Board {
     private int round;
     /** Current active player index */
     private int p_index;
+    /** Default game-save directory */
+    private static final String GAME_SAVE_DIR = "./out/saves/";
+    /** Error message when detecting invalid player numbers */
+    private static final String ERR_INVALID_NUM_OF_PLAYERS = "the board should contain only 2-6 players";
 
     // constants, storing all property values
     /** the position of the square (numbered from 1-20) */
@@ -32,8 +38,11 @@ public class Board {
      * Initialize the board with fixed number of squares and customized number of players (2-6)
      *
      * @param num number of players in the board
+     * @exception IllegalArgumentException if num not in [2,6] range
      */
-    public Board(int num) {
+    public Board(int num) throws IllegalArgumentException {
+        if (num < 2 || num > 6) throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
@@ -50,10 +59,13 @@ public class Board {
      * Initialize the board with fixed number of squares and customized number of players (2-6)
      *
      * @param names array of player names
+     * @exception IllegalArgumentException if num not in [2,6] range
      */
-    protected Board(String[] names) {
+    protected Board(String[] names) throws IllegalArgumentException {
         // first initialize the players
         int num = names.length;
+        if (num < 2 || num > 6) throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
             this.players[i] = new Player(names[i]);
@@ -123,15 +135,74 @@ public class Board {
      * Save the board to a local file
      *
      * @param name the path (name) of the local file
+     * @exception IllegalArgumentException if write permission not granted
+     * @exception RuntimeException if other unknown exceptions occur when writing to file
      */
-    public void save(String name) {}
+    public void save(String name) throws Exception {
+        // creating game-save directory if not exists
+        File dir = new File(GAME_SAVE_DIR);
+        if (!dir.exists()) dir.mkdirs();
+
+        // create game save file
+        File file = new File(GAME_SAVE_DIR + name);
+        if (file.exists() && !file.canWrite()) throw new IllegalArgumentException("Write permission not granted");
+
+        try {
+            FileOutputStream fo;
+            if (file.createNewFile()) {
+                // create success: prepare to write
+                fo = new FileOutputStream(file);
+            } else {
+                // else if file already exist: clear all its content
+                fo = new FileOutputStream(file);
+                fo.write("".getBytes());
+            }
+            // write object to file
+            ObjectOutputStream oo = new ObjectOutputStream(fo);
+            oo.writeObject(this);
+
+            // close output streams
+            oo.close();
+            fo.close();
+        } catch (IOException e) {
+            // 1. IOException when executing file.createNewFile()
+            // 2. Exception when executing new FileOutputStream()
+            // both cases should NOT happen
+            e.printStackTrace();
+            throw new RuntimeException("Internal error when saving a game save");
+        }
+    }
 
     /**
      * Load the board from a local file
      *
      * @param name the path (name) of the local file
+     * @exception IllegalArgumentException if no such game-save or read permission not granted
+     * @exception RuntimeException if other unknown exceptions occur when reading file
      */
-    public void load(String name) {}
+    public static Board load(String name) throws Exception {
+        File file = new File(GAME_SAVE_DIR + name);
+        if (!file.exists()) throw new IllegalArgumentException("No save match");
+        if (!file.canRead()) throw new IllegalArgumentException("Read permission not granted");
+
+        try {
+            // read from input
+            FileInputStream fi = new FileInputStream(file);
+            ObjectInputStream oi = new ObjectInputStream(fi);
+            Board board = (Board) oi.readObject();
+
+            // close input stream
+            oi.close();
+            fi.close();
+            return board;
+        } catch (Exception e) {
+            // 1. FileNotFoundException;
+            // 2. Exception when executing new ObjectInputStream();
+            // both cases should NOT happen
+            e.printStackTrace();
+            throw new RuntimeException("Internal error when loading a game save");
+        }
+    }
 
     /** Initialize the board's squares according to definitions */
     private void init_squares() {
