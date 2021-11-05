@@ -17,7 +17,8 @@ public class Board implements Serializable {
     /** Default game-save directory */
     private static final String GAME_SAVE_DIR = "./out/saves/";
     /** Error message when detecting invalid player numbers */
-    private static final String ERR_INVALID_NUM_OF_PLAYERS = "the board should contain only 2-6 players";
+    private static final String ERR_INVALID_NUM_OF_PLAYERS =
+            "the board should contain only 2-6 players";
 
     // constants, storing all property values
     /** the position of the square (numbered from 1-20) */
@@ -145,7 +146,8 @@ public class Board implements Serializable {
 
         // create game save file
         File file = new File(GAME_SAVE_DIR + name);
-        if (file.exists() && !file.canWrite()) throw new IllegalArgumentException("Write permission not granted");
+        if (file.exists() && !file.canWrite())
+            throw new IllegalArgumentException("Write permission not granted");
 
         try {
             FileOutputStream fo;

@@ -64,7 +64,9 @@ class BoardTest {
         String actualMessage = exception1.getMessage();
 
         // and should prompt a message containing relevant information
-        assertTrue(actualMessage.contains(expectedMessage), "NOT THROW EXCEPTION containing '2-6 players'");
+        assertTrue(
+                actualMessage.contains(expectedMessage),
+                "NOT THROW EXCEPTION containing '2-6 players'");
     }
 
     @Test
@@ -75,7 +77,8 @@ class BoardTest {
         List<String> playerNames2 =
                 players2.stream().map(Player::getName).collect(Collectors.toList());
 
-        assertTrue(hasSamePlayers(playerNames2, Arrays.asList(playerNameSet2)), "PLAYERS NOT EQUAL");
+        assertTrue(
+                hasSamePlayers(playerNames2, Arrays.asList(playerNameSet2)), "PLAYERS NOT EQUAL");
     }
 
     @Test
@@ -121,7 +124,6 @@ class BoardTest {
             return;
         }
 
-
         // compare the status before/after saving+loading
         // round index and active player index
         assertEquals(board2.getRound(), board2_load.getRound(), "ROUND INDEX NOT EQUAL");
@@ -132,7 +134,9 @@ class BoardTest {
         List<String> playerNames2_load =
                 players2_load.stream().map(Player::getName).collect(Collectors.toList());
 
-        assertTrue(hasSamePlayers(playerNames2_load, Arrays.asList(playerNameSet2)), "PLAYERS NOT EQUAL");
+        assertTrue(
+                hasSamePlayers(playerNames2_load, Arrays.asList(playerNameSet2)),
+                "PLAYERS NOT EQUAL");
     }
 
     private boolean hasSamePlayers(List<String> list1, List<String> list2) {
