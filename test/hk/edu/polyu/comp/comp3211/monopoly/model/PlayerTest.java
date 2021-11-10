@@ -46,13 +46,14 @@ class PlayerTest {
     @Test
     void positionTest() { // Test is the position related functions work normally
         var player = new Player("test");
-        assertEquals(
-                player.getPosition(),
-                0); // Test if the player is initialized at the starting position
+        // Test if the player is initialized at the starting position
+        assertEquals(0, player.getPosition());
         player.setPosition(5);
-        assertEquals(player.getPosition(), 5); // Test if setPosition() works well
+        // Test if setPosition() works well
+        assertEquals(5, player.getPosition());
         player.move(5);
-        assertEquals(player.getPosition(), 10); // Test if move() works well
+        // Test if move() works well
+        assertEquals(10, player.getPosition());
     }
 
     @Test
@@ -77,11 +78,16 @@ class PlayerTest {
     @Test
     void jailTest() { // Test if the jail related functions work normally
         var player = new Player("test");
+
         player.goToJail();
-        assertEquals(player.getPosition(), 6); // Test if the player is moved to the jail correctly
-        assertEquals(player.getInJail(), 3); // Test if the inJail status is set correctly
+        // Test if the player is moved to the jail correctly
+        assertEquals(5, player.getPosition());
+        // Test if the inJail status is set correctly
+        assertEquals(3, player.getInJail());
+
+        // Test if setInJail() works well
         player.setInJail(1);
-        assertEquals(player.getInJail(), 2); // Test if setInJail() works well
+        assertEquals(2, player.getInJail());
     }
 
     @Test
