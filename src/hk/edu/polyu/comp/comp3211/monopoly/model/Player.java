@@ -143,9 +143,9 @@ public class Player implements Serializable {
         this.inJail = JAIL_COOLDOWN;
     }
 
-    /** The player is bankrupt */
+    /** Judge whether the player is bankrupted or not and store */
     public void bankrupt() {
-        this.bankrupted = true;
+        bankrupted = money < 0;
     }
 
     /**
@@ -163,16 +163,15 @@ public class Player implements Serializable {
      * @param inJail dest. "IN JAIL" status
      */
     public void setInJail(int inJail) {
-        this.inJail -= inJail;
+        this.inJail = inJail;
     }
 
     /**
-     * Judge whether the player is bankrupted
+     * Get the player's bankrupted status
      *
      * @return true if bankrupted, else false
      */
     public boolean isBankrupted() {
-        bankrupted = money < 0;
         return bankrupted;
     }
 

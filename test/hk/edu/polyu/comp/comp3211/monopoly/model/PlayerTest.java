@@ -87,13 +87,14 @@ class PlayerTest {
 
         // Test if setInJail() works well
         player.setInJail(1);
-        assertEquals(2, player.getInJail());
+        assertEquals(1, player.getInJail());
     }
 
     @Test
     void bankruptTest() { // Test if bankrupt related functions work well
         var player = new Player("test");
         assertFalse(player.isBankrupted()); // Test if the player is initialized correctly
+        player.setMoney(-10);
         player.bankrupt();
         assertTrue(player.isBankrupted()); // Test if bankrupt() works correctly
     }
