@@ -2,10 +2,11 @@ package hk.edu.polyu.comp.comp3211.monopoly.model;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /** A player and its status in the game */
-public class Player {
+public class Player implements Serializable {
 
     static final int SALARY = 1500;
     /** Name of the player (in String) */
@@ -30,7 +31,9 @@ public class Player {
      *
      * @param name name of the user
      */
-    public Player(String name) {}
+    public Player(String name) {
+        this.setName(name);
+    }
 
     /**
      * Get the name of the player
