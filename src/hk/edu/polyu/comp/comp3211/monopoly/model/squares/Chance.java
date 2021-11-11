@@ -2,6 +2,8 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
+import java.util.Random;
+
 /** The Chance square of the board */
 public class Chance implements ISquare {
     /**
@@ -17,5 +19,8 @@ public class Chance implements ISquare {
      * @param player dest. player
      */
     @Override
-    public void execute(Player player) {}
+    public void execute(Player player) {
+        int randomInt=new Random().nextInt(51)-30;
+        player.addMoney(10*randomInt);
+    }
 }

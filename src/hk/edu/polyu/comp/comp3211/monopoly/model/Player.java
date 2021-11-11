@@ -17,7 +17,7 @@ public class Player {
 
     /** Array of properties owned by the player */
     private Property[] properties;
-    /** Whether the player is "IN JAIL" 0 if not */
+    /** Whether the player is "IN JAIL" 0 if the player is not "IN JAIL" */
     private int inJail;
     /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted;
