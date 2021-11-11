@@ -31,16 +31,15 @@ public class Property implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        if (this.owner==null){
+        if (this.owner == null) {
             Scanner in = new Scanner(System.in);
             System.out.println("Y to buy");
-            String option=in.nextLine();
-            if (option.equals("Y")){
-                this.owner=player;
+            String option = in.nextLine();
+            if (option.equals("Y")) {
+                this.owner = player;
                 player.addMoney(-this.price);
             }
-        }
-        else if (this.owner!=player){
+        } else if (this.owner != player) {
             player.addMoney(-this.rent);
         }
     }

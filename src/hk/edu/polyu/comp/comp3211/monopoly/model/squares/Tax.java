@@ -17,7 +17,7 @@ public class Tax implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        int tax=player.getMoney()/100*10;
+        int tax = player.getMoney() / 100 * 10;
         player.addMoney(-tax);
     }
 }
