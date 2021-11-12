@@ -14,6 +14,12 @@ public class Property implements ISquare {
     private int rent;
     /** The owner of the property */
     private Player owner;
+
+    /** Whether is a test**/
+    private boolean test=false;
+    /** Whether buy in the test **/
+    private boolean buyResult;
+
     /**
      * Generate an effect to a player
      *
@@ -32,15 +38,24 @@ public class Property implements ISquare {
     @Override
     public void execute(Player player) {
         if (this.owner == null) {
-            Scanner in = new Scanner(System.in);
-            System.out.println("Y to buy");
-            String option = in.nextLine();
-            if (option.equals("Y")) {
+            boolean buy=false;
+
+            if (test)buy=buyResult;
+            else {
+                Scanner in = new Scanner(System.in);
+                System.out.println("Y to buy");
+                String option = in.nextLine();
+                if (option.equals("Y")) buy=true;
+            }
+
+            if (buy){
                 this.owner = player;
                 player.addMoney(-this.price);
             }
+
         } else if (this.owner != player) {
             player.addMoney(-this.rent);
+            this.owner.addMoney(this.rent);
         }
     }
 
@@ -101,5 +116,16 @@ public class Property implements ISquare {
      */
     public int getRent() {
         return this.rent;
+    }
+
+
+    /**
+     * set a test
+     *
+     * @param buy whether buy in the test
+     */
+    public void setTest(boolean buy){
+        test=true;
+        buyResult=true;
     }
 }
