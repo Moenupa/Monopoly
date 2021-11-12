@@ -1,6 +1,6 @@
 # Monopoly
-COMP3211 Software Engineering Course Project
 
+COMP3211 Software Engineering Course Project
 
 ```
 ╟──────┬─────┼─────────┼─────────┼─────────┼───────────────────────────────
@@ -27,3 +27,45 @@ COMP3211 Software Engineering Course Project
 3: ├ ┤ ┴ ┬
 4: ┼
 ```
+
+## Main
+
+### Get Base and Scanner
+
+- Base(UI): Game State
+    - Start Menu
+    - Game
+    - End Game
+- Scanner: The only scanner used for uer input
+
+## Start Menu
+
+### Used to choose load privious game or create new one
+
+- Menu
+    - New game
+    - Load game
+    - Quit
+
+## Game
+
+### Main part of the game
+
+- Board
+    - Contain Squire, player information
+    - Round (salary)
+    - Save and Load
+- Player
+    - name
+    - money
+    - position
+    - properties
+    - in jail
+    - row dice
+- Square
+    - Effect function
+    - only change attributes in Board and player
+
+## End Game
+
+### Print who win the game, show players' money
