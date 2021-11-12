@@ -1,40 +1,65 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
+import hk.edu.polyu.comp.comp3211.monopoly.controller.Game;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
 
 import java.io.*;
 
-/** A board, containing players, squares, and game status */
+/**
+ * A board, containing players, squares, and game status
+ */
 public class Board implements Serializable {
-    /** The array of players in the board */
+    /**
+     * The array of players in the board
+     */
     private Player[] players;
-    /** The array of squares in the board */
+    /**
+     * The array of squares in the board
+     */
     private ISquare[] squares;
-    /** Current round index */
+    /**
+     * Current round index
+     */
     private int round;
-    /** Current active player index */
+    /**
+     * Current active player index
+     */
     private int p_index;
-    /** Default game-save directory */
+    /**
+     * Default game-save directory
+     */
     private static final String GAME_SAVE_DIR = "./out/saves/";
-    /** Error message when detecting invalid player numbers */
+    /**
+     * Error message when detecting invalid player numbers
+     */
     private static final String ERR_INVALID_NUM_OF_PLAYERS =
             "the board should contain only 2-6 players";
 
+
     // constants, storing all property values
-    /** the position of the square (numbered from 1-20) */
+    /**
+     * the position of the square (numbered from 1-20)
+     */
     private static final int[] PROPERTY_INDEX = {2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 18, 20};
-    /** the name of the properties */
+    /**
+     * the name of the properties
+     */
     private static final String[] PROPERTY_NAMES = {
-        "central", "wan chai", "stanley", "shek o", "mong kok", "tsing yi",
-        "shatin", "tuen mun", "tai po", "sai kung", "yuen long", "tai o"
+            "central", "wan chai", "stanley", "shek o", "mong kok", "tsing yi",
+            "shatin", "tuen mun", "tai po", "sai kung", "yuen long", "tai o"
     };
-    /** the selling price of the properties */
+    /**
+     * the selling price of the properties
+     */
     private static final int[] PROPERTY_SELL = {
-        800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600
+            800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600
     };
-    /** the rental price of the properties */
+    /**
+     * the rental price of the properties
+     */
     private static final int[] PROPERTY_RENT = {90, 65, 60, 10, 40, 15, 75, 20, 25, 10, 25, 25};
+
 
     /**
      * Initialize the board with fixed number of squares and customized number of players (2-6)
@@ -139,7 +164,7 @@ public class Board implements Serializable {
      *
      * @param name the path (name) of the local file
      * @throws IllegalArgumentException if write permission not granted
-     * @throws RuntimeException if other unknown exceptions occur when writing to file
+     * @throws RuntimeException         if other unknown exceptions occur when writing to file
      */
     public void save(String name) throws Exception {
         // creating game-save directory if not exists
@@ -182,7 +207,7 @@ public class Board implements Serializable {
      *
      * @param name the path (name) of the local file
      * @throws IllegalArgumentException if no such game-save or read permission not granted
-     * @throws RuntimeException if other unknown exceptions occur when reading file
+     * @throws RuntimeException         if other unknown exceptions occur when reading file
      */
     public static Board load(String name) throws Exception {
         File file = new File(GAME_SAVE_DIR + name);
@@ -208,7 +233,18 @@ public class Board implements Serializable {
         }
     }
 
-    /** Initialize the board's squares according to definitions */
+    public static String[] getSavedGameName() {
+        File dir = new File(GAME_SAVE_DIR);
+
+        if (dir.isDirectory())
+            return dir.list();
+
+        throw new IllegalArgumentException(GAME_SAVE_DIR + " is not a directory");
+    }
+
+    /**
+     * Initialize the board's squares according to definitions
+     */
     private void init_squares() {
         if (squares != null) return;
 
@@ -239,7 +275,9 @@ public class Board implements Serializable {
         // the board is initialized with 1+12+(1+1+1+1)+3=20 squares
     }
 
-    /** Reset board's <code>round</code> and <code>p_index</code> to 0 */
+    /**
+     * Reset board's <code>round</code> and <code>p_index</code> to 0
+     */
     private void reset_rounding_info() {
         this.round = 0;
         this.p_index = 0;
