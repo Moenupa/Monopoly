@@ -11,8 +11,6 @@ public class StartMenu implements IBase {
 
     private static Scanner in;
 
-    private static int option;
-
     /**
      * Welcome the user. If there exists a save file in the directory, prompt to the user of the
      * option to load the game. User can try to start a game; load a game if any; and exit in this
@@ -26,7 +24,7 @@ public class StartMenu implements IBase {
 
         while (true) {
             System.out.print("Please enter the number: ");
-            option = in.nextInt();
+            int option = in.nextInt();
 
             try {
                 chooseOption(option);
