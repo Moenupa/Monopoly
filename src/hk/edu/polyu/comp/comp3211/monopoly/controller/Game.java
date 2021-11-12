@@ -16,7 +16,13 @@ public class Game implements IBase {
      * so, print the game result and switch to the Endgame Interface
      */
     @Override
-    public void terminal() {}
+    public void terminal() {
+        update();
+        printGame();
+
+        if (isGameEnd())
+            endGame();
+    }
 
     public Game() {
         int num;
@@ -39,5 +45,22 @@ public class Game implements IBase {
     public Game(String boardName) throws Exception {
         board = Board.load(boardName);
         printer = new Printer(board);
+    }
+
+    public void update() {
+
+    }
+
+    private void printGame() {
+        printer.printAll();
+    }
+
+    private boolean isGameEnd() {
+
+        return false;
+    }
+
+    private void endGame() {
+        Main.setUI(new EndGame(board));
     }
 }
