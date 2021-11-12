@@ -1,8 +1,6 @@
 package hk.edu.polyu.comp.comp3211.monopoly.controller;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
-import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
-import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 public class StartMenu implements IBase {
     private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
@@ -13,9 +11,7 @@ public class StartMenu implements IBase {
      * interface.
      */
     @Override
-    public void terminal() {
-
-    }
+    public void terminal() {}
 
     public StartMenu() {
         var in = Main.GetScanner();
@@ -55,13 +51,9 @@ public class StartMenu implements IBase {
         }
     }
 
-    private static void startNewGame() {
+    private static void startNewGame() {}
 
-    }
-
-    private static void loadPreviousGame() {
-
-    }
+    private static void loadPreviousGame() {}
 
     private static void quitGame() {
         System.exit(0);
