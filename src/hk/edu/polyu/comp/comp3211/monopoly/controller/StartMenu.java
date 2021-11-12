@@ -54,9 +54,12 @@ public class StartMenu implements IBase {
         }
     }
 
-    private static void startNewGame() {}
+    private static void startNewGame() {
+        Main.setUI(new Game());
+    }
 
-    private static void loadPreviousGame() {}
+    private static void loadPreviousGame() {
+    }
 
     private static void quitGame() {
         System.exit(0);
