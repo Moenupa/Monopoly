@@ -35,7 +35,7 @@ class SquareTest {
         this.go = new Go();
         this.oops = new Oops();
         this.jail = new Jail();
-        this.free= new Free();
+        this.free = new Free();
     }
 
     @Test
@@ -166,7 +166,7 @@ class SquareTest {
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
         // set special flags for test
-        jail.setTest(5,6,true);
+        jail.setTest(5, 6, true);
         jail.execute(player2);
 
         String curName = player2.getName();
@@ -201,7 +201,7 @@ class SquareTest {
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
         // set special flags for test
-        jail.setTest(4,4,false);
+        jail.setTest(4, 4, false);
         jail.execute(player2);
 
         String curName = player2.getName();
@@ -213,7 +213,7 @@ class SquareTest {
 
         assertEquals(oriName, curName); // Test if the name is not changed
         assertEquals(oriProp, curProp); // Test if the properties are not changed
-        assertEquals(oriMoney,curMoney); // Test if the money are not changed
+        assertEquals(oriMoney, curMoney); // Test if the money are not changed
 
         assertTrue(
                 curPosition != oriPosition,
@@ -233,11 +233,11 @@ class SquareTest {
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
 
-        jail.setTest(1,2,false);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
-        jail.setTest(1,2,false);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
-        jail.setTest(1,2,false);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
 
         String curName = player2.getName();
