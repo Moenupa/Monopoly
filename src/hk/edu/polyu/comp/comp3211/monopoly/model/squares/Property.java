@@ -15,9 +15,9 @@ public class Property implements ISquare {
     /** The owner of the property */
     private Player owner;
 
-    /** Whether is a test**/
-    private boolean test=false;
-    /** Whether buy in the test **/
+    /** Whether is a test* */
+    private boolean test = false;
+    /** Whether buy in the test * */
     private boolean buyResult;
 
     /**
@@ -38,17 +38,17 @@ public class Property implements ISquare {
     @Override
     public void execute(Player player) {
         if (this.owner == null) {
-            boolean buy=false;
+            boolean buy = false;
 
-            if (test)buy=buyResult;
+            if (test) buy = buyResult;
             else {
                 Scanner in = new Scanner(System.in);
                 System.out.println("Y to buy");
                 String option = in.nextLine();
-                if (option.equals("Y")) buy=true;
+                if (option.equals("Y")) buy = true;
             }
 
-            if (buy){
+            if (buy) {
                 this.owner = player;
                 player.addMoney(-this.price);
             }
@@ -118,14 +118,13 @@ public class Property implements ISquare {
         return this.rent;
     }
 
-
     /**
      * set a test
      *
      * @param buy whether buy in the test
      */
-    public void setTest(boolean buy){
-        test=true;
-        buyResult=true;
+    public void setTest(boolean buy) {
+        test = true;
+        buyResult = true;
     }
 }
