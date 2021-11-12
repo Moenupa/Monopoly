@@ -16,8 +16,7 @@ public class Game implements IBase {
      * so, print the game result and switch to the Endgame Interface
      */
     @Override
-    public void terminal() {
-    }
+    public void terminal() {}
 
     public Game() {
         int num;
