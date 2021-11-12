@@ -1,8 +1,6 @@
 package hk.edu.polyu.comp.comp3211.monopoly.controller;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
-import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
-import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.util.Scanner;
 
@@ -56,13 +54,9 @@ public class StartMenu implements IBase {
         }
     }
 
-    private static void startNewGame() {
+    private static void startNewGame() {}
 
-    }
-
-    private static void loadPreviousGame() {
-
-    }
+    private static void loadPreviousGame() {}
 
     private static void quitGame() {
         System.exit(0);
