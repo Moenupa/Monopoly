@@ -20,7 +20,7 @@ public class Game implements IBase {
 
     public Game() {
         int num;
-        System.out.print("Please enter the number of players:");
+        System.out.print("Please enter the number of players: ");
         var in = Main.GetScanner();
         while (true) {
             num = in.nextInt();

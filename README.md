@@ -37,6 +37,7 @@ COMP3211 Software Engineering Course Project
     - Game
     - End Game
 - Scanner: The only scanner used for uer input
+- Printer: Used to print the game board and information
 
 ## Start Menu
 
