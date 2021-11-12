@@ -35,7 +35,7 @@ public class StartMenu implements IBase {
     }
 
     public StartMenu() {
-        in = Main.GetScanner();
+        in = Main.getScanner();
     }
 
     private static void chooseOption(int num) {

@@ -30,7 +30,7 @@ public class Main {
      *
      * @return The scanner
      */
-    public static Scanner GetScanner() {
+    public static Scanner getScanner() {
         return in;
     }
 
