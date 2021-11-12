@@ -4,8 +4,14 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
+import java.util.Scanner;
+
 public class StartMenu implements IBase {
     private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
+
+    private static Scanner in;
+
+    private static int option;
 
     /**
      * Welcome the user. If there exists a save file in the directory, prompt to the user of the
@@ -14,29 +20,26 @@ public class StartMenu implements IBase {
      */
     @Override
     public void terminal() {
-
-    }
-
-    public StartMenu() {
-        var in = Main.GetScanner();
-        int num;
-
-        System.out.print("1. New Game");
-        System.out.print("2. Continue");
-        System.out.print("3. Quit");
+        System.out.println("1. New Game");
+        System.out.println("2. Continue");
+        System.out.println("3. Quit");
 
         while (true) {
             System.out.print("Please enter the number: ");
-            num = in.nextInt();
+            option = in.nextInt();
 
             try {
-                chooseOption(num);
+                chooseOption(option);
                 break;
             } catch (IllegalArgumentException e) {
                 // input 'num' is invalid
                 // continue;
             }
         }
+    }
+
+    public StartMenu() {
+        in = Main.GetScanner();
     }
 
     private static void chooseOption(int num) {
