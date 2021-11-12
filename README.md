@@ -28,14 +28,14 @@ COMP3211 Software Engineering Course Project
 4: ┼
 ```
 
-## Main
-
-### Get Base and Scanner
+> ## Main
+>
+> ### Get Base and Scanner
 
 - Base(UI): Game State
-    - Start Menu
-    - Game
-    - End Game
+  - Start Menu
+  - Game
+  - End Game
 - Scanner: The only scanner used for uer input
 - Printer: Used to print the game board and information
 
@@ -44,28 +44,36 @@ COMP3211 Software Engineering Course Project
 ### Used to choose load privious game or create new one
 
 - Menu
-    - New game
-    - Load game
-    - Quit
+  - New game
+  - Load game
+  - Quit
 
 ## Game
 
 ### Main part of the game
 
 - Board
-    - Contain Squire, player information
-    - Round (salary)
+  - Attributes
+    - Squire
+    - player
+    - Round
+  - Methods
     - Save and Load
 - Player
+  - Attributes
     - name
     - money
     - position
     - properties
     - in jail
     - row dice
+  - Methods
+    - move (salary)
 - Square
+  - Attributes
     - Effect function
     - only change attributes in Board and player
+  - Methods
 
 ## End Game
 
