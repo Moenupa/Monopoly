@@ -2,16 +2,18 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
-<<<<<<< HEAD
 import java.util.Random;
-=======
-import java.util.HashMap;
-import java.util.Map;
->>>>>>> origin/meng
+import java.util.Scanner;
+
 
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
     private static final int fine=-150;
+
+    private boolean test;
+    private int[] diceResult = new int[2];
+    private boolean payResult;
+
     /**
      * Generate an effect to a player
      *
@@ -34,56 +36,61 @@ public class Jail implements ISquare {
      *
      * @param player dest. player
      */
-    private int[] rollDiceResult = new int[2];
 
-    private Map<Player, Integer> inJailRound = new HashMap<>();
-    private boolean payFineForTest;
 
     @Override
-<<<<<<< HEAD
     public void execute(Player player) {
 
         int curInJail=player.getInJail();
+        int[] dices=new int[2];
+        boolean pay;
 
-        int[] dices=new Random().ints(2,1,7).toArray();
 
-        switch (curInJail){
-            case 0:
-                return;
-            case 3:
+        if (curInJail==0)return;
+
+
+        if (test){
+            dices[0]=diceResult[0];
+            dices[1]=diceResult[1];
+        }
+        else {
+            dices=new Random().ints(2,1,7).toArray();
+        }
+
+        if (dices[0]==dices[1]){//if throw doubles
+            player.setInJail(0);
+            player.move(dices[0]+dices[1]);
+        }
+        else {//if not throw doubles
+            if (curInJail==3){//if 3rd turn in jail
                 player.setInJail(0);
                 player.addMoney(fine);
                 player.move(dices[0]+dices[1]);
-                break;
+            }
+            else {//if not 3rd turn in jail
+                //get whether pay
+                if (test)pay=payResult;
+                else {
+                    Scanner in=new Scanner(System.in);
+                    String inputString= in.nextLine();
+                    if (inputString.equals("Y"))pay=true;
+                    else pay=false;
+                }
 
-            default:
-                if (dices[0]==dices[1]){
+                if (pay){
                     player.setInJail(0);
                     player.addMoney(fine);
                     player.move(dices[0]+dices[1]);
                 }
-                else{
-                    player.setInJail(curInJail+1);
-                }
+                else player.setInJail(curInJail+1);
+            }
         }
     }
-=======
-    public void execute(Player player) {}
 
-    public void setRollDIceResult(int[] result) {
-        rollDiceResult[0] = result[0];
-        rollDiceResult[1] = result[1];
+    public void setTest(int dice0, int dice1, boolean pay) {
+        this.test=true;
+        this.diceResult[0]=dice0;
+        this.diceResult[1]=dice1;
+        this.payResult=pay;
     }
-
-    public int getNoMoveRound(Player player) {
-        return 0;
-    }
-
-    public void setPayFineForTest(boolean pay) {
-        payFineForTest = pay;
-    }
-
-    /** Paying a fine to get out of jail */
-    public void payFine(Player player) {}
->>>>>>> origin/meng
 }

@@ -26,15 +26,11 @@ public class Player implements Serializable {
     private int position = 0;
 
     /** Array of properties owned by the player */
-<<<<<<< HEAD
-    private Property[] properties;
-    /** Whether the player is "IN JAIL" 0 if the player is not "IN JAIL" */
-    private int inJail;
-=======
+
     private Property[] properties = new Property[12];
     /** Whether the player is "IN JAIL" 0 if not */
     private int inJail = 0;
->>>>>>> origin/meng
+
     /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted = false;
 
