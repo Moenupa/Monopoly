@@ -26,7 +26,6 @@ public class Player implements Serializable {
     private int position = 0;
 
     /** Array of properties owned by the player */
-
     private Property[] properties = new Property[12];
     /** Whether the player is "IN JAIL" 0 if not */
     private int inJail = 0;
