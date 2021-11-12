@@ -84,4 +84,22 @@ public class Property implements ISquare {
     public void setOwner(Player owner) {
         this.owner = owner;
     }
+
+    /**
+     * Get the price of the property
+     *
+     * @return price of the property
+     */
+    public int getPrice() {
+        return this.price;
+    }
+
+    /**
+     * Get the rent of the property
+     *
+     * @return rent of the property
+     */
+    public int getRent() {
+        return this.rent;
+    }
 }
