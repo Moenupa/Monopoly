@@ -20,8 +20,7 @@ public class Game implements IBase {
         update();
         printGame();
 
-        if (isGameEnd())
-            endGame();
+        if (isGameEnd()) endGame();
     }
 
     public Game() {
@@ -47,9 +46,7 @@ public class Game implements IBase {
         printer = new Printer(board);
     }
 
-    public void update() {
-
-    }
+    public void update() {}
 
     private void printGame() {
         printer.printAll();

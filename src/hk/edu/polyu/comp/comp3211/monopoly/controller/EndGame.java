@@ -6,8 +6,8 @@ public class EndGame implements IBase {
     private Board board;
 
     /**
-     * Check who is the winner if needed
-     * Print the game over message, and ask if the player want to restart, load or quit.
+     * Check who is the winner if needed Print the game over message, and ask if the player want to
+     * restart, load or quit.
      */
     @Override
     public void terminal() {
