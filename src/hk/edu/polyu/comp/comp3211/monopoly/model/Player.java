@@ -12,11 +12,12 @@ public class Player implements Serializable {
     private static int player_number = 0;
     /** Notice to player when completed a full round (cross 20th and 1st) */
     private static final String COMPLETE_ROUND_NOTICE = "";
-    /** The Jail index on board */
+    /** The Jail Square's index on board */
     private static final int JAIL_INDEX = 5;
-    /** The Jail cool-down time (in num of rounds) */
+    /** The Jail default cool-down time (in num of rounds) */
     private static final int JAIL_COOLDOWN = 3;
 
+    /** Constant amount of money given every round */
     static final int SALARY = 1500;
     /** Name of the player (in String) */
     private String name;
@@ -27,7 +28,7 @@ public class Player implements Serializable {
 
     /** Array of properties owned by the player */
     private Property[] properties = new Property[12];
-    /** Whether the player is "IN JAIL" 0 if not */
+    /** The player's in-jail cool-down time (in num of rounds), ranged 0-3 */
     private int inJail = 0;
     /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted = false;
@@ -40,7 +41,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * initialize a player
+     * Initialize a player
      *
      * @param name name of the user
      */
