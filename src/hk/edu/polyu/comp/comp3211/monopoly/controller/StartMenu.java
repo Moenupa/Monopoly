@@ -6,9 +6,13 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import java.util.Scanner;
 
 public class StartMenu implements IBase {
-    /** Error message when detecting invalid option numbers */
+    /**
+     * Error message when detecting invalid option numbers
+     */
     private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
-    /** Scanner for user input */
+    /**
+     * Scanner for user input
+     */
     private static Scanner in;
 
     /**
@@ -18,6 +22,7 @@ public class StartMenu implements IBase {
      */
     @Override
     public void terminal() {
+        System.out.println("\nStart Menu");
         System.out.println("1. New Game");
         System.out.println("2. Continue");
         System.out.println("3. Quit");
@@ -31,7 +36,8 @@ public class StartMenu implements IBase {
                 break;
             } catch (Exception e) {
                 // input 'num' is invalid
-                // System.out.println("");
+//                System.out.println("");
+//                e.printStackTrace();
             }
         }
     }
@@ -61,19 +67,21 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** new game option */
+    /**
+     * new game option
+     */
     private static void startNewGame() {
         Main.setUI(new Game());
     }
 
-    /** load one of saved game */
+    /**
+     * load one of saved game
+     */
     private static void loadPreviousGame() throws Exception {
         String name = chooseStoredGame();
 
         if (name != null) {
-            var game = new Game();
-            game.setBoard(Board.load(name));
-            Main.setUI(game);
+            Main.setUI(new Game(name));
         }
     }
 
@@ -90,13 +98,14 @@ public class StartMenu implements IBase {
             return null;
         } else if (savedGameName.length == 1) return savedGameName[0];
 
+        System.out.println("\nPrevious Game Selection");
         for (int i = 0; i < savedGameName.length; i++) {
             System.out.println((i + 1) + ". " + savedGameName[i]);
         }
 
         while (true) {
+            System.out.print("Choose the index of game to be load: ");
             try {
-                System.out.print("Choose the index of game to be load: ");
                 return savedGameName[in.nextInt() - 1];
             } catch (Exception e) {
                 System.out.println("The index should be 1-" + savedGameName.length);
@@ -104,7 +113,9 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** quit game */
+    /**
+     * quit game
+     */
     private static void quitGame() {
         System.exit(0);
     }

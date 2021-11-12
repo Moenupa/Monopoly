@@ -5,8 +5,8 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.*;
 import hk.edu.polyu.comp.comp3211.monopoly.view.*;
 
 public class Game implements IBase {
-    private Board board;
-    private Printer printer;
+    private static Board board;
+    private static Printer printer;
 
     /**
      * First print game board, current round and player; If he is in jail, refer to the document
@@ -16,7 +16,8 @@ public class Game implements IBase {
      * so, print the game result and switch to the Endgame Interface
      */
     @Override
-    public void terminal() {}
+    public void terminal() {
+    }
 
     public Game() {
         int num;
@@ -33,11 +34,11 @@ public class Game implements IBase {
                 continue;
             }
         }
-
         printer = new Printer(board);
     }
 
-    public void setBoard(Board _board) {
-        this.board = _board;
+    public Game(String boardName) throws Exception {
+        board = Board.load(boardName);
+        printer = new Printer(board);
     }
 }
