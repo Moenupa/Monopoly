@@ -48,7 +48,7 @@ public class Board implements Serializable {
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-            if(!Main.TEST)System.out.printf("Player %d :",i);
+            if (!Main.TEST) System.out.printf("Player %d :", i);
             this.players[i] = new Player();
         }
         // then initialize the squares on the board

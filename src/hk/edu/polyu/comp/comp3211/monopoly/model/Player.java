@@ -9,7 +9,8 @@ import java.util.Random;
 /** A player and its status in the game */
 public class Player implements Serializable {
     /** Notice to player when completed a full round (cross 20th and 1st) */
-    private static final String COMPLETE_ROUND_NOTICE = "has completed one round of the board and gets salary.";
+    private static final String COMPLETE_ROUND_NOTICE =
+            "has completed one round of the board and gets salary.";
     /** The Jail Square's index on board */
     private static final int JAIL_INDEX = 5;
     /** The Jail default cool-down time (in num of rounds) */
