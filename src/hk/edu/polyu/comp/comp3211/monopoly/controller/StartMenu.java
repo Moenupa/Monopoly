@@ -77,6 +77,11 @@ public class StartMenu implements IBase {
         }
     }
 
+    /**
+     * choose which saved game to be loaded
+     *
+     * @return name of the chosen game
+     */
     private static String chooseStoredGame() {
         String[] savedGameName = Board.getSavedGameName();
 
