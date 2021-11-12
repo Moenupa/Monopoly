@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
+import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
 
 import java.io.*;
@@ -47,6 +48,7 @@ public class Board implements Serializable {
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
+            if (!Main.TEST) System.out.printf("Player %d :", i);
             this.players[i] = new Player();
         }
         // then initialize the squares on the board

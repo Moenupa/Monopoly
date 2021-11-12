@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
+import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
 
 import java.io.Serializable;
@@ -7,32 +8,44 @@ import java.util.Random;
 
 /** A player and its status in the game */
 public class Player implements Serializable {
+    /** Notice to player when completed a full round (cross 20th and 1st) */
+    private static final String COMPLETE_ROUND_NOTICE =
+            "has completed one round of the board and gets salary.";
+    /** The Jail Square's index on board */
+    private static final int JAIL_INDEX = 5;
+    /** The Jail default cool-down time (in num of rounds) */
+    private static final int JAIL_COOLDOWN = 3;
 
+    /** Constant amount of money given every round */
     static final int SALARY = 1500;
     /** Name of the player (in String) */
     private String name;
     /** Current balance of the player Starts with 1500 */
     private int money = SALARY;
     /** Current position of the player from square 1-20 (or index 0-19) */
-    private int position;
+    private int position = 0;
 
     /** Array of properties owned by the player */
-    private Property[] properties;
-    /** Whether the player is "IN JAIL" 0 if not */
-    private int inJail;
+    private final Property[] properties = new Property[12];
+    /** The player's in-jail cool-down time (in num of rounds), ranged 0-3 */
+    private int inJail = 0;
     /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted = false;
 
     /** initialize a player and scan input from user */
-    public Player() {}
+    public Player() {
+        if (Main.TEST) return;
+        System.out.println("Please input player name: ");
+        name = Main.GetScanner().nextLine();
+    }
 
     /**
-     * initialize a player
+     * Initialize a player
      *
      * @param name name of the user
      */
     public Player(String name) {
-        this.setName(name);
+        this.name = name;
     }
 
     /**
@@ -104,7 +117,15 @@ public class Player implements Serializable {
      *
      * @param step number of steps
      */
-    public void move(int step) {}
+    public void move(int step) {
+        this.position += step;
+        // if complete a whole round, give a salary and generate a notice
+        if (this.position >= 20) {
+            this.position %= 20;
+            this.addMoney(SALARY);
+            System.out.println("Player " + name + " " + COMPLETE_ROUND_NOTICE);
+        }
+    }
 
     /**
      * Get the array of properties
@@ -116,10 +137,15 @@ public class Player implements Serializable {
     }
 
     /** The player goes to jail */
-    public void goToJail() {}
+    public void goToJail() {
+        this.position = JAIL_INDEX;
+        this.inJail = JAIL_COOLDOWN;
+    }
 
-    /** The player is bankrupt */
-    public void bankrupt() {}
+    /** Judge whether the player is bankrupted or not and store */
+    public void bankrupt() {
+        bankrupted = money < 0;
+    }
 
     /**
      * Get the "IN JAIL" status of the player
@@ -140,7 +166,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * Judge whether the player is bankrupted
+     * Get the player's bankrupted status
      *
      * @return true if bankrupted, else false
      */
