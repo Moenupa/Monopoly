@@ -2,6 +2,8 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
+import java.util.Scanner;
+
 /** The Property squares of the board */
 public class Property implements ISquare {
     /** Name of the property */
@@ -28,7 +30,19 @@ public class Property implements ISquare {
      * @param player dest. player
      */
     @Override
-    public void execute(Player player) {}
+    public void execute(Player player) {
+        if (this.owner == null) {
+            Scanner in = new Scanner(System.in);
+            System.out.println("Y to buy");
+            String option = in.nextLine();
+            if (option.equals("Y")) {
+                this.owner = player;
+                player.addMoney(-this.price);
+            }
+        } else if (this.owner != player) {
+            player.addMoney(-this.rent);
+        }
+    }
 
     /**
      * Initialize a property with params:

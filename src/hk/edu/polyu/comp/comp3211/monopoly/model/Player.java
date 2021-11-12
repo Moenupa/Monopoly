@@ -29,6 +29,7 @@ public class Player implements Serializable {
     private final Property[] properties = new Property[12];
     /** The player's in-jail cool-down time (in num of rounds), ranged 0-3 */
     private int inJail = 0;
+
     /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted = false;
 
