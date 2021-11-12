@@ -5,9 +5,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- * The In-Jail/Just-Visiting square of the board
- */
+/** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
     private static final int fine = -150;
 

@@ -4,25 +4,15 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 import java.util.Scanner;
 
-/**
- * The Property squares of the board
- */
+/** The Property squares of the board */
 public class Property implements ISquare {
-    /**
-     * Name of the property
-     */
+    /** Name of the property */
     private String name;
-    /**
-     * Selling price of the property
-     */
+    /** Selling price of the property */
     private int price;
-    /**
-     * Rental price of the property
-     */
+    /** Rental price of the property */
     private int rent;
-    /**
-     * The owner of the property
-     */
+    /** The owner of the property */
     private Player owner;
 
     /**
