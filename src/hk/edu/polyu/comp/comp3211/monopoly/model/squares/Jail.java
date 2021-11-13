@@ -40,8 +40,6 @@ public class Jail implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        var rng = new Random();
-        //        if(Main.TEST)setTest(rng.nextInt(4)+1, rng.nextInt(4)+1, rng.nextBoolean());
         int curInJail = player.getInJail();
         int[] dices = new int[2];
         boolean pay = false;

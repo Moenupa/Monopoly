@@ -4,7 +4,6 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 import java.util.Random;
-import java.util.Scanner;
 
 /** The Property squares of the board */
 public class Property implements ISquare {
@@ -47,11 +46,10 @@ public class Property implements ISquare {
             if (test) buy = testBuy;
             else {
                 System.out.println("Do you want to buy " + name + " for $" + price + "? (y/n)");
-                Scanner in = new Scanner(System.in);
-                String option = in.nextLine();
+                String option = Main.GetScanner().nextLine();
                 while (!option.matches(CONFIRM_PATTERN)) {
                     System.out.println("Please enter y or n");
-                    option = in.nextLine();
+                    option = Main.GetScanner().nextLine();
                 }
                 if (option.matches(CONFIRM_YES_PATTERN)) buy = true;
             }
