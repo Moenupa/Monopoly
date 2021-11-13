@@ -6,58 +6,34 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
 import java.io.Serializable;
 import java.util.Random;
 
-/**
- * A player and its status in the game
- */
+/** A player and its status in the game */
 public class Player implements Serializable {
-    /**
-     * Notice to player when completed a full round (cross 20th and 1st)
-     */
+    /** Notice to player when completed a full round (cross 20th and 1st) */
     private static final String COMPLETE_ROUND_NOTICE =
             "has completed one round of the board and gets salary.";
-    /**
-     * The Jail Square's index on board
-     */
+    /** The Jail Square's index on board */
     private static final int JAIL_INDEX = 5;
-    /**
-     * The Jail default cool-down time (in num of rounds)
-     */
+    /** The Jail default cool-down time (in num of rounds) */
     private static final int JAIL_COOLDOWN = 3;
 
-    /**
-     * Constant amount of money given every round
-     */
+    /** Constant amount of money given every round */
     static final int SALARY = 1500;
-    /**
-     * Name of the player (in String)
-     */
+    /** Name of the player (in String) */
     private String name;
-    /**
-     * Current balance of the player Starts with 1500
-     */
+    /** Current balance of the player Starts with 1500 */
     private int money = SALARY;
-    /**
-     * Current position of the player from square 1-20 (or index 0-19)
-     */
+    /** Current position of the player from square 1-20 (or index 0-19) */
     private int position = 0;
 
-    /**
-     * Array of properties owned by the player
-     */
+    /** Array of properties owned by the player */
     private final Property[] properties = new Property[12];
-    /**
-     * The player's in-jail cool-down time (in num of rounds), ranged 0-3
-     */
+    /** The player's in-jail cool-down time (in num of rounds), ranged 0-3 */
     private int inJail = 0;
 
-    /**
-     * Whether the player is bankrupted and should be removed from the game
-     */
+    /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted = false;
 
-    /**
-     * Initialize a player and scan input from user
-     */
+    /** Initialize a player and scan input from user */
     public Player() {
         if (Main.TEST) return;
         System.out.println("Please input player name: ");
@@ -161,9 +137,7 @@ public class Player implements Serializable {
         return properties;
     }
 
-    /**
-     * The player goes to jail
-     */
+    /** The player goes to jail */
     public void goToJail() {
         this.position = JAIL_INDEX;
         this.inJail = JAIL_COOLDOWN;
@@ -196,9 +170,7 @@ public class Player implements Serializable {
         return getInJail() > 0;
     }
 
-    /**
-     * Judge whether the player is bankrupted or not and store
-     */
+    /** Judge whether the player is bankrupted or not and store */
     public void bankrupt() {
         bankrupted = money < 0;
     }

@@ -27,9 +27,7 @@ public class Game implements IBase {
         if (isGameEnd()) endGame();
     }
 
-    /**
-     * Initialize game controller
-     */
+    /** Initialize game controller */
     public Game() {
         int num;
         var in = Main.getScanner();
@@ -63,9 +61,7 @@ public class Game implements IBase {
         squares = board.getSquares();
     }
 
-    /**
-     * Update the game by each player's turn
-     */
+    /** Update the game by each player's turn */
     private static void update() {
         int p_index = board.getP_index();
         Player curPlayer = players[p_index];
@@ -89,8 +85,7 @@ public class Game implements IBase {
         p_index /= players.length;
         board.setP_index(p_index);
 
-        if (p_index == 0)
-            board.setRound(board.getRound() + 1);
+        if (p_index == 0) board.setRound(board.getRound() + 1);
         return p_index;
     }
 
@@ -118,9 +113,7 @@ public class Game implements IBase {
         }
     }
 
-    /**
-     * Print the game
-     */
+    /** Print the game */
     private static void printGame() {
         Printer.printAll();
     }
@@ -135,9 +128,7 @@ public class Game implements IBase {
         return false;
     }
 
-    /**
-     * End the game
-     */
+    /** End the game */
     private static void endGame() {
         Main.setUI(new EndGame(board));
     }

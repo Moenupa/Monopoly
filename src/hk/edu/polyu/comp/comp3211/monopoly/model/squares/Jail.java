@@ -6,21 +6,13 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 import java.util.Scanner;
 
-/**
- * The In-Jail/Just-Visiting square of the board
- */
+/** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
-    /**
-     * Amount to be paid to leave jail
-     */
+    /** Amount to be paid to leave jail */
     private static final int FINE = 150;
-    /**
-     * Dice result of the player in jail
-     */
+    /** Dice result of the player in jail */
     private static int[] diceResult = new int[2];
-    /**
-     * Flag for test to indicate if player pay fine or not
-     */
+    /** Flag for test to indicate if player pay fine or not */
     private static boolean isPayFine;
 
     /**
