@@ -78,7 +78,7 @@ public class StartMenu implements IBase {
 
         if (name != null) {
             Main.setUI(new Game(name));
-        }else {
+        } else {
             throw new IllegalArgumentException("No game has been stored");
         }
     }

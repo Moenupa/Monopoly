@@ -77,14 +77,24 @@ public class Game implements IBase {
             p_index = updateP_index(p_index);
             curPlayer = players[p_index];
         }
-        System.out.println("\nRound " + board.getRound() + ", Player NO."+p_index+" :" + curPlayer.getName() + "'s turn");
+        System.out.println(
+                "\nRound "
+                        + board.getRound()
+                        + ", Player NO."
+                        + p_index
+                        + " :"
+                        + curPlayer.getName()
+                        + "'s turn");
 
-        System.out.println("\n" + curPlayer.getName() + " is in square " + curPlayer.getPosition() + ".");
-            while (true) {
-                System.out.println("type \"save\" for saving the game, \"quit\" to exit to main menu, \"run\" to continue the game.");
-                var in = Main.getScanner();
-                String s = in.next();
-                try{
+        System.out.println(
+                "\n" + curPlayer.getName() + " is in square " + curPlayer.getPosition() + ".");
+        while (true) {
+            System.out.println(
+                    "type \"save\" for saving the game, \"quit\" to exit to main menu, \"run\" to"
+                        + " continue the game.");
+            var in = Main.getScanner();
+            String s = in.next();
+            try {
                 switch (s.charAt(0)) {
                     case 's':
                         System.out.println("Please enter the name of the game you want to save: ");
@@ -101,8 +111,8 @@ public class Game implements IBase {
                         throw new IllegalArgumentException("Invalid input");
                 }
                 break;
-                }catch (Exception e){
-                    System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -110,7 +120,9 @@ public class Game implements IBase {
 
         if (checkBankrupt(curPlayer)) {
             retire(curPlayer);
-            System.out.printf("All properties of player %s has been removed from the game.\n", curPlayer.getName());
+            System.out.printf(
+                    "All properties of player %s has been removed from the game.\n",
+                    curPlayer.getName());
             numPlayerLeft -= 1;
         }
 
@@ -138,7 +150,7 @@ public class Game implements IBase {
      * @param player player to move
      */
     private void movement(Player player) {
-        if (player.getInJail()==0) {
+        if (player.getInJail() == 0) {
             int die1 = player.rollDice();
             int die2 = player.rollDice();
             player.move(die1 + die2);

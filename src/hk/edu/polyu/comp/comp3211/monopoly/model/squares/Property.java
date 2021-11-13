@@ -61,7 +61,8 @@ public class Property implements ISquare {
                 player.addMoney(-this.price);
                 var p = player.getProperties();
                 int i;
-                for(i=0;p[i]!=null;i++);
+                for (i = 0; p[i] != null; i++)
+                    ;
                 p[i] = this;
             }
 

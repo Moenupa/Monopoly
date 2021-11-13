@@ -147,7 +147,8 @@ public class Board implements Serializable {
         File dir = new File(GAME_SAVE_DIR);
         boolean err = true;
         if (!dir.exists()) err = dir.mkdirs();
-        if (!err) throw new RuntimeException("Error when creating the folder. Check the permissions.");
+        if (!err)
+            throw new RuntimeException("Error when creating the folder. Check the permissions.");
 
         // create game save file
         File file = new File(GAME_SAVE_DIR + name);
@@ -267,13 +268,13 @@ public class Board implements Serializable {
     public Player getWinner() {
         Player winner = null;
         int max = -1;
-        for(var player: players) {
-            if(player.getMoney() > max) {
+        for (var player : players) {
+            if (player.getMoney() > max) {
                 max = player.getMoney();
                 winner = player;
             }
         }
-        if(max < 0) {
+        if (max < 0) {
             winner = null;
         }
         return winner;

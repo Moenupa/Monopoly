@@ -14,17 +14,16 @@ public class EndGame implements IBase {
     public void terminal() {
         System.out.println("Game over!");
         var winner = board.getWinner();
-        if(winner!=null) {
+        if (winner != null) {
             System.out.println("Winner is " + winner.getName());
-        }else{
+        } else {
             System.out.println("No winner");
         }
-                System.out.println("type anything to go back to Start menu. ");
-                var in = Main.getScanner();
-                in.next();
-                Main.setUI(new StartMenu());
-        }
-
+        System.out.println("type anything to go back to Start menu. ");
+        var in = Main.getScanner();
+        in.next();
+        Main.setUI(new StartMenu());
+    }
 
     /**
      * Initialize the end game state
@@ -34,5 +33,4 @@ public class EndGame implements IBase {
     public EndGame(Board _board) {
         board = _board;
     }
-
 }
