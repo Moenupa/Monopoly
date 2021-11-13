@@ -1,7 +1,7 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
-import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
+import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
@@ -90,6 +90,7 @@ public class Jail implements ISquare {
         player.addMoney(FINE);
         GetOutOfJail(player, stepsToMove);
     }
+
     private static void GetOutOfJail(Player player, int stepsToMove) {
         player.setInJail(0);
         player.move(stepsToMove);
