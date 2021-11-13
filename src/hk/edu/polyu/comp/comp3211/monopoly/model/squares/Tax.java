@@ -2,9 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
-/**
- * The Income-Tax square of the board
- */
+/** The Income-Tax square of the board */
 public class Tax implements ISquare {
     /**
      * Generate an effect to a player

@@ -3,9 +3,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.view;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 
 public class Printer {
-    /**
-     * current game board
-     */
+    /** current game board */
     private static Board board;
 
     /**
@@ -17,23 +15,15 @@ public class Printer {
         this.board = board;
     }
 
-    /**
-     * Print out current game board
-     */
+    /** Print out current game board */
     public static void printAll() {
         printBoard();
         printInfo();
     }
 
-    /**
-     * Only print the game board
-     */
-    private static void printBoard() {
-    }
+    /** Only print the game board */
+    private static void printBoard() {}
 
-    /**
-     * Only print the game info
-     */
-    private static void printInfo() {
-    }
+    /** Only print the game info */
+    private static void printInfo() {}
 }

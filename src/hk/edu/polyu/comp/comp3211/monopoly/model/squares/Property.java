@@ -5,25 +5,15 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 import java.util.Scanner;
 
-/**
- * The Property squares of the board
- */
+/** The Property squares of the board */
 public class Property implements ISquare {
-    /**
-     * Name of the property
-     */
+    /** Name of the property */
     private final String name;
-    /**
-     * Selling price of the property
-     */
+    /** Selling price of the property */
     private final int price;
-    /**
-     * Rental price of the property
-     */
+    /** Rental price of the property */
     private final int rent;
-    /**
-     * The owner of the property
-     */
+    /** The owner of the property */
     private Player owner;
 
     /**
@@ -79,20 +69,16 @@ public class Property implements ISquare {
         while (true) {
             System.out.print("Do you want to buy this property? (Y/N): ");
 
-            if (Main.TEST)
-                option = "Y";
-            else
-                option = in.nextLine().toUpperCase();
+            if (Main.TEST) option = "Y";
+            else option = in.nextLine().toUpperCase();
 
             if (option.equals("Y")) {
                 setOwner(player);
                 this.owner.addMoney(-this.price);
                 System.out.println(this.name + " is owned by " + this.owner + " now");
                 break;
-            } else if (option.equals("N"))
-                break;
-            else
-                System.out.println("Please enter \"Y\" or \"N\"");
+            } else if (option.equals("N")) break;
+            else System.out.println("Please enter \"Y\" or \"N\"");
         }
     }
 

@@ -3,24 +3,15 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
-import java.util.Random;
 import java.util.Scanner;
 
-/**
- * The In-Jail/Just-Visiting square of the board
- */
+/** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
-    /**
-     * Amount to be paid to leave jail
-     */
+    /** Amount to be paid to leave jail */
     private static final int FINE = 150;
-    /**
-     * Dice result of the player in jail
-     */
+    /** Dice result of the player in jail */
     private static int[] diceResult = new int[2];
-    /**
-     * Flag for test to indicate if player pay fine or not
-     */
+    /** Flag for test to indicate if player pay fine or not */
     private static boolean isPayFine;
 
     /**
@@ -48,19 +39,15 @@ public class Jail implements ISquare {
     @Override
     public void execute(Player player) {
         // check if in jail
-        if (!isInJail(player))
-            return;
+        if (!isInJail(player)) return;
 
         // pay or not
-        if (player.getInJail() > 1)
-            askPayFine(player);
+        if (player.getInJail() > 1) askPayFine(player);
 
         // throw dice
-        if (tryDoubles(player))
-            player.setInJail(0);
+        if (tryDoubles(player)) player.setInJail(0);
 
-        if (player.getInJail() == 1)
-            payFine(player);
+        if (player.getInJail() == 1) payFine(player);
 
         if (!isInJail(player)) {
             player.move(diceResult[0] + diceResult[1]);
@@ -93,20 +80,15 @@ public class Jail implements ISquare {
             System.out.print("Do you want to pay HKD " + FINE + " to get out of jail? (Y/N): ");
 
             if (Main.TEST)
-                if (isPayFine)
-                    option = "Y";
-                else
-                    option = "N";
-            else
-                option = in.nextLine();
+                if (isPayFine) option = "Y";
+                else option = "N";
+            else option = in.nextLine();
 
             if (option.equals("Y")) {
                 payFine(player);
                 break;
-            } else if (option.equals("N"))
-                break;
-            else
-                System.out.println("Please enter \"Y\" or \"N\"");
+            } else if (option.equals("N")) break;
+            else System.out.println("Please enter \"Y\" or \"N\"");
         }
     }
 
@@ -117,8 +99,7 @@ public class Jail implements ISquare {
      * @return true if is doubles; false if not doubles
      */
     private static boolean tryDoubles(Player player) {
-        if (!Main.TEST)
-            diceResult = player.rollDice();
+        if (!Main.TEST) diceResult = player.rollDice();
         return diceResult[0] == diceResult[1];
     }
 

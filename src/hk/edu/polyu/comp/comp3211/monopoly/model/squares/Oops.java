@@ -2,9 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
-/**
- * The Go-to-Jail square of the board
- */
+/** The Go-to-Jail square of the board */
 public class Oops implements ISquare {
     /**
      * Generate an effect to a player

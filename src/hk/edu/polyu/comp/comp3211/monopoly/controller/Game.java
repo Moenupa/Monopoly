@@ -20,13 +20,10 @@ public class Game implements IBase {
         update();
         printGame();
 
-        if (isGameEnd())
-            endGame();
+        if (isGameEnd()) endGame();
     }
 
-    /**
-     * Initialize game controller
-     */
+    /** Initialize game controller */
     public Game() {
         int num;
         var in = Main.getScanner();
@@ -57,15 +54,10 @@ public class Game implements IBase {
         printer = new Printer(board);
     }
 
-    /**
-     * Update the game by each player's turn
-     */
-    private static void update() {
-    }
+    /** Update the game by each player's turn */
+    private static void update() {}
 
-    /**
-     * Print the game
-     */
+    /** Print the game */
     private static void printGame() {
         printer.printAll();
     }
@@ -80,9 +72,7 @@ public class Game implements IBase {
         return false;
     }
 
-    /**
-     * End the game
-     */
+    /** End the game */
     private static void endGame() {
         Main.setUI(new EndGame(board));
     }
