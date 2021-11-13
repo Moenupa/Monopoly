@@ -37,7 +37,7 @@ public class Player implements Serializable {
     public Player() {
         if (Main.TEST) return;
         System.out.println("Please input player name: ");
-        name = Main.GetScanner().nextLine();
+        name = Main.getScanner().nextLine();
     }
 
     /**

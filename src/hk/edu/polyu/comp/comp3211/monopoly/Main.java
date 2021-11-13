@@ -28,16 +28,16 @@ public class Main {
     /**
      * If a method needs to get user input, use this static method to get the scanner
      *
-     * @return The scanner
+     * @return the scanner
      */
-    public static Scanner GetScanner() {
+    public static Scanner getScanner() {
         return in;
     }
 
     /**
      * Switch user interface
      *
-     * @param ui the new interface
+     * @param ui the new interfacea
      */
     public static void setUI(IBase ui) {
         curUI = ui;

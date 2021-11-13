@@ -72,7 +72,7 @@ public class Jail implements ISquare {
                     System.out.print("You need to pay to get out of the jail.");
                     do {
                         System.out.println(GET_CONFIRM_MSG);
-                        inputConfirm = Main.GetScanner().next();
+                        inputConfirm = Main.getScanner().next();
                     } while (!inputConfirm.matches(CONFIRM_PATTERN));
 
                     pay = inputConfirm.matches(CONFIRM_YES_PATTERN);

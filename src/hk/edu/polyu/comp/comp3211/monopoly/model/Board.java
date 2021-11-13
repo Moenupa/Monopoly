@@ -15,6 +15,7 @@ public class Board implements Serializable {
     private int round;
     /** Current active player index */
     private int p_index;
+
     /** Default game-save directory */
     private static final String GAME_SAVE_DIR = "./out/saves/";
     /** Error message when detecting invalid player numbers */
@@ -40,7 +41,7 @@ public class Board implements Serializable {
      * Initialize the board with fixed number of squares and customized number of players (2-6)
      *
      * @param num number of players in the board
-     * @exception IllegalArgumentException if num not in [2,6] range
+     * @throws IllegalArgumentException if num not in [2,6] range
      */
     public Board(int num) throws IllegalArgumentException {
         if (num < 2 || num > 6) throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
@@ -48,7 +49,7 @@ public class Board implements Serializable {
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-            if (!Main.TEST) System.out.printf("Player %d :", i);
+            if (!Main.TEST) System.out.printf("Player %d: ", i);
             this.players[i] = new Player();
         }
         // then initialize the squares on the board
@@ -62,7 +63,7 @@ public class Board implements Serializable {
      * Initialize the board with fixed number of squares and customized number of players (2-6)
      *
      * @param names array of player names
-     * @exception IllegalArgumentException if num not in [2,6] range
+     * @throws IllegalArgumentException if num not in [2,6] range
      */
     protected Board(String[] names) throws IllegalArgumentException {
         // first initialize the players
@@ -138,13 +139,16 @@ public class Board implements Serializable {
      * Save the board to a local file
      *
      * @param name the path (name) of the local file
-     * @exception IllegalArgumentException if write permission not granted
-     * @exception RuntimeException if other unknown exceptions occur when writing to file
+     * @throws IllegalArgumentException if write permission not granted
+     * @throws RuntimeException if other unknown exceptions occur when writing to file
      */
     public void save(String name) throws Exception {
         // creating game-save directory if not exists
         File dir = new File(GAME_SAVE_DIR);
-        if (!dir.exists()) dir.mkdirs();
+        boolean err = true;
+        if (!dir.exists()) err = dir.mkdirs();
+        if (!err)
+            throw new RuntimeException("Error when creating the folder. Check the permissions.");
 
         // create game save file
         File file = new File(GAME_SAVE_DIR + name);
@@ -181,8 +185,8 @@ public class Board implements Serializable {
      * Load the board from a local file
      *
      * @param name the path (name) of the local file
-     * @exception IllegalArgumentException if no such game-save or read permission not granted
-     * @exception RuntimeException if other unknown exceptions occur when reading file
+     * @throws IllegalArgumentException if no such game-save or read permission not granted
+     * @throws RuntimeException if other unknown exceptions occur when reading file
      */
     public static Board load(String name) throws Exception {
         File file = new File(GAME_SAVE_DIR + name);
@@ -206,6 +210,22 @@ public class Board implements Serializable {
             e.printStackTrace();
             throw new RuntimeException("Internal error when loading a game save");
         }
+    }
+
+    /**
+     * Get the name list of the saved game
+     *
+     * @return list of saved name
+     */
+    public static String[] getSavedGameName() {
+        File dir = new File(GAME_SAVE_DIR);
+        if (!dir.exists())
+            if (!dir.mkdirs())
+                throw new RuntimeException("Internal error when creating a save directory");
+
+        if (dir.isDirectory()) return dir.list();
+
+        throw new IllegalArgumentException(GAME_SAVE_DIR + " is not a directory");
     }
 
     /** Initialize the board's squares according to definitions */
@@ -243,5 +263,20 @@ public class Board implements Serializable {
     private void reset_rounding_info() {
         this.round = 0;
         this.p_index = 0;
+    }
+
+    public Player getWinner() {
+        Player winner = null;
+        int max = -1;
+        for (var player : players) {
+            if (player.getMoney() > max) {
+                max = player.getMoney();
+                winner = player;
+            }
+        }
+        if (max < 0) {
+            winner = null;
+        }
+        return winner;
     }
 }

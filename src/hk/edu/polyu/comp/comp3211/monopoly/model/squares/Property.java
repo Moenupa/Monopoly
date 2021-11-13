@@ -35,6 +35,7 @@ public class Property implements ISquare {
      *
      * @param player dest. player
      */
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void execute(Player player) {
         var rng = new Random();
@@ -46,10 +47,10 @@ public class Property implements ISquare {
             if (test) buy = testBuy;
             else {
                 System.out.println("Do you want to buy " + name + " for $" + price + "? (y/n)");
-                String option = Main.GetScanner().nextLine();
+                String option = Main.getScanner().nextLine();
                 while (!option.matches(CONFIRM_PATTERN)) {
                     System.out.println("Please enter y or n");
-                    option = Main.GetScanner().nextLine();
+                    option = Main.getScanner().nextLine();
                 }
                 if (option.matches(CONFIRM_YES_PATTERN)) buy = true;
             }
@@ -58,6 +59,11 @@ public class Property implements ISquare {
                 System.out.println("You bought " + name + " for $" + price);
                 this.owner = player;
                 player.addMoney(-this.price);
+                var p = player.getProperties();
+                int i;
+                for (i = 0; p[i] != null; i++)
+                    ;
+                p[i] = this;
             }
 
         } else if (this.owner != player) {
