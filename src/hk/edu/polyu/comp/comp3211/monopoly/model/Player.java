@@ -92,6 +92,9 @@ public class Player implements Serializable {
      */
     public void addMoney(int money) {
         this.money += money;
+        if (this.money < 0) {
+            bankrupt();
+        }
     }
 
     /**
@@ -145,7 +148,8 @@ public class Player implements Serializable {
 
     /** Judge whether the player is bankrupted or not and store */
     public void bankrupt() {
-        bankrupted = money < 0;
+        bankrupted = true;
+        System.out.println("Player " + name + " is bankrupted.");
     }
 
     /**
@@ -182,6 +186,8 @@ public class Player implements Serializable {
      */
     public int rollDice() {
         var rand = new Random();
-        return rand.nextInt(4) + 1;
+        int n = rand.nextInt(4) + 1;
+        System.out.println("Player " + name + " rolled " + n);
+        return n;
     }
 }

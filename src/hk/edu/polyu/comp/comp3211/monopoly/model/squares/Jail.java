@@ -3,6 +3,8 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
+import java.util.Random;
+
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
     private static final int FINE = -150;
@@ -11,7 +13,7 @@ public class Jail implements ISquare {
     private static final String GET_CONFIRM_MSG = "Pay or not (y/n): ";
 
     private boolean test;
-    private int[] diceResult = new int[2];
+    private final int[] diceResult = new int[2];
     private boolean payResult;
 
     /**
@@ -38,15 +40,20 @@ public class Jail implements ISquare {
      */
     @Override
     public void execute(Player player) {
-
+        var rng = new Random();
+//        if(Main.TEST)setTest(rng.nextInt(4)+1, rng.nextInt(4)+1, rng.nextBoolean());
         int curInJail = player.getInJail();
         int[] dices = new int[2];
-        boolean pay;
+        boolean pay = false;
 
-        if (curInJail == 0) return;
+        if (curInJail == 0){
+            System.out.println("You are not in jail, pass by.");
+            return;
+        }
 
         if (test) {
             dices = diceResult;
+            pay = payResult;
         } else {
             dices[0] = player.rollDice();
             dices[1] = player.rollDice();
@@ -55,25 +62,31 @@ public class Jail implements ISquare {
         int stepsToMove = dices[0] + dices[1];
 
         if (dices[0] == dices[1]) { // if throw doubles
+            System.out.println("You throw doubles, getting out of jail.");
             GetOutOfJail(player, stepsToMove);
         } else {
             // if not throw doubles
             if (curInJail == 1) { // if 3rd turn in jail (the last)
                 PayFineAndGetOut(player, stepsToMove);
+                System.out.println("You pay $150 to get out of jail.");
             } else { // if not 3rd turn in jail
                 // get whether pay
-                if (test) pay = payResult;
-                String inputConfirm;
-                do {
-                    System.out.println(GET_CONFIRM_MSG);
-                    inputConfirm = Main.GetScanner().next();
-                } while (inputConfirm.matches(CONFIRM_PATTERN));
+                if(!Main.TEST) {
+                    String inputConfirm;
+                    System.out.print("You need to pay to get out of the jail.");
+                    do {
+                        System.out.println(GET_CONFIRM_MSG);
+                        inputConfirm = Main.GetScanner().next();
+                    } while (!inputConfirm.matches(CONFIRM_PATTERN));
 
-                pay = inputConfirm.matches(CONFIRM_YES_PATTERN);
-
+                    pay = inputConfirm.matches(CONFIRM_YES_PATTERN);
+                }
                 if (pay) {
                     PayFineAndGetOut(player, stepsToMove);
-                } else player.setInJail(curInJail - 1);
+                } else {
+                    player.setInJail(curInJail - 1);
+                    System.out.println("You cannot get out of jail.");
+                }
             }
         }
     }
@@ -94,5 +107,6 @@ public class Jail implements ISquare {
     private static void GetOutOfJail(Player player, int stepsToMove) {
         player.setInJail(0);
         player.move(stepsToMove);
+        System.out.println("You get out of jail.");
     }
 }

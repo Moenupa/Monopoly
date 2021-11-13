@@ -21,6 +21,13 @@ public class Chance implements ISquare {
     @Override
     public void execute(Player player) {
         int randomInt = new Random().nextInt(51) - 30;
-        player.addMoney(10 * randomInt);
+        int m= 10 * randomInt;
+        player.addMoney(m);
+        if (m>0) {
+           System.out.println("You get $" + m + " from Chance.");
+        }
+        else {
+            System.out.println("You lose $" + -m + " from Chance.");
+        }
     }
 }

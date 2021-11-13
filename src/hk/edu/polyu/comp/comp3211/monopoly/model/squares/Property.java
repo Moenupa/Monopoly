@@ -1,24 +1,24 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
+import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /** The Property squares of the board */
 public class Property implements ISquare {
     /** Name of the property */
-    private String name;
+    private final String name;
     /** Selling price of the property */
-    private int price;
+    private final int price;
     /** Rental price of the property */
-    private int rent;
+    private final int rent;
     /** The owner of the property */
     private Player owner;
-
-    /** Whether is a test* */
-    private boolean test = false;
-    /** Whether buy in the test * */
-    private boolean buyResult;
+    private static final String CONFIRM_PATTERN = "^[nNyY]$";
+    private static final String CONFIRM_YES_PATTERN = "^[yY]$";
+    private boolean testBuy;
 
     /**
      * Generate an effect to a player
@@ -37,23 +37,32 @@ public class Property implements ISquare {
      */
     @Override
     public void execute(Player player) {
+        var rng = new Random();
+        boolean test = Main.TEST;
+        System.out.println("You are on " + name);
         if (this.owner == null) {
             boolean buy = false;
 
-            if (test) buy = buyResult;
+            if (test) buy = testBuy;
             else {
+                System.out.println("Do you want to buy " + name + " for $" + price + "? (y/n)");
                 Scanner in = new Scanner(System.in);
-                System.out.println("Y to buy");
                 String option = in.nextLine();
-                if (option.equals("Y")) buy = true;
+                while (!option.matches(CONFIRM_PATTERN)) {
+                    System.out.println("Please enter y or n");
+                    option = in.nextLine();
+                }
+                if(option.matches(CONFIRM_YES_PATTERN)) buy = true;
             }
 
             if (buy) {
+                System.out.println("You bought " + name + " for $" + price);
                 this.owner = player;
                 player.addMoney(-this.price);
             }
 
         } else if (this.owner != player) {
+            System.out.println("You pay rent to the owner of the building "+this.owner.getName()+" : "+this.rent);
             player.addMoney(-this.rent);
             this.owner.addMoney(this.rent);
         }
@@ -118,13 +127,8 @@ public class Property implements ISquare {
         return this.rent;
     }
 
-    /**
-     * set a test
-     *
-     * @param buy whether buy in the test
-     */
-    public void setTest(boolean buy) {
-        test = true;
-        buyResult = true;
+    public void setTest(boolean test) {
+        testBuy = test;
     }
+
 }

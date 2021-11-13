@@ -18,5 +18,6 @@ public class Oops implements ISquare {
     @Override
     public void execute(Player player) {
         player.goToJail();
+        System.out.println(player.getName() + " goes into Jail");
     }
 }
