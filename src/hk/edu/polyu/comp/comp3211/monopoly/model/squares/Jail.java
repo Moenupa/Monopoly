@@ -3,8 +3,6 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
-import java.util.Random;
-
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
     private static final int FINE = -150;
