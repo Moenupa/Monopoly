@@ -23,5 +23,6 @@ public class EndGame implements IBase {
         board = _board;
     }
 
-    private void findWinner() {}
+    private void findWinner() {
+    }
 }

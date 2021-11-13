@@ -6,9 +6,13 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import java.util.Scanner;
 
 public class StartMenu implements IBase {
-    /** Error message when detecting invalid option numbers */
+    /**
+     * Error message when detecting invalid option numbers
+     */
     private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
-    /** Scanner for user input */
+    /**
+     * Scanner for user input
+     */
     private static Scanner in;
 
     /**
@@ -26,6 +30,7 @@ public class StartMenu implements IBase {
         while (true) {
             System.out.print("Please enter the number: ");
             int option = in.nextInt();
+            in.nextLine();
 
             try {
                 chooseOption(option);
@@ -40,7 +45,9 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** Initialize start menu */
+    /**
+     * Initialize start menu
+     */
     public StartMenu() {
         in = Main.getScanner();
     }
@@ -66,12 +73,16 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** New game option */
+    /**
+     * New game option
+     */
     private static void startNewGame() {
         Main.setUI(new Game());
     }
 
-    /** Load one of saved game */
+    /**
+     * Load one of saved game
+     */
     private static void loadPreviousGame() throws Exception {
         String name = chooseStoredGame();
 
@@ -101,14 +112,19 @@ public class StartMenu implements IBase {
         while (true) {
             System.out.print("Choose the index of game to be load: ");
             try {
-                return savedGameName[in.nextInt() - 1];
+                int index = in.nextInt() - 1;
+                in.nextLine();
+
+                return savedGameName[index];
             } catch (Exception e) {
                 System.out.println("The index should be 1-" + savedGameName.length);
             }
         }
     }
 
-    /** Quit game */
+    /**
+     * Quit game
+     */
     private static void quitGame() {
         System.exit(0);
     }

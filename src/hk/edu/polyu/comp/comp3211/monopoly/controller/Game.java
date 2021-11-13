@@ -38,6 +38,7 @@ public class Game implements IBase {
         while (true) {
             System.out.print("Please enter the number of players: ");
             num = in.nextInt();
+            in.nextLine();
 
             try {
                 board = new Board(num);

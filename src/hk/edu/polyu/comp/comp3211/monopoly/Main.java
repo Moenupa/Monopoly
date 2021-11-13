@@ -37,7 +37,7 @@ public class Main {
     /**
      * Switch user interface
      *
-     * @param ui the new interface
+     * @param ui the new interfacea
      */
     public static void setUI(IBase ui) {
         curUI = ui;
