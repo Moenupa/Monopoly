@@ -16,6 +16,7 @@ public class Property implements ISquare {
     private final int rent;
     /** The owner of the property */
     private Player owner;
+
     private static final String CONFIRM_PATTERN = "^[nNyY]$";
     private static final String CONFIRM_YES_PATTERN = "^[yY]$";
     private boolean testBuy;
@@ -52,7 +53,7 @@ public class Property implements ISquare {
                     System.out.println("Please enter y or n");
                     option = in.nextLine();
                 }
-                if(option.matches(CONFIRM_YES_PATTERN)) buy = true;
+                if (option.matches(CONFIRM_YES_PATTERN)) buy = true;
             }
 
             if (buy) {
@@ -62,7 +63,11 @@ public class Property implements ISquare {
             }
 
         } else if (this.owner != player) {
-            System.out.println("You pay rent to the owner of the building "+this.owner.getName()+" : "+this.rent);
+            System.out.println(
+                    "You pay rent to the owner of the building "
+                            + this.owner.getName()
+                            + " : "
+                            + this.rent);
             player.addMoney(-this.rent);
             this.owner.addMoney(this.rent);
         }
@@ -130,5 +135,4 @@ public class Property implements ISquare {
     public void setTest(boolean test) {
         testBuy = test;
     }
-
 }

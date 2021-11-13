@@ -41,12 +41,12 @@ public class Jail implements ISquare {
     @Override
     public void execute(Player player) {
         var rng = new Random();
-//        if(Main.TEST)setTest(rng.nextInt(4)+1, rng.nextInt(4)+1, rng.nextBoolean());
+        //        if(Main.TEST)setTest(rng.nextInt(4)+1, rng.nextInt(4)+1, rng.nextBoolean());
         int curInJail = player.getInJail();
         int[] dices = new int[2];
         boolean pay = false;
 
-        if (curInJail == 0){
+        if (curInJail == 0) {
             System.out.println("You are not in jail, pass by.");
             return;
         }
@@ -71,7 +71,7 @@ public class Jail implements ISquare {
                 System.out.println("You pay $150 to get out of jail.");
             } else { // if not 3rd turn in jail
                 // get whether pay
-                if(!Main.TEST) {
+                if (!Main.TEST) {
                     String inputConfirm;
                     System.out.print("You need to pay to get out of the jail.");
                     do {
