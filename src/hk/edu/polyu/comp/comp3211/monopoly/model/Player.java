@@ -8,15 +8,15 @@ import java.util.Random;
 
 /** A player and its status in the game */
 public class Player implements Serializable {
-    /** Number of initialized players (during initialization) */
-    private static int player_number = 0;
     /** Notice to player when completed a full round (cross 20th and 1st) */
-    private static final String COMPLETE_ROUND_NOTICE = "";
-    /** The Jail index on board */
+    private static final String COMPLETE_ROUND_NOTICE =
+            "has completed one round of the board and gets salary.";
+    /** The Jail Square's index on board */
     private static final int JAIL_INDEX = 5;
-    /** The Jail cool-down time (in num of rounds) */
+    /** The Jail default cool-down time (in num of rounds) */
     private static final int JAIL_COOLDOWN = 3;
 
+    /** Constant amount of money given every round */
     static final int SALARY = 1500;
     /** Name of the player (in String) */
     private String name;
@@ -26,8 +26,8 @@ public class Player implements Serializable {
     private int position = 0;
 
     /** Array of properties owned by the player */
-    private Property[] properties = new Property[12];
-    /** Whether the player is "IN JAIL" 0 if not */
+    private final Property[] properties = new Property[12];
+    /** The player's in-jail cool-down time (in num of rounds), ranged 0-3 */
     private int inJail = 0;
 
     /** Whether the player is bankrupted and should be removed from the game */
@@ -35,19 +35,18 @@ public class Player implements Serializable {
 
     /** initialize a player and scan input from user */
     public Player() {
+        if (Main.TEST) return;
+        System.out.println("Please input player name: ");
         name = Main.GetScanner().nextLine();
-        player_number++;
-        System.out.println("Please input player " + player_number + " name: ");
     }
 
     /**
-     * initialize a player
+     * Initialize a player
      *
      * @param name name of the user
      */
     public Player(String name) {
         this.name = name;
-        player_number++;
     }
 
     /**

@@ -69,8 +69,9 @@ class SquareTest {
         assertTrue(
                 oriMoney - 300 <= curMoney,
                 "Chance: lose too much"); // Test if player lose too much
-        assertTrue(
-                (oriMoney - curMoney) % 10 == 0,
+        assertEquals(
+                0,
+                (oriMoney - curMoney) % 10,
                 "Chance: not multiple of 10"); // Test if the result is multiple of 10
     }
 
