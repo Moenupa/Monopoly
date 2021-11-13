@@ -16,5 +16,10 @@ public class Tax implements ISquare {
      * @param player dest. player
      */
     @Override
-    public void execute(Player player) {}
+    public void execute(Player player) {
+        int tax = player.getMoney() / 10;
+        tax = (tax / 10) * 10;
+        player.addMoney(-tax);
+        System.out.println("Income-Tax: " + tax + " HKD");
+    }
 }

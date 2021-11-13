@@ -29,6 +29,7 @@ public class Player implements Serializable {
     private final Property[] properties = new Property[12];
     /** The player's in-jail cool-down time (in num of rounds), ranged 0-3 */
     private int inJail = 0;
+
     /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted = false;
 
@@ -91,6 +92,9 @@ public class Player implements Serializable {
      */
     public void addMoney(int money) {
         this.money += money;
+        if (this.money < 0) {
+            bankrupt();
+        }
     }
 
     /**
@@ -144,7 +148,8 @@ public class Player implements Serializable {
 
     /** Judge whether the player is bankrupted or not and store */
     public void bankrupt() {
-        bankrupted = money < 0;
+        bankrupted = true;
+        System.out.println("Player " + name + " is bankrupted.");
     }
 
     /**
@@ -181,6 +186,8 @@ public class Player implements Serializable {
      */
     public int rollDice() {
         var rand = new Random();
-        return rand.nextInt(4) + 1;
+        int n = rand.nextInt(4) + 1;
+        System.out.println("Player " + name + " rolled " + n);
+        return n;
     }
 }

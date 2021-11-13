@@ -35,6 +35,7 @@ class SquareTest {
         this.go = new Go();
         this.oops = new Oops();
         this.jail = new Jail();
+        this.free = new Free();
     }
 
     @Test
@@ -152,7 +153,7 @@ class SquareTest {
 
         assertEquals(oriName, curName);
         assertTrue(
-                curInJail < oriInJail,
+                curInJail == oriInJail,
                 "Jail: Just Visiting, not in jail"); // Test if the inJail counter is decreased
     }
 
@@ -166,8 +167,7 @@ class SquareTest {
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
         // set special flags for test
-        jail.setPayFineForTest(true);
-        jail.setRollDIceResult(new int[] {1, 2});
+        jail.setTest(5, 6, true);
         jail.execute(player2);
 
         String curName = player2.getName();
@@ -188,7 +188,7 @@ class SquareTest {
                 curPosition != oriPosition,
                 "Jail: pay fine but not moved"); // Test if the player is moved
         assertTrue(
-                curInjail != 0,
+                curInjail == 0,
                 "Jail: pay fine but still in jail"); // Test if the player is still in jail
     }
 
@@ -202,7 +202,7 @@ class SquareTest {
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
         // set special flags for test
-        jail.setRollDIceResult(new int[] {1, 1});
+        jail.setTest(4, 4, false);
         jail.execute(player2);
 
         String curName = player2.getName();
@@ -214,17 +214,13 @@ class SquareTest {
 
         assertEquals(oriName, curName); // Test if the name is not changed
         assertEquals(oriProp, curProp); // Test if the properties are not changed
-
-        assertEquals(
-                curMoney,
-                oriMoney - 150,
-                "Jail: money not reduce when paying fine"); // Test if the money is reduced
+        assertEquals(oriMoney, curMoney); // Test if the money are not changed
 
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: throw doubles but not move"); // Test if the player is moved
         assertTrue(
-                curInjail != 0,
+                curInjail == 0,
                 "Jail: throw doubles but still in jail"); // Test if the player is still in jail
     }
 
@@ -237,11 +233,12 @@ class SquareTest {
         int oriPosition = player2.getPosition();
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
-        // set special flags for test
-        jail.setRollDIceResult(new int[] {1, 2});
-        jail.setPayFineForTest(false);
+
+        jail.setTest(1, 2, false);
         jail.execute(player2);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
 
         String curName = player2.getName();
@@ -258,7 +255,7 @@ class SquareTest {
                 curPosition != oriPosition,
                 "Jail: after 3 round but not move"); // Test if the player is moved
         assertTrue(
-                curInjail != 0,
+                curInjail == 0,
                 "Jail: after 3 round but still in jail"); // Test if the player is still in jail
         assertEquals(
                 curMoney,
@@ -289,7 +286,7 @@ class SquareTest {
         assertEquals(oriBankrupted, curBankrupted);
         assertEquals(oriMoney, curMoney);
 
-        assertEquals(6, curPosition, "Oops: not go to jail"); // Test if the player is in jail
+        assertEquals(5, curPosition, "Oops: not go to jail"); // Test if the player is in jail
         assertTrue(
                 curInjail != 0,
                 "Oops: not become in jail"); // Test if the player's inJail counter is increased
@@ -299,12 +296,12 @@ class SquareTest {
     void propertySquareTest() { // Test if the property square is working
         // test property (Name: Central, Price: 800, Rent: 90)
         this.property = new Property("Central", 800, 90);
+        property.setTest(true);
+        property.execute(player1);
 
-        property.setOwner(player1); // player1 buy the property
         assertEquals(player1.getMoney(), 700); // check player1 money
         assertEquals(this.property.getOwner(), player1); // check property owner
 
-        this.player2 = new Player();
         property.execute(player2); // player2 enter the property
         assertEquals(player1.getMoney(), 790); // check player1 money
         assertEquals(player2.getMoney(), 1410); // check player2 money
