@@ -28,9 +28,7 @@ public class Game implements IBase {
         if (isGameEnd()) endGame();
     }
 
-    /**
-     * Initialize game controller
-     */
+    /** Initialize game controller */
     public Game() {
         int num;
         var in = Main.getScanner();
@@ -66,9 +64,7 @@ public class Game implements IBase {
         numPlayerLeft = players.length;
     }
 
-    /**
-     * Update the game by each player's turn
-     */
+    /** Update the game by each player's turn */
     private static void update() {
         int p_index = board.getP_index();
         Player curPlayer = players[p_index];
@@ -149,9 +145,7 @@ public class Game implements IBase {
         }
     }
 
-    /**
-     * Print the game (call Printer)
-     */
+    /** Print the game (call Printer) */
     private static void printGame() {
         Printer.printAll();
     }
@@ -165,9 +159,7 @@ public class Game implements IBase {
         return numPlayerLeft <= 1 || board.getRound() >= 100;
     }
 
-    /**
-     * End the game
-     */
+    /** End the game */
     private static void endGame() {
         Main.setUI(new EndGame(board));
     }
