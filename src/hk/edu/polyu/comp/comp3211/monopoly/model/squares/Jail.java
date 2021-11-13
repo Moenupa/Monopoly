@@ -1,17 +1,26 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
+import hk.edu.polyu.comp.comp3211.monopoly.controller.Game;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 import java.util.Scanner;
 
-/** The In-Jail/Just-Visiting square of the board */
+/**
+ * The In-Jail/Just-Visiting square of the board
+ */
 public class Jail implements ISquare {
-    /** Amount to be paid to leave jail */
+    /**
+     * Amount to be paid to leave jail
+     */
     private static final int FINE = 150;
-    /** Dice result of the player in jail */
+    /**
+     * Dice result of the player in jail
+     */
     private static int[] diceResult = new int[2];
-    /** Flag for test to indicate if player pay fine or not */
+    /**
+     * Flag for test to indicate if player pay fine or not
+     */
     private static boolean isPayFine;
 
     /**
@@ -39,7 +48,7 @@ public class Jail implements ISquare {
     @Override
     public void execute(Player player) {
         // check if in jail
-        if (!isInJail(player)) return;
+        if (!player.isInJail()) return;
 
         // pay or not
         if (player.getInJail() > 1) askPayFine(player);
@@ -49,22 +58,13 @@ public class Jail implements ISquare {
 
         if (player.getInJail() == 1) payFine(player);
 
-        if (!isInJail(player)) {
+        if (!player.isInJail()) {
             player.move(diceResult[0] + diceResult[1]);
+            Game.takeEffect(player);
             return;
         }
 
         player.setInJail(player.getInJail() - 1);
-    }
-
-    /**
-     * Check if the player is in jail
-     *
-     * @param player player to be checked
-     * @return true if she is in jail; false if she is not
-     */
-    private static boolean isInJail(Player player) {
-        return player.getInJail() > 0;
     }
 
     /**

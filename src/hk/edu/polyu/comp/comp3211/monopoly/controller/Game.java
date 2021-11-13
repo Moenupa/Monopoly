@@ -1,12 +1,16 @@
 package hk.edu.polyu.comp.comp3211.monopoly.controller;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
-import hk.edu.polyu.comp.comp3211.monopoly.model.*;
-import hk.edu.polyu.comp.comp3211.monopoly.view.*;
+import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
+import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
+import hk.edu.polyu.comp.comp3211.monopoly.model.squares.ISquare;
+import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 public class Game implements IBase {
     private static Board board;
-    private static Printer printer;
+    private static Player[] players;
+    private static ISquare[] squares;
 
     /**
      * First print game board, current round and player; If he is in jail, refer to the document
@@ -23,7 +27,9 @@ public class Game implements IBase {
         if (isGameEnd()) endGame();
     }
 
-    /** Initialize game controller */
+    /**
+     * Initialize game controller
+     */
     public Game() {
         int num;
         var in = Main.getScanner();
@@ -34,32 +40,89 @@ public class Game implements IBase {
 
             try {
                 board = new Board(num);
+                players = board.getPlayers();
+                squares = board.getSquares();
                 break;
             } catch (IllegalArgumentException e) {
                 // input 'num' is invalid
-                System.out.println("This game only support 2-6 players");
+                // System.out.println("This game only support 2-6 players");
+                e.printStackTrace();
             }
         }
-        printer = new Printer(board);
     }
 
     /**
      * Initialize game controller by loading the saved game
      *
      * @param boardName saved board (game) name
-     * @throws Exception
+     * @throws Exception for exception
      */
     public Game(String boardName) throws Exception {
         board = Board.load(boardName);
-        printer = new Printer(board);
+        players = board.getPlayers();
+        squares = board.getSquares();
     }
 
-    /** Update the game by each player's turn */
-    private static void update() {}
+    /**
+     * Update the game by each player's turn
+     */
+    private static void update() {
+        int p_index = board.getP_index();
+        Player curPlayer = players[p_index];
 
-    /** Print the game */
+        while (curPlayer.isBankrupted()) {
+            p_index = updateP_index(p_index);
+            curPlayer = players[p_index];
+        }
+
+        movement(curPlayer);
+
+        if (checkBankrupt(curPlayer)) {
+            retire(curPlayer);
+        }
+
+        updateP_index(p_index);
+    }
+
+    private static int updateP_index(int p_index) {
+        p_index += 1;
+        p_index /= players.length;
+        board.setP_index(p_index);
+
+        if (p_index == 0)
+            board.setRound(board.getRound() + 1);
+        return p_index;
+    }
+
+    private static void movement(Player player) {
+        if (!player.isInJail()) {
+            int[] diceResult = player.rollDice();
+            player.move(diceResult[0] + diceResult[1]);
+        }
+
+        takeEffect(player);
+    }
+
+    public static void takeEffect(Player curPlayer) {
+        squares[curPlayer.getPosition()].execute(curPlayer);
+    }
+
+    private static boolean checkBankrupt(Player player) {
+        player.bankrupt();
+        return player.isBankrupted();
+    }
+
+    private static void retire(Player player) {
+        for (Property property : player.getProperties()) {
+            property.setOwner(null);
+        }
+    }
+
+    /**
+     * Print the game
+     */
     private static void printGame() {
-        printer.printAll();
+        Printer.printAll();
     }
 
     /**
@@ -72,7 +135,9 @@ public class Game implements IBase {
         return false;
     }
 
-    /** End the game */
+    /**
+     * End the game
+     */
     private static void endGame() {
         Main.setUI(new EndGame(board));
     }
