@@ -4,7 +4,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 
 public class Printer {
     /** current game board */
-    private static Board board;
+    private final Board board;
 
     /**
      * Initialize the printer
@@ -16,18 +16,21 @@ public class Printer {
     }
 
     /** Print out current game board */
-    public static void printAll() {
+    public void printAll() {
         printBoard();
         printInfo();
     }
 
     /** Only print the game board */
-    private static void printBoard() {
+    private void printBoard() {
         board.getSquares();
     }
 
     /** Only print the game info */
-    private static void printInfo() {
+    private void printInfo() {
         board.getPlayers();
+        for(var player : board.getPlayers()) {
+            System.out.println(player.getName() + ": current  wealth $" + player.getMoney());
+        }
     }
 }

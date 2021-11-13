@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp3211.monopoly.controller;
 
+import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 
 public class EndGame implements IBase {
@@ -11,8 +12,19 @@ public class EndGame implements IBase {
      */
     @Override
     public void terminal() {
-        System.out.println("\nGame Over");
-    }
+        System.out.println("Game over!");
+        var winner = board.getWinner();
+        if(winner!=null) {
+            System.out.println("Winner is " + winner.getName());
+        }else{
+            System.out.println("No winner");
+        }
+                System.out.println("type anything to go back to Start menu. ");
+                var in = Main.getScanner();
+                in.next();
+                Main.setUI(new StartMenu());
+        }
+
 
     /**
      * Initialize the end game state
@@ -23,5 +35,4 @@ public class EndGame implements IBase {
         board = _board;
     }
 
-    private void findWinner() {}
 }

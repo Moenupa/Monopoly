@@ -103,7 +103,9 @@ class PlayerTest {
     void diceTest() { // Test if rollDice() works correctly
         var player = new Player("test");
         for (int i = 0; i < 100; i++) { // repeat 100 times
-            int[] diceResult = player.rollDice();
+            int[] diceResult = new int[2];
+            diceResult[0]=player.rollDice();
+            diceResult[1]=player.rollDice();
             assertTrue(diceResult[0] > 0);
             assertTrue(diceResult[0] < 5);
             assertTrue(diceResult[1] > 0);
