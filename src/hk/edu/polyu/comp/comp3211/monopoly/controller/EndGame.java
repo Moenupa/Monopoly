@@ -22,4 +22,7 @@ public class EndGame implements IBase {
     public EndGame(Board _board) {
         board = _board;
     }
+
+    private void findWinner() {
+    }
 }
