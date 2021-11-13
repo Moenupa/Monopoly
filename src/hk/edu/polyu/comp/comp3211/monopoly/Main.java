@@ -14,7 +14,9 @@ public class Main {
 
     private static IBase curUI; // current UI;
 
-    /** Should be the only scanner used throughout the application */
+    /**
+     * Should be the only scanner used throughout the application
+     */
     private static Scanner in;
 
     public static void main(String[] args) {
@@ -28,7 +30,7 @@ public class Main {
     /**
      * If a method needs to get user input, use this static method to get the scanner
      *
-     * @return The scanner
+     * @return the scanner
      */
     public static Scanner getScanner() {
         return in;

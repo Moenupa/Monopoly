@@ -2,7 +2,9 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
-/** The Free-Parking square of the board */
+/**
+ * The Free-Parking square of the board
+ */
 public class Free implements ISquare {
     /**
      * Generate an effect to a player
@@ -17,6 +19,5 @@ public class Free implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        return;
     }
 }

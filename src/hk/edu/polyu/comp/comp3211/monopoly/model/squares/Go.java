@@ -20,6 +20,5 @@ public class Go implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        return;
     }
 }

@@ -4,7 +4,9 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 import java.util.Random;
 
-/** The Chance square of the board */
+/**
+ * The Chance square of the board
+ */
 public class Chance implements ISquare {
     /**
      * Generate an effect to a player
@@ -20,7 +22,18 @@ public class Chance implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        int randomInt = new Random().nextInt(51) - 30;
-        player.addMoney(10 * randomInt);
+        int multiple;
+
+        if (new Random().nextInt(2) == 0) {
+            multiple = new Random().nextInt(20) + 1;
+            multiple *= 10;
+            System.out.println("You gain HKD " + multiple);
+        } else {
+            multiple = new Random().nextInt(30) + 1;
+            multiple *= 10;
+            System.out.println("You lose HKD " + multiple);
+            multiple = -multiple;
+        }
+        player.addMoney(multiple);
     }
 }

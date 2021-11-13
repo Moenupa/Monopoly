@@ -6,9 +6,13 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import java.util.Scanner;
 
 public class StartMenu implements IBase {
-    /** Error message when detecting invalid option numbers */
+    /**
+     * Error message when detecting invalid option numbers
+     */
     private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
-    /** Scanner for user input */
+    /**
+     * Scanner for user input
+     */
     private static Scanner in;
 
     /**
@@ -40,12 +44,15 @@ public class StartMenu implements IBase {
         }
     }
 
+    /**
+     * Initialize start menu
+     */
     public StartMenu() {
         in = Main.getScanner();
     }
 
     /**
-     * choose one option to play
+     * Choose one option to play
      *
      * @param num option number
      */
@@ -65,12 +72,16 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** new game option */
+    /**
+     * New game option
+     */
     private static void startNewGame() {
         Main.setUI(new Game());
     }
 
-    /** load one of saved game */
+    /**
+     * Load one of saved game
+     */
     private static void loadPreviousGame() throws Exception {
         String name = chooseStoredGame();
 
@@ -80,7 +91,7 @@ public class StartMenu implements IBase {
     }
 
     /**
-     * choose which saved game to be loaded
+     * Choose which saved game to be loaded
      *
      * @return name of the chosen game
      */
@@ -107,7 +118,9 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** quit game */
+    /**
+     * Quit game
+     */
     private static void quitGame() {
         System.exit(0);
     }

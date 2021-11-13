@@ -28,11 +28,11 @@ COMP3211 Software Engineering Course Project
 4: ┼
 ```
 
-> ## Main
->
-> ### Get Base and Scanner
+## Main
 
-- Base(UI): Game State
+### Get Base and Scanner
+
+- Base (UI): Game State
   - Start Menu
   - Game
   - End Game
@@ -45,7 +45,9 @@ COMP3211 Software Engineering Course Project
 
 - Menu
   - New game
-  - Load game
+    - Create new Board for Game
+  - Continue
+    - Select which Board to be load
   - Quit
 
 ## Game
@@ -54,27 +56,41 @@ COMP3211 Software Engineering Course Project
 
 - Board
   - Attributes
-    - Squire
-    - player
+    - Squires
+    - Players
     - Round
+    - Player Index (Whose turn)
   - Methods
-    - Save and Load
+    - Operations to attributes
+    - Initialization
+    - Get saved game list
+    - Save
+    - Load
 - Player
   - Attributes
-    - name
-    - money
-    - position
-    - properties
-    - in jail
-    - row dice
+    - Name
+    - Money
+    - Position (square index: 0, 1, ...)
+    - Properties
+    - In jail state / cool down (Max turns remaining no move)
+    - Bankrupted state
   - Methods
-    - move (salary)
+    - Operations to attributes
+    - Move (Salary)
+    - Go to Jail
+    - Row dice
 - Square
   - Attributes
-    - Effect function
-    - only change attributes in Board and player
+    - (Position?)
+    - Name
+    - Price
+    - Rent
+    - Owner
   - Methods
+    - Execute (effect of the square)
+      - Change attributes in Board and Player
+    - Jail Effect
 
 ## End Game
 
-### Print who win the game, show players' money
+### Print who win the game, show all players' money

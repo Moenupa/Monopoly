@@ -20,44 +20,70 @@ public class Game implements IBase {
         update();
         printGame();
 
-        if (isGameEnd()) endGame();
+        if (isGameEnd())
+            endGame();
     }
 
+    /**
+     * Initialize game controller
+     */
     public Game() {
         int num;
-        System.out.print("Please enter the number of players: ");
         var in = Main.getScanner();
 
         while (true) {
+            System.out.print("Please enter the number of players: ");
             num = in.nextInt();
+
             try {
                 board = new Board(num);
                 break;
             } catch (IllegalArgumentException e) {
                 // input 'num' is invalid
-                continue;
+                System.out.println("This game only support 2-6 players");
             }
         }
         printer = new Printer(board);
     }
 
+    /**
+     * Initialize game controller by loading the saved game
+     *
+     * @param boardName saved board (game) name
+     * @throws Exception
+     */
     public Game(String boardName) throws Exception {
         board = Board.load(boardName);
         printer = new Printer(board);
     }
 
-    public void update() {}
+    /**
+     * Update the game by each player's turn
+     */
+    private static void update() {
+    }
 
-    private void printGame() {
+    /**
+     * Print the game
+     */
+    private static void printGame() {
         printer.printAll();
     }
 
-    private boolean isGameEnd() {
+    /**
+     * Check if the game should be ended
+     *
+     * @return true if game should end; false if game should not end
+     */
+    private static boolean isGameEnd() {
 
         return false;
     }
 
-    private void endGame() {
+    /**
+     * End the game
+     */
+    private static void endGame() {
         Main.setUI(new EndGame(board));
     }
 }

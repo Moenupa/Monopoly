@@ -187,9 +187,7 @@ class SquareTest {
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: pay fine but not moved"); // Test if the player is moved
-        assertTrue(
-                curInjail == 0,
-                "Jail: pay fine but still in jail"); // Test if the player is still in jail
+        assertEquals(0, curInjail, "Jail: pay fine but still in jail"); // Test if the player is still in jail
     }
 
     @Test
@@ -234,11 +232,11 @@ class SquareTest {
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
 
-        jail.setTest(1, 2, false);
+        Jail.setTest(1, 2, false);
         jail.execute(player2);
-        jail.setTest(1, 2, false);
+        Jail.setTest(1, 2, false);
         jail.execute(player2);
-        jail.setTest(1, 2, false);
+        Jail.setTest(1, 2, false);
         jail.execute(player2);
 
         String curName = player2.getName();
@@ -254,9 +252,7 @@ class SquareTest {
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: after 3 round but not move"); // Test if the player is moved
-        assertTrue(
-                curInjail == 0,
-                "Jail: after 3 round but still in jail"); // Test if the player is still in jail
+        assertEquals(0, curInjail, "Jail: after 3 round but still in jail"); // Test if the player is still in jail
         assertEquals(
                 curMoney,
                 oriMoney - 150,
@@ -297,7 +293,7 @@ class SquareTest {
         // test property (Name: Central, Price: 800, Rent: 90)
         this.property = new Property("Central", 800, 90);
 
-        property.setOwner(player1); // player1 buy the property
+        property.execute(player1); // player1 buy the property
         assertEquals(player1.getMoney(), 700); // check player1 money
         assertEquals(this.property.getOwner(), player1); // check property owner
 

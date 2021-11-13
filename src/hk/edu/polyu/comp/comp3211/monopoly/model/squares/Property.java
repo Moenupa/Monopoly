@@ -1,18 +1,29 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
+import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 
 import java.util.Scanner;
 
-/** The Property squares of the board */
+/**
+ * The Property squares of the board
+ */
 public class Property implements ISquare {
-    /** Name of the property */
-    private String name;
-    /** Selling price of the property */
-    private int price;
-    /** Rental price of the property */
-    private int rent;
-    /** The owner of the property */
+    /**
+     * Name of the property
+     */
+    private final String name;
+    /**
+     * Selling price of the property
+     */
+    private final int price;
+    /**
+     * Rental price of the property
+     */
+    private final int rent;
+    /**
+     * The owner of the property
+     */
     private Player owner;
 
     /**
@@ -33,15 +44,12 @@ public class Property implements ISquare {
     @Override
     public void execute(Player player) {
         if (this.owner == null) {
-            Scanner in = new Scanner(System.in);
-            System.out.println("Y to buy");
-            String option = in.nextLine();
-            if (option.equals("Y")) {
-                setOwner(player);
-            }
+            askToBuy(player);
         } else if (this.owner != player) {
+            System.out.println("This property is owned by " + this.owner);
+            System.out.println("You should pay HKD " + this.rent + " to " + this.owner);
             player.addMoney(-this.rent);
-            owner.addMoney(this.rent);
+            this.owner.addMoney(this.rent);
         }
     }
 
@@ -53,10 +61,39 @@ public class Property implements ISquare {
      * @param r rental price of the property
      */
     public Property(String s, int p, int r) {
-        name = s;
-        price = p;
-        rent = r;
-        owner = null;
+        this.name = s;
+        this.price = p;
+        this.rent = r;
+        this.owner = null;
+    }
+
+    /**
+     * Ask player whether to buy this property or not
+     *
+     * @param player the player to be asked
+     */
+    private void askToBuy(Player player) {
+        Scanner in = Main.getScanner();
+        String option;
+
+        while (true) {
+            System.out.print("Do you want to buy this property? (Y/N): ");
+
+            if (Main.TEST)
+                option = "Y";
+            else
+                option = in.nextLine().toUpperCase();
+
+            if (option.equals("Y")) {
+                setOwner(player);
+                this.owner.addMoney(-this.price);
+                System.out.println(this.name + " is owned by " + this.owner + " now");
+                break;
+            } else if (option.equals("N"))
+                break;
+            else
+                System.out.println("Please enter \"Y\" or \"N\"");
+        }
     }
 
     /**
@@ -65,7 +102,7 @@ public class Property implements ISquare {
      * @return name of the property
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -74,17 +111,17 @@ public class Property implements ISquare {
      * @return owner of the property
      */
     public Player getOwner() {
-        return owner;
+        return this.owner;
     }
 
     /**
      * Set the owner to a custom player
      *
-     * @param owner dest. player
+     * @param _owner dest. player
      */
-    public void setOwner(Player owner) {
-        this.owner = owner;
-        owner.addMoney(-this.price);
+    public void setOwner(Player _owner) {
+        this.owner = _owner;
+        System.out.println(this.name + " is owned by " + this.owner);
     }
 
     /**
