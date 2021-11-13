@@ -33,11 +33,11 @@ public class Player implements Serializable {
     /** Whether the player is bankrupted and should be removed from the game */
     private boolean bankrupted = false;
 
-    /** Initialize a player and scan input from user */
+    /** initialize a player and scan input from user */
     public Player() {
         if (Main.TEST) return;
         System.out.println("Please input player name: ");
-        name = Main.getScanner().nextLine();
+        name = Main.GetScanner().nextLine();
     }
 
     /**
@@ -92,6 +92,9 @@ public class Player implements Serializable {
      */
     public void addMoney(int money) {
         this.money += money;
+        if (this.money < 0) {
+            bankrupt();
+        }
     }
 
     /**
@@ -143,6 +146,12 @@ public class Player implements Serializable {
         this.inJail = JAIL_COOLDOWN;
     }
 
+    /** Judge whether the player is bankrupted or not and store */
+    public void bankrupt() {
+        bankrupted = true;
+        System.out.println("Player " + name + " is bankrupted.");
+    }
+
     /**
      * Get the "IN JAIL" status of the player
      *
@@ -162,20 +171,6 @@ public class Player implements Serializable {
     }
 
     /**
-     * Check if the player is in jail
-     *
-     * @return true if she is in jail; false if she is not
-     */
-    public boolean isInJail() {
-        return getInJail() > 0;
-    }
-
-    /** Judge whether the player is bankrupted or not and store */
-    public void bankrupt() {
-        bankrupted = money < 0;
-    }
-
-    /**
      * Get the player's bankrupted status
      *
      * @return true if bankrupted, else false
@@ -189,11 +184,10 @@ public class Player implements Serializable {
      *
      * @return the result (ranged from 1-4)
      */
-    public int[] rollDice() {
+    public int rollDice() {
         var rand = new Random();
-        int[] result = new int[2];
-        result[0] = rand.nextInt(4) + 1;
-        result[1] = rand.nextInt(4) + 1;
-        return result;
+        int n = rand.nextInt(4) + 1;
+        System.out.println("Player " + name + " rolled " + n);
+        return n;
     }
 }

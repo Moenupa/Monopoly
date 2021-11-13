@@ -187,9 +187,8 @@ class SquareTest {
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: pay fine but not moved"); // Test if the player is moved
-        assertEquals(
-                0,
-                curInjail,
+        assertTrue(
+                curInjail == 0,
                 "Jail: pay fine but still in jail"); // Test if the player is still in jail
     }
 
@@ -235,11 +234,11 @@ class SquareTest {
         int oriInJail = player2.getInJail();
         boolean oriBankrupted = player2.isBankrupted();
 
-        Jail.setTest(1, 2, false);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
-        Jail.setTest(1, 2, false);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
-        Jail.setTest(1, 2, false);
+        jail.setTest(1, 2, false);
         jail.execute(player2);
 
         String curName = player2.getName();
@@ -255,9 +254,8 @@ class SquareTest {
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: after 3 round but not move"); // Test if the player is moved
-        assertEquals(
-                0,
-                curInjail,
+        assertTrue(
+                curInjail == 0,
                 "Jail: after 3 round but still in jail"); // Test if the player is still in jail
         assertEquals(
                 curMoney,
@@ -298,12 +296,12 @@ class SquareTest {
     void propertySquareTest() { // Test if the property square is working
         // test property (Name: Central, Price: 800, Rent: 90)
         this.property = new Property("Central", 800, 90);
+        property.setTest(true);
+        property.execute(player1);
 
-        property.execute(player1); // player1 buy the property
         assertEquals(player1.getMoney(), 700); // check player1 money
         assertEquals(this.property.getOwner(), player1); // check property owner
 
-        this.player2 = new Player();
         property.execute(player2); // player2 enter the property
         assertEquals(player1.getMoney(), 790); // check player1 money
         assertEquals(player2.getMoney(), 1410); // check player2 money

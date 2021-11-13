@@ -1,19 +1,18 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
-import hk.edu.polyu.comp.comp3211.monopoly.controller.Game;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
-
-import java.util.Scanner;
 
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
-    /** Amount to be paid to leave jail */
-    private static final int FINE = 150;
-    /** Dice result of the player in jail */
-    private static int[] diceResult = new int[2];
-    /** Flag for test to indicate if player pay fine or not */
-    private static boolean isPayFine;
+    private static final int FINE = -150;
+    private static final String CONFIRM_PATTERN = "^[nNyY]$";
+    private static final String CONFIRM_YES_PATTERN = "^[yY]$";
+    private static final String GET_CONFIRM_MSG = "Pay or not (y/n): ";
+
+    private boolean test;
+    private final int[] diceResult = new int[2];
+    private boolean payResult;
 
     /**
      * Generate an effect to a player
@@ -39,83 +38,71 @@ public class Jail implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        // check if in jail
-        if (!player.isInJail()) return;
+        int curInJail = player.getInJail();
+        int[] dices = new int[2];
+        boolean pay = false;
 
-        // pay or not
-        if (player.getInJail() > 1) askPayFine(player);
-
-        // throw dice
-        if (tryDoubles(player)) player.setInJail(0);
-
-        if (player.getInJail() == 1) payFine(player);
-
-        if (!player.isInJail()) {
-            player.move(diceResult[0] + diceResult[1]);
-            Game.takeEffect(player);
+        if (curInJail == 0) {
+            System.out.println("You are not in jail, pass by.");
             return;
         }
 
-        player.setInJail(player.getInJail() - 1);
-    }
+        if (test) {
+            dices = diceResult;
+            pay = payResult;
+        } else {
+            dices[0] = player.rollDice();
+            dices[1] = player.rollDice();
+        }
 
-    /**
-     * Ask player to pay fine
-     *
-     * @param player player to be asked
-     */
-    private static void askPayFine(Player player) {
-        Scanner in = Main.getScanner();
-        String option;
+        int stepsToMove = dices[0] + dices[1];
 
-        while (true) {
-            System.out.print("Do you want to pay HKD " + FINE + " to get out of jail? (Y/N): ");
+        if (dices[0] == dices[1]) { // if throw doubles
+            System.out.println("You throw doubles, getting out of jail.");
+            GetOutOfJail(player, stepsToMove);
+        } else {
+            // if not throw doubles
+            if (curInJail == 1) { // if 3rd turn in jail (the last)
+                PayFineAndGetOut(player, stepsToMove);
+                System.out.println("You pay $150 to get out of jail.");
+            } else { // if not 3rd turn in jail
+                // get whether pay
+                if (!Main.TEST) {
+                    String inputConfirm;
+                    System.out.print("You need to pay to get out of the jail.");
+                    do {
+                        System.out.println(GET_CONFIRM_MSG);
+                        inputConfirm = Main.GetScanner().next();
+                    } while (!inputConfirm.matches(CONFIRM_PATTERN));
 
-            if (Main.TEST)
-                if (isPayFine) option = "Y";
-                else option = "N";
-            else option = in.nextLine();
-
-            if (option.equals("Y")) {
-                payFine(player);
-                break;
-            } else if (option.equals("N")) break;
-            else System.out.println("Please enter \"Y\" or \"N\"");
+                    pay = inputConfirm.matches(CONFIRM_YES_PATTERN);
+                }
+                if (pay) {
+                    PayFineAndGetOut(player, stepsToMove);
+                } else {
+                    player.setInJail(curInJail - 1);
+                    System.out.println("You cannot get out of jail.");
+                }
+            }
         }
     }
 
-    /**
-     * Try to throw doubles to get out of jail or move
-     *
-     * @param player player who throw dice
-     * @return true if is doubles; false if not doubles
-     */
-    private static boolean tryDoubles(Player player) {
-        if (!Main.TEST) diceResult = player.rollDice();
-        return diceResult[0] == diceResult[1];
+    public void setTest(int dice0, int dice1, boolean pay) {
+        this.test = true;
+        this.diceResult[0] = dice0;
+        this.diceResult[1] = dice1;
+        this.payResult = pay;
     }
 
-    /**
-     * Pay fine to get out of jail
-     *
-     * @param player player who to pay fine
-     */
-    private static void payFine(Player player) {
-        player.addMoney(-FINE);
+    private static void PayFineAndGetOut(Player player, int stepsToMove) {
+        // pay a fine and then get out of jail
+        player.addMoney(FINE);
+        GetOutOfJail(player, stepsToMove);
+    }
+
+    private static void GetOutOfJail(Player player, int stepsToMove) {
         player.setInJail(0);
-        System.out.println(player.getName() + " has paid fine to get out of jail");
-    }
-
-    /**
-     * Used for test
-     *
-     * @param dice0 first dice result
-     * @param dice1 second dice result
-     * @param isPay selection of pay fine or not
-     */
-    public static void setTest(int dice0, int dice1, boolean isPay) {
-        diceResult[0] = dice0;
-        diceResult[1] = dice1;
-        isPayFine = isPay;
+        player.move(stepsToMove);
+        System.out.println("You get out of jail.");
     }
 }
