@@ -30,7 +30,7 @@ public class Printer {
     private void printInfo() {
         board.getPlayers();
         for (var player : board.getPlayers()) {
-            System.out.println(player.getName() + ": current  wealth $" + player.getMoney());
+            System.out.println(player.getName() + ": current wealth $" + player.getMoney());
         }
     }
 }

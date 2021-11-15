@@ -105,11 +105,11 @@ public class StartMenu implements IBase {
             System.out.print("Choose the index of game to be load: ");
             try {
                 int index = in.nextInt() - 1;
-                in.nextLine();
-
                 return savedGameName[index];
             } catch (Exception e) {
-                System.out.println("The index should be 1-" + savedGameName.length);
+                System.out.println("The index should be an integer ranged 1-" + savedGameName.length);
+                // prevent infinite loop caused by the last println and in.nextInt()
+                in.nextLine();
             }
         }
     }

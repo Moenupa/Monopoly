@@ -82,7 +82,7 @@ public class Game implements IBase {
                         + board.getRound()
                         + ", Player NO."
                         + p_index
-                        + " :"
+                        + ": "
                         + curPlayer.getName()
                         + "'s turn");
 
