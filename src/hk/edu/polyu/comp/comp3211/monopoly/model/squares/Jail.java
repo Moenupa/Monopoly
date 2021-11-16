@@ -43,11 +43,11 @@ public class Jail implements ISquare {
         boolean pay = false;
 
         if (curInJail == 0) {
-            System.out.println("Player" +player.getName() + " arrived at Jail.");
+            System.out.println("Player" + player.getName() + " arrived at Jail.");
             System.out.println("You are not in jail, pass by.");
             return;
         }
-        System.out.println("Player" +player.getName() + "is in jail.");
+        System.out.println("Player" + player.getName() + "is in jail.");
 
         if (test) {
             dices = diceResult;
