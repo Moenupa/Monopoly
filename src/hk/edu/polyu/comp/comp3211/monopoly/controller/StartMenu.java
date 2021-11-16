@@ -9,11 +9,8 @@ public class StartMenu implements IBase {
     /**
      * Error message when detecting invalid option numbers
      */
-<<<<<<< Updated upstream
-    private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
-=======
     private static final String ERR_INVALID_NUM_OF_Menu = "The option should only be 1-3 number";
->>>>>>> Stashed changes
+
     /**
      * Scanner for user input
      */
