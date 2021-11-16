@@ -94,3 +94,8 @@ COMP3211 Software Engineering Course Project
 ## End Game
 
 ### Print who win the game, show all players' money
+
+# Shortage
+
+- [ ] Input checking
+  - nextInt(): If user input is string (not int)
