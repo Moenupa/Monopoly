@@ -45,7 +45,6 @@ public class Jail implements ISquare {
         // first print a general prompt to notify of the current player
         // then print msgs for each case respectively
 
-
         if (curInJail == 0) {
             Printer.printPlayerPrompt(player);
             Printer.printMsg("just pass by the jail, nothing to worry about.\n");
@@ -88,7 +87,9 @@ public class Jail implements ISquare {
                 // if lucky to throw a double
                 if (dices[0] == dices[1]) {
                     Printer.printPlayerPrompt(player);
-                    Printer.printColoredMsg(Printer.ANSI_MAGENTA, "good luck in throwing doubles, getting out of jail!\n");
+                    Printer.printColoredMsg(
+                            Printer.ANSI_MAGENTA,
+                            "good luck in throwing doubles, getting out of jail!\n");
                     GetOutOfJail(player, stepsToMove);
                     return;
                 }

@@ -46,7 +46,6 @@ public class Printer {
         }
     }
 
-
     /**
      * Print a given message in a given color without any line-breaks
      *

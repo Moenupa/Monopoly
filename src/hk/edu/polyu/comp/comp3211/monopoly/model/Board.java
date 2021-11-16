@@ -50,7 +50,7 @@ public class Board implements Serializable {
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-            if (!Main.TEST) Printer.printMsg("Player " + (i+1) + ": ");
+            if (!Main.TEST) Printer.printMsg("Player " + (i + 1) + ": ");
             this.players[i] = new Player();
         }
         // then initialize the squares on the board
@@ -241,7 +241,8 @@ public class Board implements Serializable {
         // initialize every property
         for (int i = 0; i < 12; i++) {
             squares[PROPERTY_INDEX[i] - 1] =
-                    new Property(PROPERTY_NAMES[i].toUpperCase(), PROPERTY_SELL[i], PROPERTY_RENT[i]);
+                    new Property(
+                            PROPERTY_NAMES[i].toUpperCase(), PROPERTY_SELL[i], PROPERTY_RENT[i]);
         }
 
         // the 4th square is tax

@@ -36,7 +36,7 @@ public class Game implements IBase {
 
         while (true) {
             // ensure inputs to be valid
-            do  {
+            do {
                 Printer.printHelpMsg("Please enter the number of players: ");
                 option = in.nextLine();
             } while (!option.matches("^(\\d+|(q(uit)?))$"));
@@ -85,21 +85,25 @@ public class Game implements IBase {
         }
         Printer.printMsg(
                 "\nRound "
-                        + (board.getRound()+1)
+                        + (board.getRound() + 1)
                         + ", Player NO."
-                        + (p_index+1)
+                        + (p_index + 1)
                         + ": "
                         + curPlayer.getName()
                         + "'s turn.\n");
 
         ISquare curSquare = board.getSquares()[curPlayer.getPosition()];
-        String curSquareStr = (curSquare.getClass() == Property.class) ?
-                "Property " + ((Property) curSquare).getName() : curSquare.getClass().getSimpleName() ;
+        String curSquareStr =
+                (curSquare.getClass() == Property.class)
+                        ? "Property " + ((Property) curSquare).getName()
+                        : curSquare.getClass().getSimpleName();
         Printer.printMsg(
                 curPlayer.getName()
                         + " is in square "
-                        + curPlayer.getPosition() + ": "
-                        + curSquareStr + ".\n");
+                        + curPlayer.getPosition()
+                        + ": "
+                        + curSquareStr
+                        + ".\n");
         while (true) {
             Printer.printHelpMsg(
                     "type \"save\" for saving the game, \"quit\" to exit to main menu, \"run\" to"

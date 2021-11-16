@@ -68,7 +68,8 @@ public class Property implements ISquare {
 
         } else if (this.owner != player) {
             Printer.printPlayerPrompt(player);
-            Printer.printMsg("pays rent to the owner " + this.owner.getName() + " for $" + rent + ".\n");
+            Printer.printMsg(
+                    "pays rent to the owner " + this.owner.getName() + " for $" + rent + ".\n");
             player.addMoney(-this.rent);
             this.owner.addMoney(this.rent);
         }

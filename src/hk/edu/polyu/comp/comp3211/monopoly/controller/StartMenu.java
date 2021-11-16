@@ -24,7 +24,7 @@ public class StartMenu implements IBase {
         // intended infinite loop
         while (true) {
             // ensure inputs to be valid
-            do  {
+            do {
                 Printer.printHelpMsg("Please enter option index: ");
                 option = in.nextLine();
             } while (!option.matches("^[1-3]$"));
