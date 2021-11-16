@@ -20,6 +20,6 @@ public class Go implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        System.out.println("Go square: " + player.getName() + " passes through.");
+        System.out.println("Player" + player.getName() + " arrived at Go.");
     }
 }

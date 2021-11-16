@@ -40,7 +40,7 @@ public class Property implements ISquare {
     public void execute(Player player) {
         var rng = new Random();
         boolean test = Main.TEST;
-        System.out.println("You are on " + name);
+        System.out.println("\n" + player.getName() + " is visiting " + name + ".");
         if (this.owner == null) {
             boolean buy = false;
 

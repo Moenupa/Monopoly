@@ -17,6 +17,6 @@ public class Free implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        System.out.println("Free-Parking");
+        System.out.println("Player" + player.getName() + " arrived at free parking area.");
     }
 }

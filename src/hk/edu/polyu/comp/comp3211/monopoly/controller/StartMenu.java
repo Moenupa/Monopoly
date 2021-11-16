@@ -107,7 +107,8 @@ public class StartMenu implements IBase {
                 int index = in.nextInt() - 1;
                 return savedGameName[index];
             } catch (Exception e) {
-                System.out.println("The index should be an integer ranged 1-" + savedGameName.length);
+                System.out.println(
+                        "The index should be an integer ranged 1-" + savedGameName.length);
                 // prevent infinite loop caused by the last println and in.nextInt()
                 in.nextLine();
             }

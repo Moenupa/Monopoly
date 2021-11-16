@@ -91,7 +91,7 @@ public class Game implements IBase {
         while (true) {
             System.out.println(
                     "type \"save\" for saving the game, \"quit\" to exit to main menu, \"run\" to"
-                        + " continue the game.");
+                            + " continue the game.");
             var in = Main.getScanner();
             String s = in.next();
             try {

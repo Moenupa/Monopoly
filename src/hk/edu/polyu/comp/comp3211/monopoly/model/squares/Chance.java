@@ -20,6 +20,7 @@ public class Chance implements ISquare {
      */
     @Override
     public void execute(Player player) {
+        System.out.println("Player " + player.getName() + " landed on Chance Square.");
         int randomInt = new Random().nextInt(51) - 30;
         int m = 10 * randomInt;
         player.addMoney(m);
