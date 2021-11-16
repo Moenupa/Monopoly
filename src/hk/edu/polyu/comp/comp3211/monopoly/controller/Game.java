@@ -8,10 +8,11 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 public class Game implements IBase {
-    private static Board board;
-    private static Player[] players;
+    private Board board;
+    private Player[] players;
     private static ISquare[] squares;
-    private static int numPlayerLeft;
+    private int numPlayerLeft;
+    private final Printer printer;
 
     /**
      * First print game board, current round and player; If he is in jail, refer to the document
@@ -22,8 +23,8 @@ public class Game implements IBase {
      */
     @Override
     public void terminal() {
-        update();
         printGame();
+        update();
 
         if (isGameEnd()) endGame();
     }
@@ -50,6 +51,7 @@ public class Game implements IBase {
                 // e.printStackTrace();
             }
         }
+        printer = new Printer(board);
     }
 
     /**
@@ -63,23 +65,64 @@ public class Game implements IBase {
         players = board.getPlayers();
         squares = board.getSquares();
         numPlayerLeft = players.length;
+        printer = new Printer(board);
     }
 
     /** Update the game by each player's turn */
-    private static void update() {
+    private void update() {
         int p_index = board.getP_index();
         Player curPlayer = players[p_index];
 
         while (curPlayer.isBankrupted()) {
-            numPlayerLeft -= 1;
             p_index = updateP_index(p_index);
             curPlayer = players[p_index];
+        }
+        System.out.println(
+                "\nRound "
+                        + board.getRound()
+                        + ", Player NO."
+                        + p_index
+                        + ": "
+                        + curPlayer.getName()
+                        + "'s turn");
+
+        System.out.println(
+                "\n" + curPlayer.getName() + " is in square " + curPlayer.getPosition() + ".");
+        while (true) {
+            System.out.println(
+                    "type \"save\" for saving the game, \"quit\" to exit to main menu, \"run\" to"
+                            + " continue the game.");
+            var in = Main.getScanner();
+            String s = in.next();
+            try {
+                switch (s.charAt(0)) {
+                    case 's':
+                        System.out.println("Please enter the name of the game you want to save: ");
+                        String boardName = in.next();
+                        board.save(boardName);
+                        continue;
+                    case 'q':
+                        System.out.println("Quit the game");
+                        Main.setUI(new StartMenu());
+                        return;
+                    case 'r':
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid input");
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         movement(curPlayer);
 
         if (checkBankrupt(curPlayer)) {
             retire(curPlayer);
+            System.out.printf(
+                    "All properties of player %s has been removed from the game.\n",
+                    curPlayer.getName());
             numPlayerLeft -= 1;
         }
 
@@ -92,9 +135,9 @@ public class Game implements IBase {
      * @param p_index active player index
      * @return updated index
      */
-    private static int updateP_index(int p_index) {
+    private int updateP_index(int p_index) {
         p_index += 1;
-        p_index /= players.length;
+        p_index %= players.length;
         board.setP_index(p_index);
 
         if (p_index == 0) board.setRound(board.getRound() + 1);
@@ -106,7 +149,7 @@ public class Game implements IBase {
      *
      * @param player player to move
      */
-    private static void movement(Player player) {
+    private void movement(Player player) {
         if (!player.isInJail()) {
             int[] diceResult = player.rollDice();
             player.move(diceResult[0] + diceResult[1]);
@@ -131,7 +174,6 @@ public class Game implements IBase {
      * @return ture if player is bankrupt; false if not
      */
     private static boolean checkBankrupt(Player player) {
-        player.bankrupt();
         return player.isBankrupted();
     }
 
@@ -147,8 +189,8 @@ public class Game implements IBase {
     }
 
     /** Print the game (call Printer) */
-    private static void printGame() {
-        Printer.printAll();
+    private void printGame() {
+        printer.printAll();
     }
 
     /**
@@ -156,12 +198,13 @@ public class Game implements IBase {
      *
      * @return true if game should end; false if game should not end
      */
-    private static boolean isGameEnd() {
+    private boolean isGameEnd() {
         return numPlayerLeft <= 1 || board.getRound() >= 100;
     }
 
     /** End the game */
-    private static void endGame() {
+    private void endGame() {
+
         Main.setUI(new EndGame(board));
     }
 }

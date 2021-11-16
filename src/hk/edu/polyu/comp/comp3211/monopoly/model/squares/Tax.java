@@ -18,6 +18,7 @@ public class Tax implements ISquare {
     @Override
     public void execute(Player player) {
         int tax = player.getMoney() / 100 * 10;
+        System.out.println("Player" + player.getName() + " arrives at Income-Tax square");
         player.addMoney(-tax);
         System.out.println("You have paid HKD " + tax + " as tax");
     }

@@ -78,6 +78,8 @@ public class StartMenu implements IBase {
 
         if (name != null) {
             Main.setUI(new Game(name));
+        } else {
+            throw new IllegalArgumentException("No game has been stored");
         }
     }
 
@@ -94,7 +96,7 @@ public class StartMenu implements IBase {
             return null;
         } else if (savedGameName.length == 1) return savedGameName[0];
 
-        System.out.println("\nPrevious Game Selection");
+        System.out.println("\nSelect the game save file:");
         for (int i = 0; i < savedGameName.length; i++) {
             System.out.println((i + 1) + ". " + savedGameName[i]);
         }
@@ -107,13 +109,16 @@ public class StartMenu implements IBase {
 
                 return savedGameName[index];
             } catch (Exception e) {
-                System.out.println("The index should be 1-" + savedGameName.length);
+                System.out.println(
+                        "The index should be an integer ranged 1-" + savedGameName.length);
+                // prevent infinite loop caused by the last println and in.nextInt()
             }
         }
     }
 
     /** Quit game */
     private static void quitGame() {
+        System.out.println("\nQuit Game");
         System.exit(0);
     }
 }
