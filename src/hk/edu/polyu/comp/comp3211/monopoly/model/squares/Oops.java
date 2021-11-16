@@ -19,6 +19,6 @@ public class Oops implements ISquare {
     public void execute(Player player) {
         player.goToJail();
         System.out.println("Oops! You have to go to Jail");
-//        System.out.println(player.getName() + " goes into Jail");
+        //        System.out.println(player.getName() + " goes into Jail");
     }
 }
