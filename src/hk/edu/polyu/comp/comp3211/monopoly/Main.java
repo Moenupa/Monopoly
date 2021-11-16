@@ -14,12 +14,15 @@ public class Main {
 
     private static IBase curUI; // current UI;
 
-    /** Should be the only scanner used throughout the application */
+    /**
+     * Should be the only scanner used throughout the application
+     */
     private static Scanner in;
 
     public static void main(String[] args) {
         in = new Scanner(System.in);
         setUI(new StartMenu());
+
         while (true) {
             curUI.terminal();
         }

@@ -6,9 +6,13 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import java.util.Scanner;
 
 public class StartMenu implements IBase {
-    /** Error message when detecting invalid option numbers */
+    /**
+     * Error message when detecting invalid option numbers
+     */
     private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
-    /** Scanner for user input */
+    /**
+     * Scanner for user input
+     */
     private static Scanner in;
 
     /**
@@ -25,23 +29,23 @@ public class StartMenu implements IBase {
 
         while (true) {
             System.out.print("Please enter the number: ");
-            int option = in.nextInt();
-            in.nextLine();
+            String input = in.nextLine();
 
             try {
+                int option = Integer.parseInt(input);
                 chooseOption(option);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("The option number should be 1-3");
             } catch (Exception e) {
-                // input 'num' is invalid
-                // System.out.println("");
                 e.printStackTrace();
             }
         }
     }
 
-    /** Initialize start menu */
+    /**
+     * Initialize start menu
+     */
     public StartMenu() {
         in = Main.getScanner();
     }
@@ -67,12 +71,16 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** New game option */
+    /**
+     * New game option
+     */
     private static void startNewGame() {
         Main.setUI(new Game());
     }
 
-    /** Load one of saved game */
+    /**
+     * Load one of saved game
+     */
     private static void loadPreviousGame() throws Exception {
         String name = chooseStoredGame();
 
@@ -116,7 +124,9 @@ public class StartMenu implements IBase {
         }
     }
 
-    /** Quit game */
+    /**
+     * Quit game
+     */
     private static void quitGame() {
         System.out.println("\nQuit Game");
         System.exit(0);
