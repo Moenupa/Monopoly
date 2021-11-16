@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.util.Random;
 
@@ -20,14 +21,18 @@ public class Chance implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        System.out.println("Player " + player.getName() + " landed on Chance Square.");
         int randomInt = new Random().nextInt(51) - 30;
         int m = 10 * randomInt;
         player.addMoney(m);
-        if (m > 0) {
-            System.out.println("You get $" + m + " from Chance.");
+
+        Printer.printPlayerPrompt(player);
+        Printer.printMsg("lands on Chance Square and ");
+        if (m == 0) {
+            Printer.printConfMsg("nothing happens.\n");
+        } else if (m > 0) {
+            Printer.printConfMsg("get $" + m + " from Chance.\n");
         } else {
-            System.out.println("You lose $" + -m + " from Chance.");
+            Printer.printWarnMsg("lose $" + -m + " from Chance.\n");
         }
     }
 }

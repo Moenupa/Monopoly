@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The Free-Parking square of the board */
 public class Free implements ISquare {
@@ -17,6 +18,7 @@ public class Free implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        System.out.println("Player" + player.getName() + " arrived at free parking area.");
+        Printer.printPlayerPrompt(player);
+        Printer.printMsg("arrives at free-parking.\n");
     }
 }

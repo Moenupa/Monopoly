@@ -104,7 +104,7 @@ class BoardTest {
 
         for (int i = 0; i < 12; i++) {
             Property cur = (Property) squares[PROPERTY_INDEX[i] - 1];
-            assertEquals(cur.getName(), PROPERTY_NAMES[i], "PROPERTY NAME NOT EQUAL");
+            assertEquals(cur.getName(), PROPERTY_NAMES[i].toUpperCase(), "PROPERTY NAME NOT EQUAL");
             assertEquals(cur.getPrice(), PROPERTY_SELL[i], "PROPERTY SELL PRICE NOT EQUAL");
             assertEquals(cur.getRent(), PROPERTY_RENT[i], "PROPERTY RENT PRICE NOT EQUAL");
         }

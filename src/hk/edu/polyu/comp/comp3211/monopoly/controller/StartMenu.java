@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.controller;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.util.Scanner;
 
@@ -18,25 +19,34 @@ public class StartMenu implements IBase {
      */
     @Override
     public void terminal() {
-        System.out.println("\nStart Menu");
-        System.out.println("1. New Game");
-        System.out.println("2. Continue");
-        System.out.println("3. Quit");
-
+        Printer.printHelpMsg("\nStart Menu\n1. New Game\n2. Continue\n3. Quit\n");
+        String option;
+        // intended infinite loop
         while (true) {
-            System.out.print("Please enter the number: ");
-            int option = in.nextInt();
-            in.nextLine();
+            // ensure inputs to be valid
+            do  {
+                Printer.printHelpMsg("Please enter option index: ");
+                option = in.nextLine();
+            } while (!option.matches("^[1-3]$"));
 
+            // then get choose an option
             try {
-                chooseOption(option);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The option number should be 1-3");
+                // if no err return directly otherwise loop back and ask for user option
+                switch (Integer.parseInt(option)) {
+                    case 1:
+                        startNewGame();
+                        return;
+                    case 2:
+                        loadPreviousGame();
+                        return;
+                    case 3:
+                        quitGame();
+                        return;
+                }
             } catch (Exception e) {
+                // any error will cause it loop back to ask for option
                 // input 'num' is invalid
-                // System.out.println("");
-                e.printStackTrace();
+                Printer.printWarnMsg(e.getMessage());
             }
         }
     }
@@ -44,27 +54,6 @@ public class StartMenu implements IBase {
     /** Initialize start menu */
     public StartMenu() {
         in = Main.getScanner();
-    }
-
-    /**
-     * Choose one option to play
-     *
-     * @param num option number
-     */
-    private static void chooseOption(int num) throws Exception {
-        switch (num) {
-            case 1:
-                startNewGame();
-                break;
-            case 2:
-                loadPreviousGame();
-                break;
-            case 3:
-                quitGame();
-                break;
-            default:
-                throw new IllegalArgumentException(ERR_INVALID_NUM_OF_Menu);
-        }
     }
 
     /** New game option */
