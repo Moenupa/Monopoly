@@ -105,7 +105,7 @@ public class Game implements IBase {
         while (true) {
             Printer.printHelpMsg(
                     "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu,"
-                        + " \"r(un)\" to continue the game.\n");
+                            + " \"r(un)\" to continue the game.\n");
             var in = Main.getScanner();
             String s = in.nextLine();
             try {
