@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.model;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -10,7 +11,7 @@ import java.util.Random;
 public class Player implements Serializable {
     /** Notice to player when completed a full round (cross 20th and 1st) */
     private static final String COMPLETE_ROUND_NOTICE =
-            "has completed one round of the board and gets salary.";
+            "has completed one round of the board and gets a salary of $1500.";
     /** The Jail Square's index on board */
     private static final int JAIL_INDEX = 5;
     /** The Jail default cool-down time (in num of rounds) */
@@ -36,8 +37,13 @@ public class Player implements Serializable {
     /** initialize a player and scan input from user */
     public Player() {
         if (Main.TEST) return;
-        System.out.println("Please input player name: ");
-        name = Main.getScanner().nextLine();
+        name =
+                Printer.scanValidInput(
+                        () -> {
+                            Printer.printHelpMsg("Please input player name: ");
+                        },
+                        "Should be a non-empty string.",
+                        "^(?!\\s*$).+");
     }
 
     /**
@@ -127,7 +133,8 @@ public class Player implements Serializable {
         if (this.position >= 20) {
             this.position %= 20;
             this.addMoney(SALARY);
-            System.out.println("Player " + name + " " + COMPLETE_ROUND_NOTICE);
+            Printer.printPlayerPrompt(this);
+            Printer.printMsg(COMPLETE_ROUND_NOTICE);
         }
     }
 
@@ -149,7 +156,8 @@ public class Player implements Serializable {
     /** Judge whether the player is bankrupted or not and store */
     public void bankrupt() {
         bankrupted = true;
-        System.out.println("Player " + name + " is bankrupted.");
+        Printer.printPlayerPrompt(this);
+        Printer.printWarnMsg("is bankrupted and retired from the game.\n");
     }
 
     /**
@@ -187,7 +195,6 @@ public class Player implements Serializable {
     public int rollDice() {
         var rand = new Random();
         int n = rand.nextInt(4) + 1;
-        System.out.println("Player " + name + " rolled " + n);
         return n;
     }
 }

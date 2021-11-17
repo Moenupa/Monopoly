@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The Go-to-Jail square of the board */
 public class Oops implements ISquare {
@@ -18,6 +19,7 @@ public class Oops implements ISquare {
     @Override
     public void execute(Player player) {
         player.goToJail();
-        System.out.println(player.getName() + " goes into Jail");
+        Printer.printPlayerPrompt(player);
+        Printer.printWarnMsg("goes to jail.\n");
     }
 }

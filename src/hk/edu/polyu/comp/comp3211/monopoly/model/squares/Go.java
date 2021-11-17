@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The Go square of the board */
 public class Go implements ISquare {
@@ -20,6 +21,7 @@ public class Go implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        System.out.println("Player" + player.getName() + " arrived at Go.");
+        Printer.printPlayerPrompt(player);
+        Printer.printMsg("passes through Go square again.\n");
     }
 }

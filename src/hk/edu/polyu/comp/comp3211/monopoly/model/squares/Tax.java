@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The Income-Tax square of the board */
 public class Tax implements ISquare {
@@ -17,10 +18,11 @@ public class Tax implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        System.out.println("Player" + player.getName() + " arrives at Income-Tax square");
         int tax = player.getMoney() / 10;
         tax = (tax / 10) * 10;
         player.addMoney(-tax);
-        System.out.println("Income-Tax: " + tax + " HKD");
+
+        Printer.printPlayerPrompt(player);
+        Printer.printWarnMsg("arrives at tax square and pays a tax of " + tax + ".\n");
     }
 }

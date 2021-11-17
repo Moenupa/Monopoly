@@ -30,25 +30,29 @@ public class Game implements IBase {
     }
 
     /** Initialize game controller */
-    public Game() {
-        int num;
+    public Game() throws InterruptedException {
+        String option;
         var in = Main.getScanner();
 
         while (true) {
-            System.out.print("Please enter the number of players: ");
-            num = in.nextInt();
-            in.nextLine();
+            // ensure inputs to be valid
+            option =
+                    Printer.scanValidInputWithQuit(
+                            () -> {
+                                Printer.printHelpMsg("Please enter the number of players: ");
+                            },
+                            "Should be an integer.",
+                            "^\\d+$");
 
+            // then get choose an option
             try {
-                board = new Board(num);
+                board = new Board(Integer.parseInt(option));
                 players = board.getPlayers();
                 squares = board.getSquares();
                 numPlayerLeft = players.length;
                 break;
-            } catch (IllegalArgumentException e) {
-                // input 'num' is invalid
-                System.out.println("This game only support 2-6 players");
-                // e.printStackTrace();
+            } catch (Exception e) {
+                Printer.printWarnMsg(e.getMessage());
             }
         }
         printer = new Printer(board);
@@ -77,32 +81,42 @@ public class Game implements IBase {
             p_index = updateP_index(p_index);
             curPlayer = players[p_index];
         }
-        System.out.println(
+        Printer.printMsg(
                 "\nRound "
-                        + board.getRound()
+                        + (board.getRound() + 1)
                         + ", Player NO."
-                        + p_index
+                        + (p_index + 1)
                         + ": "
                         + curPlayer.getName()
-                        + "'s turn");
+                        + "'s turn.\n");
 
-        System.out.println(
-                "\n" + curPlayer.getName() + " is in square " + curPlayer.getPosition() + ".");
+        ISquare curSquare = board.getSquares()[curPlayer.getPosition()];
+        String curSquareStr =
+                (curSquare.getClass() == Property.class)
+                        ? "Property " + ((Property) curSquare).getName()
+                        : curSquare.getClass().getSimpleName();
+        Printer.printMsg(
+                curPlayer.getName()
+                        + " is in square "
+                        + curPlayer.getPosition()
+                        + ": "
+                        + curSquareStr
+                        + ".\n");
         while (true) {
-            System.out.println(
-                    "type \"save\" for saving the game, \"quit\" to exit to main menu, \"run\" to"
-                            + " continue the game.");
+            Printer.printHelpMsg(
+                    "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu,"
+                            + " \"r(un)\" to continue the game.\n");
             var in = Main.getScanner();
-            String s = in.next();
+            String s = in.nextLine();
             try {
                 switch (s.charAt(0)) {
                     case 's':
-                        System.out.println("Please enter the name of the game you want to save: ");
-                        String boardName = in.next();
+                        Printer.printHelpMsg("Input name of the game save: ");
+                        String boardName = in.nextLine();
                         board.save(boardName);
                         continue;
                     case 'q':
-                        System.out.println("Quit the game");
+                        Printer.printMsg("Quiting the game...\n");
                         Main.setUI(new StartMenu());
                         return;
                     case 'r':
@@ -111,8 +125,10 @@ public class Game implements IBase {
                         throw new IllegalArgumentException("Invalid input");
                 }
                 break;
+            } catch (IndexOutOfBoundsException e) {
+                Printer.printInfoMsg("err: index out of range");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                Printer.printWarnMsg(e.getMessage());
             }
         }
 
@@ -151,9 +167,14 @@ public class Game implements IBase {
      */
     private void movement(Player player) {
         if (player.getInJail() == 0) {
-            int die1 = player.rollDice();
-            int die2 = player.rollDice();
-            player.move(die1 + die2);
+            int die1, die2, die_sum;
+            die1 = player.rollDice();
+            die2 = player.rollDice();
+
+            die_sum = die1 + die2;
+            player.move(die_sum);
+            Printer.printPlayerPrompt(player);
+            Printer.printMsg("roll the dice and advances by " + die_sum + ".\n");
         }
 
         takeEffect(player);

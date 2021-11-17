@@ -2,8 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
-
-import java.util.Random;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The Property squares of the board */
 public class Property implements ISquare {
@@ -38,25 +37,34 @@ public class Property implements ISquare {
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void execute(Player player) {
-        var rng = new Random();
         boolean test = Main.TEST;
-        System.out.println("\n" + player.getName() + " is visiting " + name + ".");
+        Printer.printPlayerPrompt(player);
+        Printer.printMsg("is visiting " + name + ".\n");
         if (this.owner == null) {
             boolean buy = false;
 
             if (test) buy = testBuy;
             else {
-                System.out.println("Do you want to buy " + name + " for $" + price + "? (y/n)");
-                String option = Main.getScanner().nextLine();
-                while (!option.matches(CONFIRM_PATTERN)) {
-                    System.out.println("Please enter y or n");
-                    option = Main.getScanner().nextLine();
-                }
-                if (option.matches(CONFIRM_YES_PATTERN)) buy = true;
+                String option =
+                        Printer.scanValidInput(
+                                () -> {
+                                    Printer.printPlayerPrompt(player);
+                                    Printer.printHelpMsg(
+                                            "Do you want to buy "
+                                                    + name
+                                                    + " for $"
+                                                    + price
+                                                    + "? (y/n) ");
+                                },
+                                "Should be [y] or [n].",
+                                CONFIRM_PATTERN);
+
+                buy = option.matches(CONFIRM_YES_PATTERN);
             }
 
             if (buy) {
-                System.out.println("You bought " + name + " for $" + price);
+                Printer.printPlayerPrompt(player);
+                Printer.printMsg("bought " + name + " for $" + price + ".\n");
                 this.owner = player;
                 player.addMoney(-this.price);
                 var p = player.getProperties();
@@ -67,11 +75,9 @@ public class Property implements ISquare {
             }
 
         } else if (this.owner != player) {
-            System.out.println(
-                    "You pay rent to the owner of the building "
-                            + this.owner.getName()
-                            + " : "
-                            + this.rent);
+            Printer.printPlayerPrompt(player);
+            Printer.printMsg(
+                    "pays rent to the owner " + this.owner.getName() + " for $" + rent + ".\n");
             player.addMoney(-this.rent);
             this.owner.addMoney(this.rent);
         }

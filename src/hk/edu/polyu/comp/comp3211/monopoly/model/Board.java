@@ -2,6 +2,7 @@ package hk.edu.polyu.comp.comp3211.monopoly.model;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
+import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.io.*;
 
@@ -20,7 +21,7 @@ public class Board implements Serializable {
     private static final String GAME_SAVE_DIR = "./out/saves/";
     /** Error message when detecting invalid player numbers */
     private static final String ERR_INVALID_NUM_OF_PLAYERS =
-            "the board should contain only 2-6 players";
+            "The board should contain exactly 2-6 players\n";
 
     // constants, storing all property values
     /** the position of the square (numbered from 1-20) */
@@ -49,7 +50,7 @@ public class Board implements Serializable {
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-            if (!Main.TEST) System.out.printf("Player %d: ", i);
+            if (!Main.TEST) Printer.printMsg("Player " + (i + 1) + ": ");
             this.players[i] = new Player();
         }
         // then initialize the squares on the board
@@ -240,7 +241,8 @@ public class Board implements Serializable {
         // initialize every property
         for (int i = 0; i < 12; i++) {
             squares[PROPERTY_INDEX[i] - 1] =
-                    new Property(PROPERTY_NAMES[i], PROPERTY_SELL[i], PROPERTY_RENT[i]);
+                    new Property(
+                            PROPERTY_NAMES[i].toUpperCase(), PROPERTY_SELL[i], PROPERTY_RENT[i]);
         }
 
         // the 4th square is tax
