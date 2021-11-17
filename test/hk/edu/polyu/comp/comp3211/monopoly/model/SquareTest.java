@@ -29,7 +29,7 @@ class SquareTest {
 
         this.player2 = new Player("player2");
         player2.setPosition(3);
-        player2.setInJail(1);
+        player2.setInJail(3);
 
         this.chance = new Chance();
         this.go = new Go();
