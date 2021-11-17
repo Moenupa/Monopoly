@@ -122,8 +122,7 @@ public class Printer {
      * @return scanned valid input
      * @throws InterruptedException if user interrupt the input
      */
-    public static String scanValidInputWithQuit(
-            Runnable prompt, String fallback_msg, String regex)
+    public static String scanValidInputWithQuit(Runnable prompt, String fallback_msg, String regex)
             throws InterruptedException {
         String input;
         do {
@@ -146,8 +145,7 @@ public class Printer {
      * @param regex regex of valid prompt
      * @return scanned valid input
      */
-    public static String scanValidInput(
-            Runnable prompt, String fallback_msg, String regex) {
+    public static String scanValidInput(Runnable prompt, String fallback_msg, String regex) {
         String input;
         do {
             prompt.run();
