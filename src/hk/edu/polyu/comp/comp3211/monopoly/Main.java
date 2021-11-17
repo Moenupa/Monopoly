@@ -20,6 +20,7 @@ public class Main {
     public static void main(String[] args) {
         in = new Scanner(System.in);
         setUI(new StartMenu());
+
         while (true) {
             curUI.terminal();
         }
