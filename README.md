@@ -32,7 +32,7 @@ COMP3211 Software Engineering Course Project
 
 ### Get Base and Scanner
 
-- Base (UI): Game State
+- Base (curUI): Game State
   - Start Menu
   - Game
   - End Game
