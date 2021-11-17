@@ -3,9 +3,6 @@ package hk.edu.polyu.comp.comp3211.monopoly.view;
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.*;
 
-import org.intellij.lang.annotations.Language;
-import org.jetbrains.annotations.NotNull;
-
 public class Printer {
     /** current game board */
     private final Board board;
@@ -126,7 +123,7 @@ public class Printer {
      * @throws InterruptedException if user interrupt the input
      */
     public static String scanValidInputWithQuit(
-            Runnable prompt, String fallback_msg, @Language("RegExp") @NotNull String regex)
+            Runnable prompt, String fallback_msg, String regex)
             throws InterruptedException {
         String input;
         do {
@@ -150,7 +147,7 @@ public class Printer {
      * @return scanned valid input
      */
     public static String scanValidInput(
-            Runnable prompt, String fallback_msg, @Language("RegExp") @NotNull String regex) {
+            Runnable prompt, String fallback_msg, String regex) {
         String input;
         do {
             prompt.run();
