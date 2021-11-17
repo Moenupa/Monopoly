@@ -39,11 +39,10 @@ public class StartMenu implements IBase {
      */
     @Override
     public void terminal() {
-        printStartMenu();
-
         String option;
         // intended infinite loop
         while (true) {
+            printStartMenu();
             // ensure inputs to be valid
             option =
                     Printer.scanValidInput(
@@ -84,7 +83,7 @@ public class StartMenu implements IBase {
             Main.setUI(new Game());
         } catch (InterruptedException e) {
             // game init is interrupted by user option
-            Printer.printMsg(e.getMessage());
+            Printer.printWarnMsg(e.getMessage());
             Main.setUI(new StartMenu());
         }
     }
@@ -110,20 +109,20 @@ public class StartMenu implements IBase {
         String[] savedGameName = Board.getSavedGameName();
 
         if (savedGameName.length < 1) {
-            System.out.println("No game has been stored");
+            Printer.printMsg("No game save available\n");
             return null;
         } else if (savedGameName.length == 1) return savedGameName[0];
 
-        System.out.println("\nSelect the game save file:");
+        Printer.printMsg("Select the game save file from the following:\n");
         for (int i = 0; i < savedGameName.length; i++) {
-            System.out.println((i + 1) + ". " + savedGameName[i]);
+            Printer.printHelpMsg("\t" + (i + 1) + ". " + savedGameName[i] + "\n");
         }
 
         while (true) {
             String option =
                     Printer.scanValidInputWithQuit(
                             () -> {
-                                System.out.print("Choose the index of game-save (integer): ");
+                                Printer.printHelpMsg("Choose the index of game-save (integer): ");
                             },
                             "Should be an integer.",
                             "^\\d+$");
@@ -141,7 +140,10 @@ public class StartMenu implements IBase {
 
     /** Quit game */
     private static void quitGame() {
-        System.out.println("\nQuit Game");
+        Printer.printMsg("Exiting Monopoly Program..\n");
+        for (int i = 0; i < ASCII_MONOPOLY.length; i++) {
+            Printer.printHelpMsg(ASCII_MONOPOLY[i]);
+        }
         System.exit(0);
     }
 
@@ -151,9 +153,9 @@ public class StartMenu implements IBase {
         for (int i = 0; i < ASCII_MONOPOLY.length; i++) {
 
             if (offset <= i && i < START_MENU.length + offset)
-                Printer.printHelpMsg("\t" + START_MENU[i - offset]);
+                Printer.printMsg("\t" + START_MENU[i - offset]);
             else Printer.printMsg("\t" + " ".repeat(START_MENU[0].length()));
-            Printer.printMsg("\t" + ASCII_MONOPOLY[i]);
+            Printer.printHelpMsg("\t" + ASCII_MONOPOLY[i]);
             Printer.printMsg("\n");
         }
     }

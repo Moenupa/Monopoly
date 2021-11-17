@@ -41,7 +41,7 @@ public class Property implements ISquare {
         Printer.printPlayerPrompt(player);
         Printer.printMsg("is visiting " + name + ".\n");
         if (this.owner == null) {
-            boolean buy = false;
+            boolean buy;
 
             if (test) buy = testBuy;
             else {

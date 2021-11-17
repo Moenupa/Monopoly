@@ -21,8 +21,8 @@ public class EndGame implements IBase {
             Printer.printWarnMsg("No winner...\n");
         }
         Printer.printHelpMsg("type anything to go back to Start menu.\n");
-        var in = Main.getScanner();
-        in.nextLine();
+        // intended no return
+        Main.getScanner().nextLine();
         Main.setUI(new StartMenu());
     }
 

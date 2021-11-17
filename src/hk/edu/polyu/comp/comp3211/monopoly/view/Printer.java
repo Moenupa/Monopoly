@@ -18,6 +18,7 @@ public class Printer {
     public static final String ANSI_RESET = "\u001b[0m";
 
     private static final String QUIT_REGEX = "^[qQ](uit)?$";
+    public static final String NON_EMPTY_REGEX = "^(?!\\s*$).+";
 
     /**
      * Initialize the printer

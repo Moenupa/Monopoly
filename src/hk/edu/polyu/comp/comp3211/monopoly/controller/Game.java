@@ -32,15 +32,12 @@ public class Game implements IBase {
     /** Initialize game controller */
     public Game() throws InterruptedException {
         String option;
-        var in = Main.getScanner();
 
         while (true) {
             // ensure inputs to be valid
             option =
                     Printer.scanValidInputWithQuit(
-                            () -> {
-                                Printer.printHelpMsg("Please enter the number of players: ");
-                            },
+                            () -> Printer.printHelpMsg("Please enter the number of players: "),
                             "Should be an integer.",
                             "^\\d+$");
 
@@ -84,7 +81,7 @@ public class Game implements IBase {
         Printer.printMsg(
                 "\nRound "
                         + (board.getRound() + 1)
-                        + ", Player NO."
+                        + ", Player No."
                         + (p_index + 1)
                         + ": "
                         + curPlayer.getName()
@@ -95,50 +92,54 @@ public class Game implements IBase {
                 (curSquare.getClass() == Property.class)
                         ? "Property " + ((Property) curSquare).getName()
                         : curSquare.getClass().getSimpleName();
-        Printer.printMsg(
-                curPlayer.getName()
-                        + " is in square "
-                        + curPlayer.getPosition()
-                        + ": "
-                        + curSquareStr
-                        + ".\n");
+        Printer.printPlayerPrompt(curPlayer);
+        Printer.printMsg("is now in square " + curPlayer.getPosition() + ": " + curSquareStr + ".\n");
         while (true) {
-            Printer.printHelpMsg(
-                    "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu,"
-                            + " \"r(un)\" to continue the game.\n");
-            var in = Main.getScanner();
-            String s = in.nextLine();
+            String option;
             try {
-                switch (s.charAt(0)) {
-                    case 's':
-                        Printer.printHelpMsg("Input name of the game save: ");
-                        String boardName = in.nextLine();
-                        board.save(boardName);
-                        continue;
-                    case 'q':
-                        Printer.printMsg("Quiting the game...\n");
-                        Main.setUI(new StartMenu());
-                        return;
-                    case 'r':
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Invalid input");
-                }
-                break;
-            } catch (IndexOutOfBoundsException e) {
-                Printer.printInfoMsg("err: index out of range");
-            } catch (Exception e) {
-                Printer.printWarnMsg(e.getMessage());
+                option = Printer.scanValidInputWithQuit(
+                        () -> Printer.printHelpMsg(
+                                "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu,"
+                                        + " \"r(un)\" to continue the game.\n"),
+                        "Should be any of \"s(ave)\", \"q(uit)\" or \"r(un)\".",
+                        "^([sS](ave)?|[qQ](uit)?|[rR](un)?)$"
+                );
+            } catch (InterruptedException e) {
+                // interrupt by user option
+                Printer.printMsg("Quiting the current game...\n");
+                Main.setUI(new StartMenu());
+                return;
             }
+
+
+            switch (option.charAt(0)) {
+                case 's':
+                    String boardName = Printer.scanValidInput(
+                            () -> Printer.printHelpMsg("Input name of the game save: "),
+                            "Should be a non-empty string.",
+                            Printer.NON_EMPTY_REGEX
+                    );
+                    try {
+                        board.save(boardName);
+                    } catch (IllegalArgumentException e) {
+                        Printer.printWarnMsg(e.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    continue;
+                case 'r':
+                    break;
+            }
+            break;
         }
 
         movement(curPlayer);
 
         if (checkBankrupt(curPlayer)) {
             retire(curPlayer);
-            System.out.printf(
-                    "All properties of player %s has been removed from the game.\n",
-                    curPlayer.getName());
+            Printer.printPlayerPrompt(curPlayer);
+            Printer.printMsg("loses all properties\n");
             numPlayerLeft -= 1;
         }
 
