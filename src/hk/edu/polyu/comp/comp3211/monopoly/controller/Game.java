@@ -93,17 +93,20 @@ public class Game implements IBase {
                         ? "Property " + ((Property) curSquare).getName()
                         : curSquare.getClass().getSimpleName();
         Printer.printPlayerPrompt(curPlayer);
-        Printer.printMsg("is now in square " + curPlayer.getPosition() + ": " + curSquareStr + ".\n");
+        Printer.printMsg(
+                "is now in square " + curPlayer.getPosition() + ": " + curSquareStr + ".\n");
         while (true) {
             String option;
             try {
-                option = Printer.scanValidInputWithQuit(
-                        () -> Printer.printHelpMsg(
-                                "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu,"
-                                        + " \"r(un)\" to continue the game.\n"),
-                        "Should be any of \"s(ave)\", \"q(uit)\" or \"r(un)\".",
-                        "^([sS](ave)?|[qQ](uit)?|[rR](un)?)$"
-                );
+                option =
+                        Printer.scanValidInputWithQuit(
+                                () ->
+                                        Printer.printHelpMsg(
+                                                "type \"s(ave)\" for saving the game, \"q(uit)\" to"
+                                                    + " exit to main menu, \"r(un)\" to continue"
+                                                    + " the game.\n"),
+                                "Should be any of \"s(ave)\", \"q(uit)\" or \"r(un)\".",
+                                "^([sS](ave)?|[qQ](uit)?|[rR](un)?)$");
             } catch (InterruptedException e) {
                 // interrupt by user option
                 Printer.printMsg("Quiting the current game...\n");
@@ -111,14 +114,13 @@ public class Game implements IBase {
                 return;
             }
 
-
             switch (option.charAt(0)) {
                 case 's':
-                    String boardName = Printer.scanValidInput(
-                            () -> Printer.printHelpMsg("Input name of the game save: "),
-                            "Should be a non-empty string.",
-                            Printer.NON_EMPTY_REGEX
-                    );
+                    String boardName =
+                            Printer.scanValidInput(
+                                    () -> Printer.printHelpMsg("Input name of the game save: "),
+                                    "Should be a non-empty string.",
+                                    Printer.NON_EMPTY_REGEX);
                     try {
                         board.save(boardName);
                     } catch (IllegalArgumentException e) {
