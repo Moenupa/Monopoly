@@ -17,6 +17,8 @@ public class Printer {
     public static final String ANSI_WHITE = "\u001b[37m";
     public static final String ANSI_RESET = "\u001b[0m";
 
+    private static final String QUIT_REGEX = "^[qQ](uit)?$";
+
     /**
      * Initialize the printer
      *
@@ -40,7 +42,7 @@ public class Printer {
     /** Only print the game info */
     private void printInfo() {
         board.getPlayers();
-        Printer.printInfoMsg("\tCurrent Wealth:\n");
+        Printer.printInfoMsg("\n\tCurrent Wealth:\n");
         for (var player : board.getPlayers()) {
             Printer.printInfoMsg("\t" + player.getName() + ": $" + player.getMoney() + ".\n");
         }
@@ -58,7 +60,7 @@ public class Printer {
     }
 
     /**
-     * Print message for help (ANSI_YELLOW by default) without any line-breaks
+     * Print message for help (<code>ANSI_YELLOW</code> by default) without any line-breaks
      *
      * @param msg message to display
      */
@@ -67,7 +69,7 @@ public class Printer {
     }
 
     /**
-     * Print message for warning (ANSI_RED by default) without any line-breaks
+     * Print message for warning (<code>ANSI_RED</code> by default) without any line-breaks
      *
      * @param msg message to display
      */
@@ -76,7 +78,7 @@ public class Printer {
     }
 
     /**
-     * Print message for information (ANSI_BLUE by default) without any line-breaks
+     * Print message for information (<code>ANSI_BLUE</code> by default) without any line-breaks
      *
      * @param msg message to display
      */
@@ -85,7 +87,7 @@ public class Printer {
     }
 
     /**
-     * Print message for confirmation (ANSI_GREEN by default) without any line-breaks
+     * Print message for confirmation (<code>ANSI_GREEN</code> by default) without any line-breaks
      *
      * @param msg message to display
      */
@@ -94,7 +96,7 @@ public class Printer {
     }
 
     /**
-     * Print message for general purposes (ANSI_RESET by default)
+     * Print message for general purposes (<code>ANSI_RESET</code> by default)
      *
      * @param msg message to display
      */
@@ -111,9 +113,49 @@ public class Printer {
         printInfoMsg("Player " + player.getName() + ": ");
     }
 
-    public static String scanInput() {
-        var in = Main.getScanner();
-        String input = in.nextLine();
-        return input;
+    /**
+     * Scan an input until it is valid or interrupted by user
+     *
+     * @param prompt prompt method (lambda)
+     * @param fallback_msg msg display to after invalid input
+     * @param regex regex of valid prompt
+     * @return scanned valid input
+     * @throws InterruptedException if user interrupt the input
+     */
+    public static String scanValidInputWithQuit(Runnable prompt, String fallback_msg, String regex) throws InterruptedException {
+        String input;
+        do {
+            prompt.run();
+            input = Main.getScanner().nextLine();
+
+            // user type quit, interrupt the process
+            if (input.matches(QUIT_REGEX))
+                throw new InterruptedException("Interrupted by user.\n");
+            if (input.matches(regex))
+                return input;
+
+            Printer.printWarnMsg("INVALID INPUT! " + fallback_msg + "\n");
+        } while (true);
+    }
+
+    /**
+     * Scan an input until it is valid
+     *
+     * @param prompt prompt method (lambda)
+     * @param fallback_msg msg display to after invalid input
+     * @param regex regex of valid prompt
+     * @return scanned valid input
+     */
+    public static String scanValidInput(Runnable prompt, String fallback_msg, String regex) {
+        String input;
+        do {
+            prompt.run();
+            input = Main.getScanner().nextLine();
+
+            if (input.matches(regex))
+                return input;
+
+            Printer.printWarnMsg("INVALID INPUT! " + fallback_msg + "\n");
+        } while (true);
     }
 }

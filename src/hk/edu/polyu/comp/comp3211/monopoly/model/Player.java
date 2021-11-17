@@ -37,8 +37,10 @@ public class Player implements Serializable {
     /** initialize a player and scan input from user */
     public Player() {
         if (Main.TEST) return;
-        Printer.printHelpMsg("Please input player name: ");
-        name = Main.getScanner().nextLine();
+        name = Printer.scanValidInput(
+                () -> { Printer.printHelpMsg("Please input player name: "); },
+                "Should be a non-empty string.",
+                "^(?!\\s*$).+");
     }
 
     /**

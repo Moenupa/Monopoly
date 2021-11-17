@@ -30,21 +30,19 @@ public class Game implements IBase {
     }
 
     /** Initialize game controller */
-    public Game() {
+    public Game() throws InterruptedException {
         String option;
         var in = Main.getScanner();
 
         while (true) {
             // ensure inputs to be valid
-            do {
-                Printer.printHelpMsg("Please enter the number of players: ");
-                option = in.nextLine();
-            } while (!option.matches("^(\\d+|(q(uit)?))$"));
-
-            // user choose to quit
-            // TODO: should throw an exception
-            // if (option.matches("^(q(uit)?)$"))
-            //     return;
+            option = Printer.scanValidInputWithQuit(
+                    () -> {
+                        Printer.printHelpMsg("Please enter the number of players: ");
+                    },
+                    "Should be an integer.",
+                    "^\\d+$"
+            );
 
             // then get choose an option
             try {
@@ -106,7 +104,7 @@ public class Game implements IBase {
                         + ".\n");
         while (true) {
             Printer.printHelpMsg(
-                    "type \"save\" for saving the game, \"quit\" to exit to main menu, \"run\" to"
+                    "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu, \"r(un)\" to"
                             + " continue the game.\n");
             var in = Main.getScanner();
             String s = in.nextLine();
@@ -127,8 +125,10 @@ public class Game implements IBase {
                         throw new IllegalArgumentException("Invalid input");
                 }
                 break;
+            } catch (IndexOutOfBoundsException e) {
+                Printer.printInfoMsg("err: index out of range");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                Printer.printWarnMsg(e.getMessage());
             }
         }
 

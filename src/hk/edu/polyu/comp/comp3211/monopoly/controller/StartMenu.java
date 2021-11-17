@@ -4,13 +4,33 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
-import java.util.Scanner;
-
 public class StartMenu implements IBase {
-    /** Error message when detecting invalid option numbers */
-    private static final String ERR_INVALID_NUM_OF_Menu = "the option should only be 1-3 number";
     /** Scanner for user input */
-    private static Scanner in;
+    private static final String[] ASCII_MONOPOLY = {
+            "$$\\      $$\\                                                   $$\\           ",
+            "$$$\\    $$$ |                                                  $$ |          ",
+            "$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$\\  $$ |$$\\   $$\\ ",
+            "$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |$$ |  $$ |",
+            "$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |$$ |$$ |  $$ |",
+            "$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |",
+            "$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$  |$$$$$$$  |\\$$$$$$  |$$ |\\$$$$$$$ |",
+            "\\__|     \\__| \\______/ \\__|  \\__| \\______/ $$  ____/  \\______/ \\__| \\____$$ |",
+            "                                           $$ |                    $$\\   $$ |",
+            "                                           $$ |                    \\$$$$$$  |",
+            "                                           \\__|                     \\______/ "
+    };
+    private static final String[] START_MENU = {
+            "╔═══════════════════╗",
+            "║     Start Menu    ║",
+            "╟─────┬─────────────╢",
+            "║ NUM │  ACTION     ║",
+            "╟─────┼─────────────╢",
+            "║  1  │  New Game   ║",
+            "║  2  │  Load Game  ║",
+            "║  3  │  Quit       ║",
+            "╚═════╧═════════════╝"
+    };
+
 
     /**
      * Welcome the user. If there exists a save file in the directory, prompt to the user of the
@@ -19,15 +39,19 @@ public class StartMenu implements IBase {
      */
     @Override
     public void terminal() {
-        Printer.printHelpMsg("\nStart Menu\n1. New Game\n2. Continue\n3. Quit\n");
+        printStartMenu();
+
         String option;
         // intended infinite loop
         while (true) {
             // ensure inputs to be valid
-            do {
-                Printer.printHelpMsg("Please enter option index: ");
-                option = in.nextLine();
-            } while (!option.matches("^[1-3]$"));
+            option = Printer.scanValidInput(
+                    () -> {
+                        Printer.printHelpMsg("Please enter option index (1-3): ");
+                    },
+                    "Should be an integer.",
+                    "^[1-3]$"
+            );
 
             // then get choose an option
             try {
@@ -52,13 +76,17 @@ public class StartMenu implements IBase {
     }
 
     /** Initialize start menu */
-    public StartMenu() {
-        in = Main.getScanner();
-    }
+    public StartMenu() {}
 
     /** New game option */
     private static void startNewGame() {
-        Main.setUI(new Game());
+        try {
+            Main.setUI(new Game());
+        } catch (InterruptedException e) {
+            // game init is interrupted by user option
+            Printer.printMsg(e.getMessage());
+            Main.setUI(new StartMenu());
+        }
     }
 
     /** Load one of saved game */
@@ -76,8 +104,9 @@ public class StartMenu implements IBase {
      * Choose which saved game to be loaded
      *
      * @return name of the chosen game
+     * @throws InterruptedException if user quits
      */
-    private static String chooseStoredGame() {
+    private static String chooseStoredGame() throws InterruptedException {
         String[] savedGameName = Board.getSavedGameName();
 
         if (savedGameName.length < 1) {
@@ -91,15 +120,23 @@ public class StartMenu implements IBase {
         }
 
         while (true) {
-            System.out.print("Choose the index of game to be load: ");
+            String option = Printer.scanValidInputWithQuit(
+                    () -> {
+                        System.out.print("Choose the index of game-save (integer): ");
+                    },
+                    "Should be an integer.",
+                    "^\\d+$"
+            );
+
             try {
-                int index = in.nextInt() - 1;
-                return savedGameName[index];
+                int index = Integer.parseInt(option) - 1;
+                if (index >= 0 && index < savedGameName.length)
+                    return savedGameName[index];
+                else
+                    Printer.printWarnMsg("INVALID INPUT! The input is Out of Bound.\n");
             } catch (Exception e) {
-                System.out.println(
-                        "The index should be an integer ranged 1-" + savedGameName.length);
-                // prevent infinite loop caused by the last println and in.nextInt()
-                in.nextLine();
+                // internal error
+                e.printStackTrace();
             }
         }
     }
@@ -108,5 +145,18 @@ public class StartMenu implements IBase {
     private static void quitGame() {
         System.out.println("\nQuit Game");
         System.exit(0);
+    }
+
+    private static void printStartMenu() {
+        Printer.printMsg("\n");
+        int offset = 1;
+        for (int i = 0; i < ASCII_MONOPOLY.length; i++) {
+
+            if (offset <= i && i < START_MENU.length + offset)
+                Printer.printHelpMsg("\t" + START_MENU[i-offset]);
+            else Printer.printMsg("\t" + " ".repeat(START_MENU[0].length()));
+            Printer.printMsg("\t" + ASCII_MONOPOLY[i]);
+            Printer.printMsg("\n");
+        }
     }
 }

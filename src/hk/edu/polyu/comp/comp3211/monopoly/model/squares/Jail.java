@@ -72,11 +72,13 @@ public class Jail implements ISquare {
             // get whether pay
             if (!Main.TEST) {
                 String inputConfirm;
-                do {
-                    Printer.printPlayerPrompt(player);
-                    Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
-                    inputConfirm = Main.getScanner().next();
-                } while (!inputConfirm.matches(CONFIRM_PATTERN));
+                inputConfirm = Printer.scanValidInput(
+                        () -> {
+                            Printer.printPlayerPrompt(player);
+                            Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
+                        },
+                        "Should be [y] or [n].",
+                        CONFIRM_PATTERN);
                 // detect user's option, pay or not
                 pay = inputConfirm.matches(CONFIRM_YES_PATTERN);
             }

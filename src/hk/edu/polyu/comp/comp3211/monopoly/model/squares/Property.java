@@ -45,12 +45,15 @@ public class Property implements ISquare {
 
             if (test) buy = testBuy;
             else {
-                Printer.printHelpMsg("Do you want to buy " + name + " for $" + price + "? (y/n) ");
-                String option = Main.getScanner().next();
-                while (!option.matches(CONFIRM_PATTERN)) {
-                    Printer.printHelpMsg("Please enter y or n: ");
-                    option = Main.getScanner().next();
-                }
+                String option = Printer.scanValidInput(
+                        () -> {
+                            Printer.printPlayerPrompt(player);
+                            Printer.printHelpMsg("Do you want to buy " + name + " for $" + price + "? (y/n) ");
+                        },
+                        "Should be [y] or [n].",
+                        CONFIRM_PATTERN
+                );
+
                 buy = option.matches(CONFIRM_YES_PATTERN);
             }
 
