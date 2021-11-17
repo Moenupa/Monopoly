@@ -4,9 +4,12 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.*;
 
 public class Printer {
-    /** current game board */
+    /**
+     * current game board
+     */
     private final Board board;
 
+    public static final String ANSI_RESET = "\u001b[0m";
     public static final String ANSI_BLACK = "\u001b[30m";
     public static final String ANSI_RED = "\u001b[31m";
     public static final String ANSI_GREEN = "\u001b[32m";
@@ -15,7 +18,6 @@ public class Printer {
     public static final String ANSI_MAGENTA = "\u001b[35m";
     public static final String ANSI_CYAN = "\u001b[36m";
     public static final String ANSI_WHITE = "\u001b[37m";
-    public static final String ANSI_RESET = "\u001b[0m";
 
     private static final String QUIT_REGEX = "^[qQ](uit)?$";
 
@@ -28,18 +30,24 @@ public class Printer {
         board = _board;
     }
 
-    /** Print out current game board */
+    /**
+     * Print out current game board
+     */
     public void printAll() {
         printBoard();
         printInfo();
     }
 
-    /** Only print the game board */
+    /**
+     * Only print the game board
+     */
     private void printBoard() {
         board.getSquares();
     }
 
-    /** Only print the game info */
+    /**
+     * Only print the game info
+     */
     private void printInfo() {
         board.getPlayers();
         Printer.printInfoMsg("\n\tCurrent Wealth:\n");
@@ -52,7 +60,7 @@ public class Printer {
      * Print a given message in a given color without any line-breaks
      *
      * @param ansi_color color in format <code>[0m</code>
-     * @param msg message to display
+     * @param msg        message to display
      */
     public static void printColoredMsg(String ansi_color, String msg) {
         System.out.print(ansi_color + msg + ANSI_RESET);
@@ -116,9 +124,9 @@ public class Printer {
     /**
      * Scan an input until it is valid or interrupted by user
      *
-     * @param prompt prompt method (lambda)
+     * @param prompt       prompt method (lambda)
      * @param fallback_msg msg display to after invalid input
-     * @param regex regex of valid prompt
+     * @param regex        regex of valid prompt
      * @return scanned valid input
      * @throws InterruptedException if user interrupt the input
      */
@@ -140,9 +148,9 @@ public class Printer {
     /**
      * Scan an input until it is valid
      *
-     * @param prompt prompt method (lambda)
+     * @param prompt       prompt method (lambda)
      * @param fallback_msg msg display to after invalid input
-     * @param regex regex of valid prompt
+     * @param regex        regex of valid prompt
      * @return scanned valid input
      */
     public static String scanValidInput(Runnable prompt, String fallback_msg, String regex) {

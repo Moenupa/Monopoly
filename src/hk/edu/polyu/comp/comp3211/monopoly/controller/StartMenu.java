@@ -148,6 +148,7 @@ public class StartMenu implements IBase {
     private static void printStartMenu() {
         Printer.printMsg("\n");
         int offset = 1;
+
         for (int i = 0; i < ASCII_MONOPOLY.length; i++) {
 
             if (offset <= i && i < START_MENU.length + offset)
