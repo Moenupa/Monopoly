@@ -36,13 +36,13 @@ public class Game implements IBase {
 
         while (true) {
             // ensure inputs to be valid
-            option = Printer.scanValidInputWithQuit(
-                    () -> {
-                        Printer.printHelpMsg("Please enter the number of players: ");
-                    },
-                    "Should be an integer.",
-                    "^\\d+$"
-            );
+            option =
+                    Printer.scanValidInputWithQuit(
+                            () -> {
+                                Printer.printHelpMsg("Please enter the number of players: ");
+                            },
+                            "Should be an integer.",
+                            "^\\d+$");
 
             // then get choose an option
             try {
@@ -104,8 +104,8 @@ public class Game implements IBase {
                         + ".\n");
         while (true) {
             Printer.printHelpMsg(
-                    "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu, \"r(un)\" to"
-                            + " continue the game.\n");
+                    "type \"s(ave)\" for saving the game, \"q(uit)\" to exit to main menu,"
+                        + " \"r(un)\" to continue the game.\n");
             var in = Main.getScanner();
             String s = in.nextLine();
             try {

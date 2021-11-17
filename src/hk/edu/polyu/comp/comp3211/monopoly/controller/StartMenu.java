@@ -7,30 +7,30 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 public class StartMenu implements IBase {
     /** Scanner for user input */
     private static final String[] ASCII_MONOPOLY = {
-            "$$\\      $$\\                                                   $$\\           ",
-            "$$$\\    $$$ |                                                  $$ |          ",
-            "$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$\\  $$ |$$\\   $$\\ ",
-            "$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |$$ |  $$ |",
-            "$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |$$ |$$ |  $$ |",
-            "$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |",
-            "$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$  |$$$$$$$  |\\$$$$$$  |$$ |\\$$$$$$$ |",
-            "\\__|     \\__| \\______/ \\__|  \\__| \\______/ $$  ____/  \\______/ \\__| \\____$$ |",
-            "                                           $$ |                    $$\\   $$ |",
-            "                                           $$ |                    \\$$$$$$  |",
-            "                                           \\__|                     \\______/ "
-    };
-    private static final String[] START_MENU = {
-            "╔═══════════════════╗",
-            "║     Start Menu    ║",
-            "╟─────┬─────────────╢",
-            "║ NUM │  ACTION     ║",
-            "╟─────┼─────────────╢",
-            "║  1  │  New Game   ║",
-            "║  2  │  Load Game  ║",
-            "║  3  │  Quit       ║",
-            "╚═════╧═════════════╝"
+        "$$\\      $$\\                                                   $$\\           ",
+        "$$$\\    $$$ |                                                  $$ |          ",
+        "$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$\\  $$ |$$\\   $$\\ ",
+        "$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |$$ |  $$ |",
+        "$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |$$ |$$ |  $$ |",
+        "$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |",
+        "$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$  |$$$$$$$  |\\$$$$$$  |$$ |\\$$$$$$$ |",
+        "\\__|     \\__| \\______/ \\__|  \\__| \\______/ $$  ____/  \\______/ \\__| \\____$$ |",
+        "                                           $$ |                    $$\\   $$ |",
+        "                                           $$ |                    \\$$$$$$  |",
+        "                                           \\__|                     \\______/ "
     };
 
+    private static final String[] START_MENU = {
+        "╔═══════════════════╗",
+        "║     Start Menu    ║",
+        "╟─────┬─────────────╢",
+        "║ NUM │  ACTION     ║",
+        "╟─────┼─────────────╢",
+        "║  1  │  New Game   ║",
+        "║  2  │  Load Game  ║",
+        "║  3  │  Quit       ║",
+        "╚═════╧═════════════╝"
+    };
 
     /**
      * Welcome the user. If there exists a save file in the directory, prompt to the user of the
@@ -45,13 +45,13 @@ public class StartMenu implements IBase {
         // intended infinite loop
         while (true) {
             // ensure inputs to be valid
-            option = Printer.scanValidInput(
-                    () -> {
-                        Printer.printHelpMsg("Please enter option index (1-3): ");
-                    },
-                    "Should be an integer.",
-                    "^[1-3]$"
-            );
+            option =
+                    Printer.scanValidInput(
+                            () -> {
+                                Printer.printHelpMsg("Please enter option index (1-3): ");
+                            },
+                            "Should be an integer.",
+                            "^[1-3]$");
 
             // then get choose an option
             try {
@@ -120,20 +120,18 @@ public class StartMenu implements IBase {
         }
 
         while (true) {
-            String option = Printer.scanValidInputWithQuit(
-                    () -> {
-                        System.out.print("Choose the index of game-save (integer): ");
-                    },
-                    "Should be an integer.",
-                    "^\\d+$"
-            );
+            String option =
+                    Printer.scanValidInputWithQuit(
+                            () -> {
+                                System.out.print("Choose the index of game-save (integer): ");
+                            },
+                            "Should be an integer.",
+                            "^\\d+$");
 
             try {
                 int index = Integer.parseInt(option) - 1;
-                if (index >= 0 && index < savedGameName.length)
-                    return savedGameName[index];
-                else
-                    Printer.printWarnMsg("INVALID INPUT! The input is Out of Bound.\n");
+                if (index >= 0 && index < savedGameName.length) return savedGameName[index];
+                else Printer.printWarnMsg("INVALID INPUT! The input is Out of Bound.\n");
             } catch (Exception e) {
                 // internal error
                 e.printStackTrace();
@@ -153,7 +151,7 @@ public class StartMenu implements IBase {
         for (int i = 0; i < ASCII_MONOPOLY.length; i++) {
 
             if (offset <= i && i < START_MENU.length + offset)
-                Printer.printHelpMsg("\t" + START_MENU[i-offset]);
+                Printer.printHelpMsg("\t" + START_MENU[i - offset]);
             else Printer.printMsg("\t" + " ".repeat(START_MENU[0].length()));
             Printer.printMsg("\t" + ASCII_MONOPOLY[i]);
             Printer.printMsg("\n");

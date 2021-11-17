@@ -122,17 +122,16 @@ public class Printer {
      * @return scanned valid input
      * @throws InterruptedException if user interrupt the input
      */
-    public static String scanValidInputWithQuit(Runnable prompt, String fallback_msg, String regex) throws InterruptedException {
+    public static String scanValidInputWithQuit(Runnable prompt, String fallback_msg, String regex)
+            throws InterruptedException {
         String input;
         do {
             prompt.run();
             input = Main.getScanner().nextLine();
 
             // user type quit, interrupt the process
-            if (input.matches(QUIT_REGEX))
-                throw new InterruptedException("Interrupted by user.\n");
-            if (input.matches(regex))
-                return input;
+            if (input.matches(QUIT_REGEX)) throw new InterruptedException("Interrupted by user.\n");
+            if (input.matches(regex)) return input;
 
             Printer.printWarnMsg("INVALID INPUT! " + fallback_msg + "\n");
         } while (true);
@@ -152,8 +151,7 @@ public class Printer {
             prompt.run();
             input = Main.getScanner().nextLine();
 
-            if (input.matches(regex))
-                return input;
+            if (input.matches(regex)) return input;
 
             Printer.printWarnMsg("INVALID INPUT! " + fallback_msg + "\n");
         } while (true);
