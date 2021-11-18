@@ -124,9 +124,9 @@ public class StartMenu implements IBase {
             return savedGameName[0];
         }
 
-        Printer.printHelpMsg("\nSelect the game save file:\n");
+        Printer.printInfoMsg("\nSelect the game save file:\n");
         for (int i = 0; i < savedGameName.length; i++) {
-            Printer.printHelpMsg((i + 1) + ". " + savedGameName[i] + "\n");
+            Printer.printInfoMsg((i + 1) + ". " + savedGameName[i] + "\n");
         }
 
         while (true) {
@@ -140,8 +140,12 @@ public class StartMenu implements IBase {
 
             try {
                 int index = Integer.parseInt(option) - 1;
-                if (index >= 0 && index < savedGameName.length) return savedGameName[index];
-                else Printer.printWarnMsg("INVALID INPUT! The input is Out of Bound.\n");
+
+                if (index >= 0 && index < savedGameName.length) {
+                    return savedGameName[index];
+                } else {
+                    Printer.printWarnMsg("INVALID INPUT! The input is Out of Bound.\n");
+                }
             } catch (Exception e) {
                 // internal error
                 e.printStackTrace();
@@ -151,7 +155,7 @@ public class StartMenu implements IBase {
 
     /** Quit game */
     private static void quitGame() {
-        System.out.println("\nQuit Game");
+        Printer.printMsg("\nQuit Game\n");
         System.exit(0);
     }
 
