@@ -10,7 +10,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 public class Game implements IBase {
     private Board board;
     private Player[] players;
-    private ISquare[] squares;
+    private static ISquare[] squares;
     private int numPlayerLeft;
     private final Printer printer;
 
@@ -188,7 +188,7 @@ public class Game implements IBase {
      *
      * @param curPlayer player to take effect
      */
-    public void takeEffect(Player curPlayer) {
+    public static void takeEffect(Player curPlayer) {
         squares[curPlayer.getPosition()].execute(curPlayer);
     }
 
