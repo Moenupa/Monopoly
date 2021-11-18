@@ -5,9 +5,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.util.Random;
 
-/**
- * The Chance square of the board
- */
+/** The Chance square of the board */
 public class Chance implements ISquare {
     /**
      * Generate an effect to a player
