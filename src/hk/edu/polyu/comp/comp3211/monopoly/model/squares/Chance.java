@@ -25,6 +25,9 @@ public class Chance implements ISquare {
     public void execute(Player player) {
         int multiple;
 
+        Printer.printPlayerPrompt(player);
+        Printer.printMsg("lands on Chance Square and ");
+
         if (new Random().nextInt(2) == 0) {
             multiple = new Random().nextInt(20) + 1;
             multiple *= 10;
