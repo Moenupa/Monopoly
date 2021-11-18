@@ -6,36 +6,58 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.io.*;
 
-/** A board, containing players, squares, and game status */
+/**
+ * A board, containing players, squares, and game status
+ */
 public class Board implements Serializable {
-    /** The array of players in the board */
+    /**
+     * The array of players in the board
+     */
     private Player[] players;
-    /** The array of squares in the board */
+    /**
+     * The array of squares in the board
+     */
     private ISquare[] squares;
-    /** Current round index */
+    /**
+     * Current round index
+     */
     private int round;
-    /** Current active player index */
+    /**
+     * Current active player index
+     */
     private int p_index;
 
-    /** Default game-save directory */
+    /**
+     * Default game-save directory
+     */
     private static final String GAME_SAVE_DIR = "./out/saves/";
-    /** Error message when detecting invalid player numbers */
+    /**
+     * Error message when detecting invalid player numbers
+     */
     private static final String ERR_INVALID_NUM_OF_PLAYERS =
             "The board should contain exactly 2-6 players\n";
 
     // constants, storing all property values
-    /** the position of the square (numbered from 1-20) */
+    /**
+     * the position of the square (numbered from 1-20)
+     */
     private static final int[] PROPERTY_INDEX = {2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 18, 20};
-    /** the name of the properties */
+    /**
+     * the name of the properties
+     */
     private static final String[] PROPERTY_NAMES = {
-        "central", "wan chai", "stanley", "shek o", "mong kok", "tsing yi",
-        "shatin", "tuen mun", "tai po", "sai kung", "yuen long", "tai o"
+            "central", "wan chai", "stanley", "shek o", "mong kok", "tsing yi",
+            "shatin", "tuen mun", "tai po", "sai kung", "yuen long", "tai o"
     };
-    /** the selling price of the properties */
+    /**
+     * the selling price of the properties
+     */
     private static final int[] PROPERTY_SELL = {
-        800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600
+            800, 700, 600, 400, 500, 400, 700, 400, 500, 400, 400, 600
     };
-    /** the rental price of the properties */
+    /**
+     * the rental price of the properties
+     */
     private static final int[] PROPERTY_RENT = {90, 65, 60, 10, 40, 15, 75, 20, 25, 10, 25, 25};
 
     /**
@@ -45,12 +67,16 @@ public class Board implements Serializable {
      * @throws IllegalArgumentException if num not in [2,6] range
      */
     public Board(int num) throws IllegalArgumentException {
-        if (num < 2 || num > 6) throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        if (num < 2 || num > 6) {
+            throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        }
 
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-            if (!Main.TEST) Printer.printMsg("Player " + (i + 1) + ": ");
+            if (!Main.TEST) {
+                Printer.printMsg("Player " + (i + 1) + ": ");
+            }
             this.players[i] = new Player();
         }
         // then initialize the squares on the board
@@ -69,7 +95,9 @@ public class Board implements Serializable {
     protected Board(String[] names) throws IllegalArgumentException {
         // first initialize the players
         int num = names.length;
-        if (num < 2 || num > 6) throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        if (num < 2 || num > 6) {
+            throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        }
 
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
@@ -141,20 +169,24 @@ public class Board implements Serializable {
      *
      * @param name the path (name) of the local file
      * @throws IllegalArgumentException if write permission not granted
-     * @throws RuntimeException if other unknown exceptions occur when writing to file
+     * @throws RuntimeException         if other unknown exceptions occur when writing to file
      */
     public void save(String name) throws Exception {
         // creating game-save directory if not exists
         File dir = new File(GAME_SAVE_DIR);
         boolean err = true;
-        if (!dir.exists()) err = dir.mkdirs();
-        if (!err)
+        if (!dir.exists()) {
+            err = dir.mkdirs();
+        }
+        if (!err) {
             throw new RuntimeException("Error when creating the folder. Check the permissions.");
+        }
 
         // create game save file
         File file = new File(GAME_SAVE_DIR + name);
-        if (file.exists() && !file.canWrite())
+        if (file.exists() && !file.canWrite()) {
             throw new IllegalArgumentException("Write permission not granted");
+        }
 
         try {
             FileOutputStream fo;
@@ -187,12 +219,16 @@ public class Board implements Serializable {
      *
      * @param name the path (name) of the local file
      * @throws IllegalArgumentException if no such game-save or read permission not granted
-     * @throws RuntimeException if other unknown exceptions occur when reading file
+     * @throws RuntimeException         if other unknown exceptions occur when reading file
      */
     public static Board load(String name) throws Exception {
         File file = new File(GAME_SAVE_DIR + name);
-        if (!file.exists()) throw new IllegalArgumentException("No save match");
-        if (!file.canRead()) throw new IllegalArgumentException("Read permission not granted");
+        if (!file.exists()) {
+            throw new IllegalArgumentException("No save match");
+        }
+        if (!file.canRead()) {
+            throw new IllegalArgumentException("Read permission not granted");
+        }
 
         try {
             // read from input
@@ -220,18 +256,26 @@ public class Board implements Serializable {
      */
     public static String[] getSavedGameName() {
         File dir = new File(GAME_SAVE_DIR);
-        if (!dir.exists())
-            if (!dir.mkdirs())
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
                 throw new RuntimeException("Internal error when creating a save directory");
+            }
+        }
 
-        if (dir.isDirectory()) return dir.list();
+        if (dir.isDirectory()) {
+            return dir.list();
+        }
 
         throw new IllegalArgumentException(GAME_SAVE_DIR + " is not a directory");
     }
 
-    /** Initialize the board's squares according to definitions */
+    /**
+     * Initialize the board's squares according to definitions
+     */
     private void init_squares() {
-        if (squares != null) return;
+        if (squares != null) {
+            return;
+        }
 
         this.squares = new ISquare[20];
 
@@ -261,7 +305,9 @@ public class Board implements Serializable {
         // the board is initialized with 1+12+(1+1+1+1)+3=20 squares
     }
 
-    /** Reset board's <code>round</code> and <code>p_index</code> to 0 */
+    /**
+     * Reset board's <code>round</code> and <code>p_index</code> to 0
+     */
     private void reset_rounding_info() {
         this.round = 0;
         this.p_index = 0;
