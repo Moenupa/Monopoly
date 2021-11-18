@@ -37,8 +37,8 @@ public class Game implements IBase {
             // ensure inputs to be valid
             option =
                     Printer.scanValidInputWithQuit(
-                            () -> Printer.printHelpMsg("Please enter the number of players: "),
-                            "Should be an integer.",
+                            () -> Printer.printHelpMsg("Input the number of players or q(uit): "),
+                            "Should be an integer or q(uit).",
                             "^\\d+$");
 
             // then get choose an option
@@ -59,7 +59,7 @@ public class Game implements IBase {
      * Initialize game controller by loading the saved game
      *
      * @param boardName saved board (game) name
-     * @throws Exception for exception
+     * @throws Exception if occur error when loading
      */
     public Game(String boardName) throws Exception {
         board = Board.load(boardName);
@@ -87,14 +87,14 @@ public class Game implements IBase {
                         + curPlayer.getName()
                         + "'s turn.\n");
 
-        ISquare curSquare = board.getSquares()[curPlayer.getPosition()];
+        ISquare curSquare = squares[curPlayer.getPosition()];
         String curSquareStr =
                 (curSquare.getClass() == Property.class)
                         ? "Property " + ((Property) curSquare).getName()
                         : curSquare.getClass().getSimpleName();
         Printer.printPlayerPrompt(curPlayer);
         Printer.printMsg(
-                "is now in square " + curPlayer.getPosition() + ": " + curSquareStr + ".\n");
+                "is now in square " + (curPlayer.getPosition() + 1) + ": " + curSquareStr + ".\n");
         while (true) {
             String option;
             try {
@@ -141,7 +141,7 @@ public class Game implements IBase {
         if (checkBankrupt(curPlayer)) {
             retire(curPlayer);
             Printer.printPlayerPrompt(curPlayer);
-            Printer.printMsg("loses all properties\n");
+            Printer.printMsg("loses all properties.\n");
             numPlayerLeft -= 1;
         }
 

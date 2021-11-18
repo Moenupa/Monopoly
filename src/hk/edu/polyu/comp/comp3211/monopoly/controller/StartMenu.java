@@ -105,13 +105,13 @@ public class StartMenu implements IBase {
         String[] savedGameName = Board.getSavedGameName();
 
         if (savedGameName.length < 1) {
-            Printer.printMsg("No game save available\n");
+            Printer.printMsg("No game save available.\n");
             return null;
         } else if (savedGameName.length == 1) return savedGameName[0];
 
         Printer.printMsg("Select the game save file from the following:\n");
         for (int i = 0; i < savedGameName.length; i++) {
-            Printer.printHelpMsg("\t" + (i + 1) + ". " + savedGameName[i] + "\n");
+            Printer.printMsg("\t" + (i + 1) + ". " + savedGameName[i] + "\n");
         }
 
         while (true) {
@@ -137,9 +137,9 @@ public class StartMenu implements IBase {
 
     /** Quit game */
     private static void quitGame() {
-        Printer.printMsg("Exiting Monopoly Program..\n");
+        Printer.printMsg("Exiting Monopoly Program...\n");
         for (String s : ASCII_MONOPOLY) {
-            Printer.printHelpMsg(s);
+            Printer.printHelpMsg(s + "\n");
         }
         System.exit(0);
     }

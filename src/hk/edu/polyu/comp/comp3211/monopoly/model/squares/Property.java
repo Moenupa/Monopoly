@@ -15,8 +15,6 @@ public class Property implements ISquare {
     /** The owner of the property */
     private Player owner;
 
-    private static final String CONFIRM_PATTERN = "^[nNyY]$";
-    private static final String CONFIRM_YES_PATTERN = "^[yY]$";
     private boolean testBuy;
 
     /**
@@ -50,16 +48,12 @@ public class Property implements ISquare {
                                 () -> {
                                     Printer.printPlayerPrompt(player);
                                     Printer.printHelpMsg(
-                                            "Do you want to buy "
-                                                    + name
-                                                    + " for $"
-                                                    + price
-                                                    + "? (y/n) ");
+                                            "Do you want to buy " + name + " for $" + price + "? (y/n) ");
                                 },
                                 "Should be [y] or [n].",
-                                CONFIRM_PATTERN);
+                                Printer.CONFIRM_REGEX);
 
-                buy = option.matches(CONFIRM_YES_PATTERN);
+                buy = option.matches(Printer.CONFIRM_YES_REGEX);
             }
 
             if (buy) {

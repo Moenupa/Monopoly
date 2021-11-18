@@ -7,8 +7,6 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
     private static final int FINE = -150;
-    private static final String CONFIRM_PATTERN = "^[nNyY]$";
-    private static final String CONFIRM_YES_PATTERN = "^[yY]$";
 
     private boolean test;
     private final int[] diceResult = new int[2];
@@ -80,9 +78,9 @@ public class Jail implements ISquare {
                                             "opt to pay for getting out of jail? (y/n) ");
                                 },
                                 "Should be [y] or [n].",
-                                CONFIRM_PATTERN);
+                                Printer.CONFIRM_REGEX);
                 // detect user's option, pay or not
-                pay = inputConfirm.matches(CONFIRM_YES_PATTERN);
+                pay = inputConfirm.matches(Printer.CONFIRM_YES_REGEX);
             }
             if (pay) {
                 // opt to pay fine to get out
