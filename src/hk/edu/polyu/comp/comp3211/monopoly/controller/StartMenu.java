@@ -5,33 +5,31 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 public class StartMenu implements IBase {
-    /**
-     * ASCII Art for start menu
-     */
+    /** ASCII Art for start menu */
     private static final String[] ASCII_MONOPOLY = {
-            "$$\\      $$\\                                                   $$\\           ",
-            "$$$\\    $$$ |                                                  $$ |          ",
-            "$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$\\  $$ |$$\\   $$\\ ",
-            "$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |$$ |  $$ |",
-            "$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |$$ |$$ |  $$ |",
-            "$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |",
-            "$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$  |$$$$$$$  |\\$$$$$$  |$$ |\\$$$$$$$ |",
-            "\\__|     \\__| \\______/ \\__|  \\__| \\______/ $$  ____/  \\______/ \\__| \\____$$ |",
-            "                                           $$ |                    $$\\   $$ |",
-            "                                           $$ |                    \\$$$$$$  |",
-            "                                           \\__|                     \\______/ "
+        "$$\\      $$\\                                                   $$\\           ",
+        "$$$\\    $$$ |                                                  $$ |          ",
+        "$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$\\  $$ |$$\\   $$\\ ",
+        "$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |$$ |  $$ |",
+        "$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |$$ |$$ |  $$ |",
+        "$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |",
+        "$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$  |$$$$$$$  |\\$$$$$$  |$$ |\\$$$$$$$ |",
+        "\\__|     \\__| \\______/ \\__|  \\__| \\______/ $$  ____/  \\______/ \\__| \\____$$ |",
+        "                                           $$ |                    $$\\   $$ |",
+        "                                           $$ |                    \\$$$$$$  |",
+        "                                           \\__|                     \\______/ "
     };
 
     private static final String[] START_MENU = {
-            "╔═══════════════════╗",
-            "║     Start Menu    ║",
-            "╟─────┬─────────────╢",
-            "║ NUM │  ACTION     ║",
-            "╟─────┼─────────────╢",
-            "║  1  │  New Game   ║",
-            "║  2  │  Load Game  ║",
-            "║  3  │  Quit       ║",
-            "╚═════╧═════════════╝"
+        "╔═══════════════════╗",
+        "║     Start Menu    ║",
+        "╟─────┬─────────────╢",
+        "║ NUM │  ACTION     ║",
+        "╟─────┼─────────────╢",
+        "║  1  │  New Game   ║",
+        "║  2  │  Load Game  ║",
+        "║  3  │  Quit       ║",
+        "╚═════╧═════════════╝"
     };
 
     /**
@@ -47,11 +45,13 @@ public class StartMenu implements IBase {
         // intended infinite loop
         while (true) {
             // ensure inputs to be valid
-            option = Printer.scanValidInput(() -> {
-                        Printer.printHelpMsg("Please enter option index (1-3): ");
-                    },
-                    "Should be an integer.",
-                    "^[1-3]$");
+            option =
+                    Printer.scanValidInput(
+                            () -> {
+                                Printer.printHelpMsg("Please enter option index (1-3): ");
+                            },
+                            "Should be an integer.",
+                            "^[1-3]$");
 
             // then get choose an option
             try {
@@ -66,11 +66,8 @@ public class StartMenu implements IBase {
         }
     }
 
-    /**
-     * Initialize start menu
-     */
-    public StartMenu() {
-    }
+    /** Initialize start menu */
+    public StartMenu() {}
 
     /**
      * Choose one option to play
@@ -90,9 +87,7 @@ public class StartMenu implements IBase {
         }
     }
 
-    /**
-     * New game option
-     */
+    /** New game option */
     private static void startNewGame() {
         try {
             Main.setUI(new Game());
@@ -103,9 +98,7 @@ public class StartMenu implements IBase {
         }
     }
 
-    /**
-     * Load one of saved game
-     */
+    /** Load one of saved game */
     private static void loadPreviousGame() throws Exception {
         String name = chooseStoredGame();
 
@@ -156,9 +149,7 @@ public class StartMenu implements IBase {
         }
     }
 
-    /**
-     * Quit game
-     */
+    /** Quit game */
     private static void quitGame() {
         System.out.println("\nQuit Game");
         System.exit(0);
