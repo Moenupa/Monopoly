@@ -3,8 +3,8 @@ package hk.edu.polyu.comp.comp3211.monopoly.view;
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.*;
 
-import java.util.stream.*;
 import java.util.*;
+import java.util.stream.*;
 
 public class Printer {
     /** current game board */
@@ -55,7 +55,8 @@ public class Printer {
     private void printInfo() {
         Printer.printInfoMsg("\n\t|    Current Wealth    |\n");
         for (var player : board.getPlayers()) {
-            String line = String.format("\t| %-10s | $%-6d |\n", player.getName(), player.getMoney());
+            String line =
+                    String.format("\t| %-10s | $%-6d |\n", player.getName(), player.getMoney());
             Printer.printColoredMsg(Printer.ANSI_CYAN, line);
         }
     }

@@ -120,7 +120,7 @@ public class StartMenu implements IBase {
                             () ->
                                     Printer.printHelpMsg(
                                             "Choose the index of game-save (integer), q(uit) to"
-                                                + " quit to start menu: "),
+                                                    + " quit to start menu: "),
                             "Should be an integer.",
                             "^\\d+$");
 

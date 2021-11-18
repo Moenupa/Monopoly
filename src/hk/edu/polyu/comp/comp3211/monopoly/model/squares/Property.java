@@ -48,7 +48,11 @@ public class Property implements ISquare {
                                 () -> {
                                     Printer.printPlayerPrompt(player);
                                     Printer.printHelpMsg(
-                                            "Do you want to buy " + name + " for $" + price + "? (y/n) ");
+                                            "Do you want to buy "
+                                                    + name
+                                                    + " for $"
+                                                    + price
+                                                    + "? (y/n) ");
                                 },
                                 "Should be [y] or [n].",
                                 Printer.CONFIRM_REGEX);
