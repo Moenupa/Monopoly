@@ -26,13 +26,14 @@ public class Game implements IBase {
         printGame();
         update();
 
-        if (isGameEnd()) endGame();
+        if (isGameEnd()) {
+            endGame();
+        }
     }
 
     /** Initialize game controller */
     public Game() throws InterruptedException {
         String option;
-        var in = Main.getScanner();
 
         while (true) {
             // ensure inputs to be valid
@@ -156,7 +157,9 @@ public class Game implements IBase {
         p_index %= players.length;
         board.setP_index(p_index);
 
-        if (p_index == 0) board.setRound(board.getRound() + 1);
+        if (p_index == 0) {
+            board.setRound(board.getRound() + 1);
+        }
         return p_index;
     }
 
@@ -226,7 +229,6 @@ public class Game implements IBase {
 
     /** End the game */
     private void endGame() {
-
         Main.setUI(new EndGame(board));
     }
 }
