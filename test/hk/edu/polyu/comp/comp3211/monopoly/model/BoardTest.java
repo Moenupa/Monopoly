@@ -6,14 +6,13 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.*;
 
 class BoardTest {
     Board board1, board2;
-    Board test;
+    // --Commented out by Inspection (2021/11/18 16:19):Board test;
     static final String[] PLAYER_NAMES = {
         "player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8"
     };
@@ -50,14 +49,9 @@ class BoardTest {
     }
 
     @Test
-    void BoardTest() {
+    void OverallBoardTest() {
         // new Board() should throw error when not initialized with 2-6 players
-        Exception exception1 =
-                assertThrows(
-                        Exception.class,
-                        () -> {
-                            this.test = new Board(7);
-                        });
+        Exception exception1 = assertThrows(Exception.class, () -> new Board(7));
 
         // "2-6 players" is one of game constraints
         String expectedMessage = "2-6 players";
@@ -86,21 +80,15 @@ class BoardTest {
         ISquare[] squares = board1.getSquares();
 
         Map<Class, List<Integer>> map = new HashMap<>();
-        map.put(Go.class, Arrays.asList(1));
+        map.put(Go.class, List.of(1));
         map.put(Property.class, Arrays.asList(2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 18, 20));
-        map.put(Tax.class, Arrays.asList(4));
-        map.put(Jail.class, Arrays.asList(6));
+        map.put(Tax.class, List.of(4));
+        map.put(Jail.class, List.of(6));
         map.put(Chance.class, Arrays.asList(9, 13, 19));
-        map.put(Free.class, Arrays.asList(11));
-        map.put(Oops.class, Arrays.asList(16));
+        map.put(Free.class, List.of(11));
+        map.put(Oops.class, List.of(16));
 
-        map.forEach(
-                (k, v) -> {
-                    v.forEach(
-                            (e) -> {
-                                assertEquals(k, squares[e - 1].getClass());
-                            });
-                });
+        map.forEach((k, v) -> v.forEach((e) -> assertEquals(k, squares[e - 1].getClass())));
 
         for (int i = 0; i < 12; i++) {
             Property cur = (Property) squares[PROPERTY_INDEX[i] - 1];
@@ -120,7 +108,7 @@ class BoardTest {
             board2_load = Board.load(save_name);
         } catch (Exception e) {
             e.printStackTrace();
-            assertTrue(false, "EXCEPTION OCCUR");
+            fail("EXCEPTION OCCUR");
             return;
         }
 
@@ -140,8 +128,7 @@ class BoardTest {
     }
 
     private boolean hasSamePlayers(List<String> list1, List<String> list2) {
-        Collection<String> col1 = list1;
-        Collection<String> col2 = list2;
-        return col1.containsAll(col2) && col2.containsAll(col1);
+        return ((Collection<String>) list1).containsAll(list2)
+                && ((Collection<String>) list2).containsAll(list1);
     }
 }

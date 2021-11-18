@@ -192,7 +192,6 @@ public class Player implements Serializable {
      */
     public int rollDice() {
         var rand = new Random();
-        int n = rand.nextInt(4) + 1;
-        return n;
+        return rand.nextInt(4) + 1;
     }
 }
