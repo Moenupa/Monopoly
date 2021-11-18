@@ -45,12 +45,16 @@ public class Board implements Serializable {
      * @throws IllegalArgumentException if num not in [2,6] range
      */
     public Board(int num) throws IllegalArgumentException {
-        if (num < 2 || num > 6) throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        if (num < 2 || num > 6) {
+            throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        }
 
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-            if (!Main.TEST) Printer.printMsg("Player " + (i + 1) + ": ");
+            if (!Main.TEST) {
+                Printer.printMsg("Player " + (i + 1) + ": ");
+            }
             this.players[i] = new Player();
         }
         // then initialize the squares on the board
@@ -69,7 +73,9 @@ public class Board implements Serializable {
     protected Board(String[] names) throws IllegalArgumentException {
         // first initialize the players
         int num = names.length;
-        if (num < 2 || num > 6) throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        if (num < 2 || num > 6) {
+            throw new IllegalArgumentException(ERR_INVALID_NUM_OF_PLAYERS);
+        }
 
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
@@ -145,14 +151,18 @@ public class Board implements Serializable {
         // creating game-save directory if not exists
         File dir = new File(GAME_SAVE_DIR);
         boolean err = true;
-        if (!dir.exists()) err = dir.mkdirs();
-        if (!err)
+        if (!dir.exists()) {
+            err = dir.mkdirs();
+        }
+        if (!err) {
             throw new RuntimeException("Error when creating the folder. Check the permissions.");
+        }
 
         // create game save file
         File file = new File(GAME_SAVE_DIR + name);
-        if (file.exists() && !file.canWrite())
+        if (file.exists() && !file.canWrite()) {
             throw new IllegalArgumentException("Write permission not granted");
+        }
 
         try {
             FileOutputStream fo;
@@ -187,8 +197,12 @@ public class Board implements Serializable {
      */
     public static Board load(String name) {
         File file = new File(GAME_SAVE_DIR + name);
-        if (!file.exists()) throw new IllegalArgumentException("No save match");
-        if (!file.canRead()) throw new IllegalArgumentException("Read permission not granted");
+        if (!file.exists()) {
+            throw new IllegalArgumentException("No save match");
+        }
+        if (!file.canRead()) {
+            throw new IllegalArgumentException("Read permission not granted");
+        }
 
         try {
             // read from input
@@ -216,18 +230,24 @@ public class Board implements Serializable {
      */
     public static String[] getSavedGameName() {
         File dir = new File(GAME_SAVE_DIR);
-        if (!dir.exists())
-            if (!dir.mkdirs())
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
                 throw new RuntimeException("Internal error when creating a save directory");
+            }
+        }
 
-        if (dir.isDirectory()) return dir.list();
+        if (dir.isDirectory()) {
+            return dir.list();
+        }
 
         throw new IllegalArgumentException(GAME_SAVE_DIR + " is not a directory");
     }
 
     /** Initialize the board's squares according to definitions */
     private void init_squares() {
-        if (squares != null) return;
+        if (squares != null) {
+            return;
+        }
 
         this.squares = new ISquare[20];
 

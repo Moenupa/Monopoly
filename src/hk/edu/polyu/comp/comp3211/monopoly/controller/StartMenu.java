@@ -5,7 +5,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 public class StartMenu implements IBase {
-    /** Scanner for user input */
+    /** ASCII Art for start menu */
     private static final String[] ASCII_MONOPOLY = {
         "$$\\      $$\\                                                   $$\\           ",
         "$$$\\    $$$ |                                                  $$ |          ",
@@ -40,6 +40,7 @@ public class StartMenu implements IBase {
     @Override
     public void terminal() {
         String option;
+
         // intended infinite loop
         while (true) {
             printStartMenu();
@@ -53,21 +54,8 @@ public class StartMenu implements IBase {
             // then get choose an option
             try {
                 // if no err return directly otherwise loop back and ask for user option
-                switch (Integer.parseInt(option)) {
-                    case 1:
-                        startNewGame();
-                        return;
-                    case 2:
-                        loadPreviousGame();
-                        return;
-                    case 3:
-                        quitGame();
-                        return;
-                }
-            } catch (InterruptedException e) {
-                // game init is interrupted by user option
-                Printer.printWarnMsg(e.getMessage());
-                Main.setUI(new StartMenu());
+                chooseOption(Integer.parseInt(option));
+                return;
             } catch (Exception e) {
                 // any error will cause it loop back to ask for option
                 // input 'num' is invalid
@@ -78,6 +66,24 @@ public class StartMenu implements IBase {
 
     /** Initialize start menu */
     public StartMenu() {}
+
+    /**
+     * Choose one option to play
+     *
+     * @param num option number
+     */
+    private static void chooseOption(int num) throws Exception {
+        switch (num) {
+            case 1:
+                startNewGame();
+                return;
+            case 2:
+                loadPreviousGame();
+                return;
+            case 3:
+                quitGame();
+        }
+    }
 
     /** New game option */
     private static void startNewGame() throws InterruptedException {
@@ -107,7 +113,9 @@ public class StartMenu implements IBase {
         if (savedGameName.length < 1) {
             Printer.printMsg("No game save available.\n");
             return null;
-        } else if (savedGameName.length == 1) return savedGameName[0];
+        } else if (savedGameName.length == 1) {
+            return savedGameName[0];
+        }
 
         Printer.printMsg("Select the game save file from the following:\n");
         for (int i = 0; i < savedGameName.length; i++) {
@@ -126,8 +134,12 @@ public class StartMenu implements IBase {
 
             try {
                 int index = Integer.parseInt(option) - 1;
-                if (index >= 0 && index < savedGameName.length) return savedGameName[index];
-                else Printer.printWarnMsg("INVALID INPUT! The input is Out of Bound.\n");
+
+                if (index >= 0 && index < savedGameName.length) {
+                    return savedGameName[index];
+                } else {
+                    Printer.printWarnMsg("INVALID INPUT! The input is Out of Bound.\n");
+                }
             } catch (Exception e) {
                 // internal error
                 e.printStackTrace();
@@ -147,12 +159,17 @@ public class StartMenu implements IBase {
     private static void printStartMenu() {
         Printer.printMsg("\n");
         int offset = 1;
-        for (int i = 0; i < ASCII_MONOPOLY.length; i++) {
 
-            if (offset <= i && i < START_MENU.length + offset)
-                Printer.printMsg("\t" + START_MENU[i - offset]);
-            else Printer.printMsg("\t" + " ".repeat(START_MENU[0].length()));
-            Printer.printHelpMsg("\t" + ASCII_MONOPOLY[i]);
+        for (int line = 0; line < ASCII_MONOPOLY.length; line++) {
+            // print menu
+            if (offset <= line && line < START_MENU.length + offset) {
+                Printer.printHelpMsg("\t" + START_MENU[line - offset]);
+            } else {
+                Printer.printMsg("\t" + " ".repeat(START_MENU[0].length()));
+            }
+
+            // print title
+            Printer.printMsg("\t" + ASCII_MONOPOLY[line]);
             Printer.printMsg("\n");
         }
     }

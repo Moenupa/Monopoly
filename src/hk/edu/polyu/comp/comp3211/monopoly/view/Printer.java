@@ -228,57 +228,57 @@ public class Printer {
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][0], 29),
+                middle(squarePlayer[9][0], 28),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][0], 29));
+                middle(squarePlayer[16][0], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][1], 29),
+                middle(squarePlayer[9][1], 28),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][1], 29));
+                middle(squarePlayer[16][1], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][2], 29),
+                middle(squarePlayer[9][2], 28),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][2], 29));
+                middle(squarePlayer[16][2], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][3], 29),
+                middle(squarePlayer[9][3], 28),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][3], 29));
+                middle(squarePlayer[16][3], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][4], 29),
+                middle(squarePlayer[9][4], 28),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][4], 29));
+                middle(squarePlayer[16][4], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][5], 29),
+                middle(squarePlayer[9][5], 28),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][5], 29));
+                middle(squarePlayer[16][5], 28));
 
         System.out.print(
                 "|--------------------|                                                            "
@@ -312,57 +312,57 @@ public class Printer {
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][0], 29),
+                middle(squarePlayer[8][0], 28),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][0], 29));
+                middle(squarePlayer[17][0], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][1], 29),
+                middle(squarePlayer[8][1], 28),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][1], 29));
+                middle(squarePlayer[17][1], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][2], 29),
+                middle(squarePlayer[8][2], 28),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][2], 29));
+                middle(squarePlayer[17][2], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][3], 29),
+                middle(squarePlayer[8][3], 28),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][3], 29));
+                middle(squarePlayer[17][3], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][4], 29),
+                middle(squarePlayer[8][4], 28),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][4], 29));
+                middle(squarePlayer[17][4], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][5], 29),
+                middle(squarePlayer[8][5], 28),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][5], 29));
+                middle(squarePlayer[17][5], 28));
 
         System.out.print(
                 "|--------------------|                                                            "
@@ -396,57 +396,57 @@ public class Printer {
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][0], 29),
+                middle(squarePlayer[7][0], 28),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][0], 29));
+                middle(squarePlayer[18][0], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][1], 29),
+                middle(squarePlayer[7][1], 28),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][1], 29));
+                middle(squarePlayer[18][1], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][2], 29),
+                middle(squarePlayer[7][2], 28),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][2], 29));
+                middle(squarePlayer[18][2], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][3], 29),
+                middle(squarePlayer[7][3], 28),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][3], 29));
+                middle(squarePlayer[18][3], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][4], 29),
+                middle(squarePlayer[7][4], 28),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][4], 29));
+                middle(squarePlayer[18][4], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][5], 29),
+                middle(squarePlayer[7][5], 28),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][5], 29));
+                middle(squarePlayer[18][5], 28));
 
         System.out.print(
                 "|--------------------|                                                            "
@@ -480,57 +480,57 @@ public class Printer {
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][0], 29),
+                middle(squarePlayer[6][0], 28),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][0], 29));
+                middle(squarePlayer[19][0], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][1], 29),
+                middle(squarePlayer[6][1], 28),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][1], 29));
+                middle(squarePlayer[19][1], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][2], 29),
+                middle(squarePlayer[6][2], 28),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][2], 29));
+                middle(squarePlayer[19][2], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][3], 29),
+                middle(squarePlayer[6][3], 28),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][3], 29));
+                middle(squarePlayer[19][3], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][4], 29),
+                middle(squarePlayer[6][4], 28),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][4], 29));
+                middle(squarePlayer[19][4], 28));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
                         + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][5], 29),
+                middle(squarePlayer[6][5], 28),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][5], 29));
+                middle(squarePlayer[19][5], 28));
 
         System.out.print(
                 "|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");

@@ -10,7 +10,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 public class Game implements IBase {
     private Board board;
     private Player[] players;
-    private ISquare[] squares;
+    private static ISquare[] squares;
     private int numPlayerLeft;
     private final Printer printer;
 
@@ -26,7 +26,9 @@ public class Game implements IBase {
         printGame();
         update();
 
-        if (isGameEnd()) endGame();
+        if (isGameEnd()) {
+            endGame();
+        }
     }
 
     /** Initialize game controller */
@@ -158,7 +160,9 @@ public class Game implements IBase {
         p_index %= players.length;
         board.setP_index(p_index);
 
-        if (p_index == 0) board.setRound(board.getRound() + 1);
+        if (p_index == 0) {
+            board.setRound(board.getRound() + 1);
+        }
         return p_index;
     }
 
@@ -187,7 +191,7 @@ public class Game implements IBase {
      *
      * @param curPlayer player to take effect
      */
-    public void takeEffect(Player curPlayer) {
+    public static void takeEffect(Player curPlayer) {
         squares[curPlayer.getPosition()].execute(curPlayer);
     }
 
@@ -228,7 +232,6 @@ public class Game implements IBase {
 
     /** End the game */
     private void endGame() {
-
         Main.setUI(new EndGame(board));
     }
 }
