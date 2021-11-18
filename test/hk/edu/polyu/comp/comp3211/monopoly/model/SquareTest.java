@@ -16,6 +16,7 @@ class SquareTest {
     Jail jail;
     Property property;
     Tax tax;
+    Go go;
     Player player1, player2;
 
     @BeforeEach
@@ -34,6 +35,7 @@ class SquareTest {
         this.oops = new Oops();
         this.jail = new Jail();
         this.free = new Free();
+        this.go = new Go();
     }
 
     @Test
@@ -71,6 +73,8 @@ class SquareTest {
                 0,
                 (oriMoney - curMoney) % 10,
                 "Chance: not multiple of 10"); // Test if the result is multiple of 10
+
+
     }
 
     @Test
@@ -111,7 +115,7 @@ class SquareTest {
         int oriInJail = player1.getInJail();
         boolean oriBankrupted = player1.isBankrupted();
 
-        free.execute(player1); // execute the free square
+        go.execute(player1); // execute the free square
 
         // Test if nothing has been changed after execute()
         String curName = player1.getName();

@@ -116,6 +116,7 @@ class BoardTest {
         // round index and active player index
         assertEquals(board2.getRound(), board2_load.getRound(), "ROUND INDEX NOT EQUAL");
         assertEquals(board2.getP_index(), board2_load.getP_index(), "P INDEX NOT EQUAL");
+        assertTrue(Arrays.asList(Board.getSavedGameName()).contains(save_name), "NAME NOT EQUAL");
 
         // has the same players with same names, money, etc.
         List<Player> players2_load = Arrays.asList(board2_load.getPlayers());
@@ -125,6 +126,13 @@ class BoardTest {
         assertTrue(
                 hasSamePlayers(playerNames2_load, Arrays.asList(playerNameSet2)),
                 "PLAYERS NOT EQUAL");
+    }
+
+    @Test
+    void getWinnerTest(){
+        Player winner=board1.getPlayers()[0];
+        winner.addMoney(10000);
+        assertEquals(board1.getWinner(), winner, "WRONG WINNER");
     }
 
     private boolean hasSamePlayers(List<String> list1, List<String> list2) {
