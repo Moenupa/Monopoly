@@ -5,11 +5,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.controller.Game;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
-import java.util.Scanner;
-
-/**
- * The In-Jail/Just-Visiting square of the board
- */
+/** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
     private static final int FINE = 150;
     private static final String CONFIRM_PATTERN = "^[nNyY]$";
@@ -60,7 +56,8 @@ public class Jail implements ISquare {
         // throw dice
         if (tryDoubles(player) && !isPayFine) {
             Printer.printPlayerPrompt(player);
-            Printer.printColoredMsg(Printer.ANSI_MAGENTA, "good luck in throwing doubles, getting out of jail!\n");
+            Printer.printColoredMsg(
+                    Printer.ANSI_MAGENTA, "good luck in throwing doubles, getting out of jail!\n");
             player.setInJail(0);
         }
 
@@ -90,12 +87,14 @@ public class Jail implements ISquare {
         String option;
 
         if (!Main.TEST) {
-            option = Printer.scanValidInput(() -> {
-                        Printer.printPlayerPrompt(player);
-                        Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
-                    },
-                    "Should be [y] or [n].",
-                    CONFIRM_PATTERN);
+            option =
+                    Printer.scanValidInput(
+                            () -> {
+                                Printer.printPlayerPrompt(player);
+                                Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
+                            },
+                            "Should be [y] or [n].",
+                            CONFIRM_PATTERN);
             isPayFine = option.matches(CONFIRM_YES_PATTERN);
         }
 
