@@ -47,9 +47,7 @@ public class StartMenu implements IBase {
             // ensure inputs to be valid
             option =
                     Printer.scanValidInput(
-                            () -> {
-                                Printer.printHelpMsg("Please enter option index (1-3): ");
-                            },
+                            () -> Printer.printHelpMsg("Please enter option index (1-3): "),
                             "Should be an integer.",
                             "^[1-3]$");
 
@@ -122,9 +120,7 @@ public class StartMenu implements IBase {
         while (true) {
             String option =
                     Printer.scanValidInputWithQuit(
-                            () -> {
-                                System.out.print("Choose the index of game-save (integer): ");
-                            },
+                            () -> System.out.print("Choose the index of game-save (integer): "),
                             "Should be an integer.",
                             "^\\d+$");
 

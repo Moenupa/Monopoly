@@ -32,15 +32,12 @@ public class Game implements IBase {
     /** Initialize game controller */
     public Game() throws InterruptedException {
         String option;
-        var in = Main.getScanner();
 
         while (true) {
             // ensure inputs to be valid
             option =
                     Printer.scanValidInputWithQuit(
-                            () -> {
-                                Printer.printHelpMsg("Please enter the number of players: ");
-                            },
+                            () -> Printer.printHelpMsg("Please enter the number of players: "),
                             "Should be an integer.",
                             "^\\d+$");
 
