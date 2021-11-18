@@ -142,7 +142,10 @@ class SquareTest {
         int curInJail = player1.getInJail();
 
         assertEquals(oriName, curName);
-        assertEquals(curInJail, oriInJail, "Jail: Just Visiting, not in jail"); // Test if the inJail counter is decreased
+        assertEquals(
+                curInJail,
+                oriInJail,
+                "Jail: Just Visiting, not in jail"); // Test if the inJail counter is decreased
     }
 
     @Test
@@ -172,7 +175,10 @@ class SquareTest {
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: pay fine but not moved"); // Test if the player is moved
-        assertEquals(0, curInjail, "Jail: pay fine but still in jail"); // Test if the player is still in jail
+        assertEquals(
+                0,
+                curInjail,
+                "Jail: pay fine but still in jail"); // Test if the player is still in jail
     }
 
     @Test
@@ -199,7 +205,10 @@ class SquareTest {
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: throw doubles but not move"); // Test if the player is moved
-        assertEquals(0, curInjail, "Jail: throw doubles but still in jail"); // Test if the player is still in jail
+        assertEquals(
+                0,
+                curInjail,
+                "Jail: throw doubles but still in jail"); // Test if the player is still in jail
     }
 
     @Test
@@ -229,7 +238,10 @@ class SquareTest {
         assertTrue(
                 curPosition != oriPosition,
                 "Jail: after 3 round but not move"); // Test if the player is moved
-        assertEquals(0, curInjail, "Jail: after 3 round but still in jail"); // Test if the player is still in jail
+        assertEquals(
+                0,
+                curInjail,
+                "Jail: after 3 round but still in jail"); // Test if the player is still in jail
         assertEquals(
                 curMoney,
                 oriMoney - 150,

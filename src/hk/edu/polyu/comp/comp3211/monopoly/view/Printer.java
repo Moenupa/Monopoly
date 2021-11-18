@@ -18,7 +18,8 @@ public class Printer {
     public static final String ANSI_BLUE = "\u001b[34m";
     public static final String ANSI_MAGENTA = "\u001b[35m";
     public static final String ANSI_CYAN = "\u001b[36m";
-    // --Commented out by Inspection (2021/11/18 16:20):public static final String ANSI_WHITE = "\u001b[37m";
+    // --Commented out by Inspection (2021/11/18 16:20):public static final String ANSI_WHITE =
+    // "\u001b[37m";
     public static final String ANSI_RESET = "\u001b[0m";
     public static final String[] colors = {
         ANSI_RED, ANSI_GREEN, ANSI_YELLOW, ANSI_BLUE, ANSI_MAGENTA, ANSI_CYAN, ANSI_RESET
@@ -119,70 +120,70 @@ public class Printer {
                 "|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");
         System.out.print(
                 "|    FREE PARKING    |       Shatin       |       CHANCE       |      Tuen Mun    "
-                    + "  |       Tai Po       |     GO TO GAIL     |\n");
+                        + "  |       Tai Po       |     GO TO GAIL     |\n");
         System.out.print(
                 "|                    |                    |                    |                  "
-                    + "  |                    |                    |\n");
+                        + "  |                    |                    |\n");
         System.out.print(
                 "|                    |                    |                    |                  "
-                    + "  |                    |                    |\n");
+                        + "  |                    |                    |\n");
         System.out.print(
                 "|                    |      HKD 700       |                    |      HKD 400     "
-                    + "  |      HKD 500       |                    |\n");
+                        + "  |      HKD 500       |                    |\n");
         System.out.print(
                 "|                    |                    |                    |                  "
-                    + "  |                    |                    |\n");
+                        + "  |                    |                    |\n");
         System.out.print(
                 "|    player here:    |    player here:    |    player here:    |    player here:  "
-                    + "  |    player here:    |    player here:    |\n");
+                        + "  |    player here:    |    player here:    |\n");
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
-                middle(squarePlayer[10][0],29),
-                middle(squarePlayer[11][0],29),
-                middle(squarePlayer[12][0],29),
-                middle(squarePlayer[13][0],29),
-                middle(squarePlayer[14][0],29),
-                middle(squarePlayer[15][0],29));
+                middle(squarePlayer[10][0], 29),
+                middle(squarePlayer[11][0], 29),
+                middle(squarePlayer[12][0], 29),
+                middle(squarePlayer[13][0], 29),
+                middle(squarePlayer[14][0], 29),
+                middle(squarePlayer[15][0], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
-                middle(squarePlayer[10][1],29),
-                middle(squarePlayer[11][1],29),
-                middle(squarePlayer[12][1],29),
-                middle(squarePlayer[13][1],29),
-                middle(squarePlayer[14][1],29),
-                middle(squarePlayer[15][1],29));
+                middle(squarePlayer[10][1], 29),
+                middle(squarePlayer[11][1], 29),
+                middle(squarePlayer[12][1], 29),
+                middle(squarePlayer[13][1], 29),
+                middle(squarePlayer[14][1], 29),
+                middle(squarePlayer[15][1], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
-                middle(squarePlayer[10][2],29),
-                middle(squarePlayer[11][2],29),
-                middle(squarePlayer[12][2],29),
-                middle(squarePlayer[13][2],29),
-                middle(squarePlayer[14][2],29),
-                middle(squarePlayer[15][2],29));
+                middle(squarePlayer[10][2], 29),
+                middle(squarePlayer[11][2], 29),
+                middle(squarePlayer[12][2], 29),
+                middle(squarePlayer[13][2], 29),
+                middle(squarePlayer[14][2], 29),
+                middle(squarePlayer[15][2], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
-                middle(squarePlayer[10][3],29),
-                middle(squarePlayer[11][3],29),
-                middle(squarePlayer[12][3],29),
-                middle(squarePlayer[13][3],29),
-                middle(squarePlayer[14][3],29),
-                middle(squarePlayer[15][3],29));
+                middle(squarePlayer[10][3], 29),
+                middle(squarePlayer[11][3], 29),
+                middle(squarePlayer[12][3], 29),
+                middle(squarePlayer[13][3], 29),
+                middle(squarePlayer[14][3], 29),
+                middle(squarePlayer[15][3], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
-                middle(squarePlayer[10][4],29),
-                middle(squarePlayer[11][4],29),
-                middle(squarePlayer[12][4],29),
-                middle(squarePlayer[13][4],29),
-                middle(squarePlayer[14][4],29),
-                middle(squarePlayer[15][4],29));
+                middle(squarePlayer[10][4], 29),
+                middle(squarePlayer[11][4], 29),
+                middle(squarePlayer[12][4], 29),
+                middle(squarePlayer[13][4], 29),
+                middle(squarePlayer[14][4], 29),
+                middle(squarePlayer[15][4], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
-                middle(squarePlayer[10][5],29),
-                middle(squarePlayer[11][5],29),
-                middle(squarePlayer[12][5],29),
-                middle(squarePlayer[13][5],29),
-                middle(squarePlayer[14][5],29),
-                middle(squarePlayer[15][5],29));
+                middle(squarePlayer[10][5], 29),
+                middle(squarePlayer[11][5], 29),
+                middle(squarePlayer[12][5], 29),
+                middle(squarePlayer[13][5], 29),
+                middle(squarePlayer[14][5], 29),
+                middle(squarePlayer[15][5], 29));
         System.out.printf(
                 "|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------%s|\n",
                 squareColor[10],
@@ -199,334 +200,334 @@ public class Printer {
         // line2
         System.out.printf(
                 "|      Tsing Yi     %s|%s|                                                        "
-                    + "                           |%s|%s     Sai Kung      |\n",
+                        + "                           |%s|%s     Sai Kung      |\n",
                 squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
         System.out.printf(
                 "|      HKD 400      %s|%s|                                                        "
-                    + "                           |%s|%s     HKD 400       |\n",
+                        + "                           |%s|%s     HKD 400       |\n",
                 squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
         System.out.printf(
                 "|    player here:   %s|%s|                                                        "
-                    + "                           |%s|%s   player here:    |\n",
+                        + "                           |%s|%s   player here:    |\n",
                 squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][0],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[9][0], 29),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][0],29));
+                middle(squarePlayer[16][0], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][1],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[9][1], 29),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][1],29));
+                middle(squarePlayer[16][1], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][2],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[9][2], 29),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][2],29));
+                middle(squarePlayer[16][2], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][3],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[9][3], 29),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][3],29));
+                middle(squarePlayer[16][3], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][4],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[9][4], 29),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][4],29));
+                middle(squarePlayer[16][4], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[9][5],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[9][5], 29),
                 squareColor[9],
                 ANSI_RESET,
                 squareColor[16],
                 ANSI_RESET,
-                middle(squarePlayer[16][5],29));
+                middle(squarePlayer[16][5], 29));
 
         System.out.print(
                 "|--------------------|                                                            "
-                    + "                       |--------------------|\n");
+                        + "                       |--------------------|\n");
 
         // line3
         System.out.printf(
                 "|       CHANCE      %s|%s|                                                        "
-                    + "                           |%s|%s    Yuen Long      |\n",
+                        + "                           |%s|%s    Yuen Long      |\n",
                 squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s     HKD 400       |\n",
+                        + "                           |%s|%s     HKD 400       |\n",
                 squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
         System.out.printf(
                 "|    player here:   %s|%s|                                                        "
-                    + "                           |%s|%s   player here:    |\n",
+                        + "                           |%s|%s   player here:    |\n",
                 squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][0],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[8][0], 29),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][0],29));
+                middle(squarePlayer[17][0], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][1],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[8][1], 29),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][1],29));
+                middle(squarePlayer[17][1], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][2],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[8][2], 29),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][2],29));
+                middle(squarePlayer[17][2], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][3],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[8][3], 29),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][3],29));
+                middle(squarePlayer[17][3], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][4],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[8][4], 29),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][4],29));
+                middle(squarePlayer[17][4], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[8][5],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[8][5], 29),
                 squareColor[8],
                 ANSI_RESET,
                 squareColor[17],
                 ANSI_RESET,
-                middle(squarePlayer[17][5],29));
+                middle(squarePlayer[17][5], 29));
 
         System.out.print(
                 "|--------------------|                                                            "
-                    + "                       |--------------------|\n");
+                        + "                       |--------------------|\n");
 
         // line4
         System.out.printf(
                 "|      Mong Kok     %s|%s|                                                        "
-                    + "                           |%s|%s      CHANCE       |\n",
+                        + "                           |%s|%s      CHANCE       |\n",
                 squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
         System.out.printf(
                 "|      HKD 500      %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
         System.out.printf(
                 "|    player here:   %s|%s|                                                        "
-                    + "                           |%s|%s   player here:    |\n",
+                        + "                           |%s|%s   player here:    |\n",
                 squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][0],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[7][0], 29),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][0],29));
+                middle(squarePlayer[18][0], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][1],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[7][1], 29),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][1],29));
+                middle(squarePlayer[18][1], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][2],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[7][2], 29),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][2],29));
+                middle(squarePlayer[18][2], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][3],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[7][3], 29),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][3],29));
+                middle(squarePlayer[18][3], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][4],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[7][4], 29),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][4],29));
+                middle(squarePlayer[18][4], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[7][5],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[7][5], 29),
                 squareColor[7],
                 ANSI_RESET,
                 squareColor[18],
                 ANSI_RESET,
-                middle(squarePlayer[18][5],29));
+                middle(squarePlayer[18][5], 29));
 
         System.out.print(
                 "|--------------------|                                                            "
-                    + "                       |--------------------|\n");
+                        + "                       |--------------------|\n");
 
         // line5
         System.out.printf(
                 "|       Shek O      %s|%s|                                                        "
-                    + "                           |%s|%s      Tai O        |\n",
+                        + "                           |%s|%s      Tai O        |\n",
                 squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
         System.out.printf(
                 "|      HKD 400      %s|%s|                                                        "
-                    + "                           |%s|%s     HKD 600       |\n",
+                        + "                           |%s|%s     HKD 600       |\n",
                 squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
         System.out.printf(
                 "|                   %s|%s|                                                        "
-                    + "                           |%s|%s                   |\n",
+                        + "                           |%s|%s                   |\n",
                 squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
         System.out.printf(
                 "|    player here:   %s|%s|                                                        "
-                    + "                           |%s|%s   player here:    |\n",
+                        + "                           |%s|%s   player here:    |\n",
                 squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][0],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[6][0], 29),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][0],29));
+                middle(squarePlayer[19][0], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][1],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[6][1], 29),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][1],29));
+                middle(squarePlayer[19][1], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][2],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[6][2], 29),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][2],29));
+                middle(squarePlayer[19][2], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][3],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[6][3], 29),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][3],29));
+                middle(squarePlayer[19][3], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][4],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[6][4], 29),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][4],29));
+                middle(squarePlayer[19][4], 29));
         System.out.printf(
                 "|%-28s%s|%s|                                                                      "
-                    + "             |%s|%s%-28s|\n",
-                middle(squarePlayer[6][5],29),
+                        + "             |%s|%s%-28s|\n",
+                middle(squarePlayer[6][5], 29),
                 squareColor[6],
                 ANSI_RESET,
                 squareColor[19],
                 ANSI_RESET,
-                middle(squarePlayer[19][5],29));
+                middle(squarePlayer[19][5], 29));
 
         System.out.print(
                 "|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");
@@ -543,13 +544,13 @@ public class Printer {
                 ANSI_RESET);
         System.out.print(
                 "|        JAIL        |       Stanley      |     INCOME TAX     |      Wan Chai    "
-                    + "  |       Central      |         GO         |\n");
+                        + "  |       Central      |         GO         |\n");
         System.out.print(
                 "|      in jail:      |                    |                    |                  "
-                    + "  |                    |  collect HKD 1500  |\n");
+                        + "  |                    |  collect HKD 1500  |\n");
         System.out.printf(
                 "|%s%-9s%s  %s%-9s%s|                    |                    |                   "
-                    + " |                    |    as your salary  |\n",
+                        + " |                    |    as your salary  |\n",
                 inJailColors[0],
                 inJailPlayers[0],
                 ANSI_RESET,
@@ -558,7 +559,7 @@ public class Printer {
                 ANSI_RESET);
         System.out.printf(
                 "|%s%-9s%s  %s%-9s%s|      HKD 700       |                    |      HKD 400      "
-                    + " |      HKD 500       |    when you pass   |\n",
+                        + " |      HKD 500       |    when you pass   |\n",
                 inJailColors[2],
                 inJailPlayers[2],
                 ANSI_RESET,
@@ -567,7 +568,7 @@ public class Printer {
                 ANSI_RESET);
         System.out.printf(
                 "|%s%-9s%s  %s%-9s%s|                    |                    |                   "
-                    + " |                    |        <<----      |\n",
+                        + " |                    |        <<----      |\n",
                 inJailColors[4],
                 inJailPlayers[4],
                 ANSI_RESET,
@@ -576,55 +577,55 @@ public class Printer {
                 ANSI_RESET);
         System.out.print(
                 "|   just visiting:   |    player here:    |    player here:    |    player here:  "
-                    + "  |    player here:    |    player here:    |\n");
+                        + "  |    player here:    |    player here:    |\n");
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
                 justVisitingPlayer[0],
-                middle(squarePlayer[4][0],29),
-                middle(squarePlayer[3][0],29),
-                middle(squarePlayer[2][0],29),
-                middle(squarePlayer[1][0],29),
-                middle(squarePlayer[0][0],29));
+                middle(squarePlayer[4][0], 29),
+                middle(squarePlayer[3][0], 29),
+                middle(squarePlayer[2][0], 29),
+                middle(squarePlayer[1][0], 29),
+                middle(squarePlayer[0][0], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
                 justVisitingPlayer[1],
-                middle(squarePlayer[4][1],29),
-                middle(squarePlayer[3][1],29),
-                middle(squarePlayer[2][1],29),
-                middle(squarePlayer[1][1],29),
-                middle(squarePlayer[0][1],29));
+                middle(squarePlayer[4][1], 29),
+                middle(squarePlayer[3][1], 29),
+                middle(squarePlayer[2][1], 29),
+                middle(squarePlayer[1][1], 29),
+                middle(squarePlayer[0][1], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
                 justVisitingPlayer[2],
-                middle(squarePlayer[4][2],29),
-                middle(squarePlayer[3][2],29),
-                middle(squarePlayer[2][2],29),
-                middle(squarePlayer[1][2],29),
-                middle(squarePlayer[0][2],29));
+                middle(squarePlayer[4][2], 29),
+                middle(squarePlayer[3][2], 29),
+                middle(squarePlayer[2][2], 29),
+                middle(squarePlayer[1][2], 29),
+                middle(squarePlayer[0][2], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
                 justVisitingPlayer[3],
-                middle(squarePlayer[4][3],29),
-                middle(squarePlayer[3][3],29),
-                middle(squarePlayer[2][3],29),
-                middle(squarePlayer[1][3],29),
-                middle(squarePlayer[0][3],29));
+                middle(squarePlayer[4][3], 29),
+                middle(squarePlayer[3][3], 29),
+                middle(squarePlayer[2][3], 29),
+                middle(squarePlayer[1][3], 29),
+                middle(squarePlayer[0][3], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
                 justVisitingPlayer[4],
-                middle(squarePlayer[4][4],29),
-                middle(squarePlayer[3][4],29),
-                middle(squarePlayer[2][4],29),
-                middle(squarePlayer[1][4],29),
-                middle(squarePlayer[0][4],29));
+                middle(squarePlayer[4][4], 29),
+                middle(squarePlayer[3][4], 29),
+                middle(squarePlayer[2][4], 29),
+                middle(squarePlayer[1][4], 29),
+                middle(squarePlayer[0][4], 29));
         System.out.printf(
                 "|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",
                 justVisitingPlayer[5],
-                middle(squarePlayer[4][5],29),
-                middle(squarePlayer[3][5],29),
-                middle(squarePlayer[2][5],29),
-                middle(squarePlayer[1][5],29),
-                middle(squarePlayer[0][5],29));
+                middle(squarePlayer[4][5], 29),
+                middle(squarePlayer[3][5], 29),
+                middle(squarePlayer[2][5], 29),
+                middle(squarePlayer[1][5], 29),
+                middle(squarePlayer[0][5], 29));
         System.out.print(
                 "|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");
     }
