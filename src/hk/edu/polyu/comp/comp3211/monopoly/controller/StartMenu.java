@@ -46,9 +46,7 @@ public class StartMenu implements IBase {
             // ensure inputs to be valid
             option =
                     Printer.scanValidInput(
-                            () -> {
-                                Printer.printHelpMsg("Please enter option index (1-3): ");
-                            },
+                            () -> Printer.printHelpMsg("Please enter option index (1-3): "),
                             "Should be an integer.",
                             "^[1-3]$");
 
@@ -66,7 +64,12 @@ public class StartMenu implements IBase {
                         quitGame();
                         return;
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
+                // game init is interrupted by user option
+                Printer.printWarnMsg(e.getMessage());
+                Main.setUI(new StartMenu());
+            }
+            catch (Exception e) {
                 // any error will cause it loop back to ask for option
                 // input 'num' is invalid
                 Printer.printWarnMsg(e.getMessage());
@@ -78,14 +81,8 @@ public class StartMenu implements IBase {
     public StartMenu() {}
 
     /** New game option */
-    private static void startNewGame() {
-        try {
+    private static void startNewGame() throws InterruptedException {
             Main.setUI(new Game());
-        } catch (InterruptedException e) {
-            // game init is interrupted by user option
-            Printer.printWarnMsg(e.getMessage());
-            Main.setUI(new StartMenu());
-        }
     }
 
     /** Load one of saved game */
@@ -121,9 +118,7 @@ public class StartMenu implements IBase {
         while (true) {
             String option =
                     Printer.scanValidInputWithQuit(
-                            () -> {
-                                Printer.printHelpMsg("Choose the index of game-save (integer): ");
-                            },
+                            () -> Printer.printHelpMsg("Choose the index of game-save (integer), q(uit) to quit to start menu: "),
                             "Should be an integer.",
                             "^\\d+$");
 
@@ -141,8 +136,8 @@ public class StartMenu implements IBase {
     /** Quit game */
     private static void quitGame() {
         Printer.printMsg("Exiting Monopoly Program..\n");
-        for (int i = 0; i < ASCII_MONOPOLY.length; i++) {
-            Printer.printHelpMsg(ASCII_MONOPOLY[i]);
+        for (String s : ASCII_MONOPOLY) {
+            Printer.printHelpMsg(s);
         }
         System.exit(0);
     }
