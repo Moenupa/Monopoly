@@ -52,7 +52,7 @@ public class Jail implements ISquare {
         }
 
         // throw dice
-        if (tryDoubles(player) ) {
+        if (tryDoubles(player)) {
             Printer.printPlayerPrompt(player);
             Printer.printColoredMsg(
                     Printer.ANSI_MAGENTA, "good luck in throwing doubles, getting out of jail!\n");
@@ -84,17 +84,17 @@ public class Jail implements ISquare {
     private static void askPayFine(Player player) {
         String option;
 
-            option =
-                    Printer.scanValidInput(
-                            () -> {
-                                Printer.printPlayerPrompt(player);
-                                Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
-                            },
-                            "Should be [y] or [n].",
-                            Printer.CONFIRM_REGEX);
-            var tmp = isPayFine;
-            isPayFine = option.matches(Printer.CONFIRM_YES_REGEX);
-            if(Main.TEST)isPayFine = tmp;
+        option =
+                Printer.scanValidInput(
+                        () -> {
+                            Printer.printPlayerPrompt(player);
+                            Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
+                        },
+                        "Should be [y] or [n].",
+                        Printer.CONFIRM_REGEX);
+        var tmp = isPayFine;
+        isPayFine = option.matches(Printer.CONFIRM_YES_REGEX);
+        if (Main.TEST) isPayFine = tmp;
 
         if (isPayFine) {
             payFine(player);
@@ -112,7 +112,10 @@ public class Jail implements ISquare {
         int d1 = diceResult[1];
         diceResult[0] = player.rollDice();
         diceResult[1] = player.rollDice();
-        if(Main.TEST){diceResult[0] = d0;diceResult[1] = d1;}
+        if (Main.TEST) {
+            diceResult[0] = d0;
+            diceResult[1] = d1;
+        }
         return diceResult[0] == diceResult[1];
     }
 

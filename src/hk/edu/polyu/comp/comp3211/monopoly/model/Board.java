@@ -1,6 +1,5 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
-import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.*;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
@@ -52,7 +51,7 @@ public class Board implements Serializable {
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-                Printer.printMsg("Player " + (i + 1) + ": ");
+            Printer.printMsg("Player " + (i + 1) + ": ");
             this.players[i] = new Player();
         }
         // then initialize the squares on the board
@@ -233,7 +232,7 @@ public class Board implements Serializable {
                 throw new RuntimeException("Internal error when creating a save directory");
             }
         }
-            return dir.list();
+        return dir.list();
     }
 
     /** Initialize the board's squares according to definitions */

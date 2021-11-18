@@ -212,8 +212,7 @@ public class Game implements IBase {
      */
     private static void retire(Player player) {
         for (Property property : player.getProperties()) {
-            if (property != null)
-                property.setOwner(null);
+            if (property != null) property.setOwner(null);
         }
     }
 

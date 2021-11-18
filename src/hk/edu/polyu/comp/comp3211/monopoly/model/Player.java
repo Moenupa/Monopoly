@@ -1,6 +1,5 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
-import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
