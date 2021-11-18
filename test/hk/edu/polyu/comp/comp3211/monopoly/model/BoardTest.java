@@ -129,8 +129,8 @@ class BoardTest {
     }
 
     @Test
-    void getWinnerTest(){
-        Player winner=board1.getPlayers()[0];
+    void getWinnerTest() {
+        Player winner = board1.getPlayers()[0];
         winner.addMoney(10000);
         assertEquals(board1.getWinner(), winner, "WRONG WINNER");
     }
