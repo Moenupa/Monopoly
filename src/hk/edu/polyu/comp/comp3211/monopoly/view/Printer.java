@@ -2,6 +2,10 @@ package hk.edu.polyu.comp.comp3211.monopoly.view;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.*;
+import hk.edu.polyu.comp.comp3211.monopoly.model.squares.ISquare;
+import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
+
+import java.util.Arrays;
 
 public class Printer {
     /** current game board */
@@ -16,6 +20,9 @@ public class Printer {
     public static final String ANSI_CYAN = "\u001b[36m";
     public static final String ANSI_WHITE = "\u001b[37m";
     public static final String ANSI_RESET = "\u001b[0m";
+    public static final String[] colors = {
+        ANSI_RED, ANSI_GREEN, ANSI_YELLOW, ANSI_BLUE, ANSI_MAGENTA, ANSI_CYAN, ANSI_RESET
+    };
 
     private static final String QUIT_REGEX = "^[qQ](uit)?$";
 
@@ -34,9 +41,183 @@ public class Printer {
         printInfo();
     }
 
+    /**
+     * Given a string and a length, return a new string such that the original string is appended
+     * with blank spaces while the total length is equal to the given length, and the original
+     * string should be centered.
+     *
+     * @param str the original string
+     * @param length the total length of the new string
+     * @return the new string
+     */
+    public String middle(String str, int length) {
+        int len = str.length();
+        int diff = length - len;
+        int right = diff / 2;
+        int left = diff - right;
+        return " ".repeat(Math.max(0, left)) + str + " ".repeat(Math.max(0, right));
+    }
+
     /** Only print the game board */
     private void printBoard() {
-        board.getSquares();
+        String[] squareColor=new String[20];
+        String[][] squarePlayer=new String[20][6];
+        int[] squarePlayerNum=new int[20];
+        ISquare[] squares=board.getSquares();
+        Player[] players= board.getPlayers();
+        String[] inJailPlayers=new String[6];
+        String[] inJailColors=new String[6];
+        int inJailNum=0;
+        String[] justVisitingPlayer=new String[6];
+        int justVisitingNum=0;
+
+
+        for (int i=0;i< squares.length;i++){
+
+            squareColor[i]=colors[colors.length-1];
+
+            if (squares[i] instanceof Property){
+                Property curProp=(Property)squares[i];
+                Player curOwner=curProp.getOwner();
+                if (curOwner!=null){
+                    int pi=Arrays.asList(players).indexOf(curOwner);
+                    squareColor[i]=colors[pi];
+                }
+            }
+        }
+
+        for (int i=0; i<20; i++){
+            for (int j=0; j<6; j++)squarePlayer[i][j]=ANSI_BLACK+ANSI_RESET;
+        }
+
+        for (int i=0; i<6; i++){
+            inJailPlayers[i]="";
+            justVisitingPlayer[i]=ANSI_BLACK+ANSI_RESET;
+            inJailColors[i]=ANSI_BLACK;
+        }
+
+        for (int i=0; i<players.length; i++){
+            int curPosition=players[i].getPosition();
+            squarePlayer[curPosition][squarePlayerNum[curPosition]]=colors[i]+players[i].getName()+ANSI_RESET;
+            squarePlayerNum[curPosition]++;
+
+            if (curPosition==5){
+                if (players[i].getInJail()==0){
+                    justVisitingPlayer[justVisitingNum]=colors[i]+players[i].getName()+ANSI_RESET;
+                    justVisitingNum++;
+                }
+                else {
+                    inJailPlayers[inJailNum]=players[i].getName();
+                    inJailColors[inJailNum]=colors[i];
+                    inJailNum++;
+                }
+            }
+        }
+
+
+
+
+
+        //line1
+        System.out.printf("|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");
+        System.out.printf("|    FREE PARKING    |       Shatin       |       CHANCE       |      Tuen Mun      |       Tai Po       |     GO TO GAIL     |\n");
+        System.out.printf("|                    |                    |                    |                    |                    |                    |\n");
+        System.out.printf("|                    |                    |                    |                    |                    |                    |\n");
+        System.out.printf("|                    |      HKD 700       |                    |      HKD 400       |      HKD 500       |                    |\n");
+        System.out.printf("|                    |                    |                    |                    |                    |                    |\n");
+        System.out.printf("|    player here:    |    player here:    |    player here:    |    player here:    |    player here:    |    player here:    |\n");
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",squarePlayer[10][0],squarePlayer[11][0],squarePlayer[12][0],squarePlayer[13][0],squarePlayer[14][0],squarePlayer[15][0]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",squarePlayer[10][1],squarePlayer[11][1],squarePlayer[12][1],squarePlayer[13][1],squarePlayer[14][1],squarePlayer[15][1]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",squarePlayer[10][2],squarePlayer[11][2],squarePlayer[12][2],squarePlayer[13][2],squarePlayer[14][2],squarePlayer[15][2]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",squarePlayer[10][3],squarePlayer[11][3],squarePlayer[12][3],squarePlayer[13][3],squarePlayer[14][3],squarePlayer[15][3]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",squarePlayer[10][4],squarePlayer[11][4],squarePlayer[12][4],squarePlayer[13][4],squarePlayer[14][4],squarePlayer[15][4]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",squarePlayer[10][5],squarePlayer[11][5],squarePlayer[12][5],squarePlayer[13][5],squarePlayer[14][5],squarePlayer[15][5]);
+        System.out.printf("|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------%s|\n",squareColor[10],squareColor[11],squareColor[12],squareColor[13],squareColor[14],squareColor[15],ANSI_RESET);
+
+        System.out.printf("|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");
+
+        //line2
+        System.out.printf("|      Tsing Yi     %s|%s|                                                                                   |%s|%s     Sai Kung      |\n",squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET);
+        System.out.printf("|      HKD 400      %s|%s|                                                                                   |%s|%s     HKD 400       |\n",squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET);
+        System.out.printf("|    player here:   %s|%s|                                                                                   |%s|%s   player here:    |\n",squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[9][0],squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET,squarePlayer[16][0]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[9][1],squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET,squarePlayer[16][1]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[9][2],squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET,squarePlayer[16][2]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[9][3],squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET,squarePlayer[16][3]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[9][4],squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET,squarePlayer[16][4]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[9][5],squareColor[9],ANSI_RESET,squareColor[16],ANSI_RESET,squarePlayer[16][5]);
+
+        System.out.printf("|--------------------|                                                                                   |--------------------|\n");
+
+        //line3
+        System.out.printf("|       CHANCE      %s|%s|                                                                                   |%s|%s    Yuen Long      |\n",squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s     HKD 400       |\n",squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET);
+        System.out.printf("|    player here:   %s|%s|                                                                                   |%s|%s   player here:    |\n",squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[8][0],squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET,squarePlayer[17][0]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[8][1],squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET,squarePlayer[17][1]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[8][2],squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET,squarePlayer[17][2]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[8][3],squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET,squarePlayer[17][3]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[8][4],squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET,squarePlayer[17][4]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[8][5],squareColor[8],ANSI_RESET,squareColor[17],ANSI_RESET,squarePlayer[17][5]);
+
+        System.out.printf("|--------------------|                                                                                   |--------------------|\n");
+
+        //line4
+        System.out.printf("|      Mong Kok     %s|%s|                                                                                   |%s|%s      CHANCE       |\n",squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET);
+        System.out.printf("|      HKD 500      %s|%s|                                                                                   |%s|%s                   |\n",squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET);
+        System.out.printf("|    player here:   %s|%s|                                                                                   |%s|%s   player here:    |\n",squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[7][0],squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET,squarePlayer[18][0]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[7][1],squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET,squarePlayer[18][1]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[7][2],squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET,squarePlayer[18][2]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[7][3],squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET,squarePlayer[18][3]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[7][4],squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET,squarePlayer[18][4]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[7][5],squareColor[7],ANSI_RESET,squareColor[18],ANSI_RESET,squarePlayer[18][5]);
+
+        System.out.printf("|--------------------|                                                                                   |--------------------|\n");
+
+        //line5
+        System.out.printf("|       Shek O      %s|%s|                                                                                   |%s|%s      Tai O        |\n",squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET);
+        System.out.printf("|      HKD 400      %s|%s|                                                                                   |%s|%s     HKD 600       |\n",squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET);
+        System.out.printf("|                   %s|%s|                                                                                   |%s|%s                   |\n",squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET);
+        System.out.printf("|    player here:   %s|%s|                                                                                   |%s|%s   player here:    |\n",squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[6][0],squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET,squarePlayer[19][0]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[6][1],squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET,squarePlayer[19][1]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[6][2],squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET,squarePlayer[19][2]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[6][3],squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET,squarePlayer[19][3]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[6][4],squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET,squarePlayer[19][4]);
+        System.out.printf("|%-28s%s|%s|                                                                                   |%s|%s%-28s|\n",squarePlayer[6][5],squareColor[6],ANSI_RESET,squareColor[19],ANSI_RESET,squarePlayer[19][5]);
+
+        System.out.printf("|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");
+
+        //line6
+        System.out.printf("|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------%s|\n",squareColor[5],squareColor[4],squareColor[3],squareColor[2],squareColor[1],squareColor[0],ANSI_RESET);
+        System.out.printf("|        JAIL        |       Stanley      |     INCOME TAX     |      Wan Chai      |       Central      |         GO         |\n");
+        System.out.printf("|      in jail:      |                    |                    |                    |                    |  collect HKD 1500  |\n");
+        System.out.printf("|%s%-9s%s  %s%-9s%s|                    |                    |                    |                    |    as your salary  |\n",inJailColors[0],inJailPlayers[0],ANSI_RESET,inJailColors[1],inJailPlayers[1],ANSI_RESET);
+        System.out.printf("|%s%-9s%s  %s%-9s%s|      HKD 700       |                    |      HKD 400       |      HKD 500       |    when you pass   |\n",inJailColors[2],inJailPlayers[2],ANSI_RESET,inJailColors[3],inJailPlayers[3],ANSI_RESET);
+        System.out.printf("|%s%-9s%s  %s%-9s%s|                    |                    |                    |                    |        <<----      |\n",inJailColors[4],inJailPlayers[4],ANSI_RESET,inJailColors[5],inJailPlayers[5],ANSI_RESET);
+        System.out.printf("|   just visiting:   |    player here:    |    player here:    |    player here:    |    player here:    |    player here:    |\n");
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",justVisitingPlayer[0],squarePlayer[4][0],squarePlayer[3][0],squarePlayer[2][0],squarePlayer[1][0],squarePlayer[0][0]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",justVisitingPlayer[1],squarePlayer[4][1],squarePlayer[3][1],squarePlayer[2][1],squarePlayer[1][1],squarePlayer[0][1]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",justVisitingPlayer[2],squarePlayer[4][2],squarePlayer[3][2],squarePlayer[2][2],squarePlayer[1][2],squarePlayer[0][2]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",justVisitingPlayer[3],squarePlayer[4][3],squarePlayer[3][3],squarePlayer[2][3],squarePlayer[1][3],squarePlayer[0][3]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",justVisitingPlayer[4],squarePlayer[4][4],squarePlayer[3][4],squarePlayer[2][4],squarePlayer[1][4],squarePlayer[0][4]);
+        System.out.printf("|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n",justVisitingPlayer[5],squarePlayer[4][5],squarePlayer[3][5],squarePlayer[2][5],squarePlayer[1][5],squarePlayer[0][5]);
+        System.out.printf("|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n");
+
+
+
     }
 
     /** Only print the game info */
@@ -155,5 +336,11 @@ public class Printer {
 
             Printer.printWarnMsg("INVALID INPUT! " + fallback_msg + "\n");
         } while (true);
+    }
+
+    public static void main(String[] args) {
+        System.out.printf(
+                "|%s--------------------%s|--------------------|--------------------|--------------------|--------------------|--------------------|",
+                ANSI_BLUE, ANSI_RESET);
     }
 }
