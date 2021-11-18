@@ -7,9 +7,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
-    private static final int FINE = 150;
-    private static final String CONFIRM_PATTERN = "^[nNyY]$";
-    private static final String CONFIRM_YES_PATTERN = "^[yY]$";
+    private static final int FINE = -150;
 
     private static int[] diceResult = new int[2];
     private static boolean isPayFine;
@@ -94,8 +92,8 @@ public class Jail implements ISquare {
                                 Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
                             },
                             "Should be [y] or [n].",
-                            CONFIRM_PATTERN);
-            isPayFine = option.matches(CONFIRM_YES_PATTERN);
+                            Printer.CONFIRM_REGEX);
+            isPayFine = option.matches(Printer.CONFIRM_YES_REGEX);
         }
 
         if (isPayFine) {
@@ -123,7 +121,7 @@ public class Jail implements ISquare {
      * @param player player who to pay fine
      */
     private static void payFine(Player player) {
-        player.addMoney(-FINE);
+        player.addMoney(FINE);
         player.setInJail(0);
         Printer.printPlayerPrompt(player);
         Printer.printWarnMsg("pays a fine of $150 to get out of jail.\n");

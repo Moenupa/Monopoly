@@ -155,7 +155,7 @@ public class Board implements Serializable {
             err = dir.mkdirs();
         }
         if (!err) {
-            throw new RuntimeException("Error when creating the folder. Check the permissions.");
+            throw new RuntimeException("Error when creating the folder. Check the permissions.\n");
         }
 
         // create game save file

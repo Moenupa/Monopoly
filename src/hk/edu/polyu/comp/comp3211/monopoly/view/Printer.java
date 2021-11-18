@@ -18,11 +18,18 @@ public class Printer {
     public static final String ANSI_BLUE = "\u001b[34m";
     public static final String ANSI_MAGENTA = "\u001b[35m";
     public static final String ANSI_CYAN = "\u001b[36m";
-    // --Commented out by Inspection (2021/11/18 16:20):public static final String ANSI_WHITE =
-    // "\u001b[37m";
+
+    public static final String ANSI_BG_RED = "\u001b[41m";
+    public static final String ANSI_BG_GREEN = "\u001b[42m";
+    public static final String ANSI_BG_YELLOW = "\u001b[43m";
+    public static final String ANSI_BG_BLUE = "\u001b[44m";
+    public static final String ANSI_BG_MAGENTA = "\u001b[45m";
+    public static final String ANSI_BG_CYAN = "\u001b[46m";
+
     public static final String ANSI_RESET = "\u001b[0m";
-    public static final String[] colors = {
-        ANSI_RED, ANSI_GREEN, ANSI_YELLOW, ANSI_BLUE, ANSI_MAGENTA, ANSI_CYAN, ANSI_RESET
+
+    public static final String[] COLORS = {
+            ANSI_BG_RED, ANSI_BG_GREEN, ANSI_BG_YELLOW, ANSI_BG_BLUE, ANSI_BG_MAGENTA, ANSI_BG_CYAN, ANSI_RESET
     };
 
     private static final String QUIT_REGEX = "^[qQ](uit)?$";
@@ -77,14 +84,14 @@ public class Printer {
 
         for (int i = 0; i < squares.length; i++) {
 
-            squareColor[i] = colors[colors.length - 1];
+            squareColor[i] = COLORS[COLORS.length - 1];
 
             if (squares[i] instanceof Property) {
                 Property curProp = (Property) squares[i];
                 Player curOwner = curProp.getOwner();
                 if (curOwner != null) {
                     int pi = Arrays.asList(players).indexOf(curOwner);
-                    squareColor[i] = colors[pi];
+                    squareColor[i] = COLORS[pi];
                 }
             }
         }
@@ -102,17 +109,17 @@ public class Printer {
         for (int i = 0; i < players.length; i++) {
             int curPosition = players[i].getPosition();
             squarePlayer[curPosition][squarePlayerNum[curPosition]] =
-                    colors[i] + players[i].getName() + ANSI_RESET;
+                    COLORS[i] + players[i].getName() + ANSI_RESET;
             squarePlayerNum[curPosition]++;
 
             if (curPosition == 5) {
                 if (players[i].getInJail() == 0) {
                     justVisitingPlayer[justVisitingNum] =
-                            colors[i] + players[i].getName() + ANSI_RESET;
+                            COLORS[i] + players[i].getName() + ANSI_RESET;
                     justVisitingNum++;
                 } else {
                     inJailPlayers[inJailNum] = players[i].getName();
-                    inJailColors[inJailNum] = colors[i];
+                    inJailColors[inJailNum] = COLORS[i];
                     inJailNum++;
                 }
             }
