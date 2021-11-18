@@ -14,7 +14,7 @@ public class Property implements ISquare {
     private final int rent;
     /** The owner of the property */
     private Player owner;
-
+    /** the choice of buying or not the player made in test */
     private boolean testBuy;
 
     /**

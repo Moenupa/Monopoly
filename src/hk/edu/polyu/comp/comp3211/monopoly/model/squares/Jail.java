@@ -6,10 +6,14 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
-    private static final int FINE = -150;
 
+    /** The amount of money to pay to get out of the jail */
+    private static final int FINE = -150;
+    /** Whether Jail is executed for test */
     private boolean test;
+    /** the result of throwing dices in test */
     private final int[] diceResult = new int[2];
+    /** the choice of paying or throwing the player made in test */
     private boolean payResult;
 
     /**
