@@ -133,7 +133,7 @@ public class Printer {
     public static String scanValidInputWithQuit(Runnable prompt, String fallback_msg, String regex)
             throws InterruptedException {
         String input;
-        do {
+        while (true) {
             prompt.run();
             input = Main.getScanner().nextLine();
 
@@ -142,7 +142,7 @@ public class Printer {
             if (input.matches(regex)) return input;
 
             Printer.printWarnMsg("INVALID INPUT! " + fallback_msg + "\n");
-        } while (true);
+        }
     }
 
     /**
@@ -155,13 +155,15 @@ public class Printer {
      */
     public static String scanValidInput(Runnable prompt, String fallback_msg, String regex) {
         String input;
-        do {
+        while (true) {
             prompt.run();
             input = Main.getScanner().nextLine();
 
-            if (input.matches(regex)) return input;
+            if (input.matches(regex)) {
+                return input;
+            }
 
             Printer.printWarnMsg("INVALID INPUT! " + fallback_msg + "\n");
-        } while (true);
+        }
     }
 }
