@@ -3,21 +3,33 @@ package hk.edu.polyu.comp.comp3211.monopoly.view;
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.*;
 
+import java.util.*;
+import java.util.stream.*;
+
 public class Printer {
     /** current game board */
     private final Board board;
 
-    public static final String ANSI_BLACK = "\u001b[30m";
     public static final String ANSI_RED = "\u001b[31m";
     public static final String ANSI_GREEN = "\u001b[32m";
     public static final String ANSI_YELLOW = "\u001b[33m";
     public static final String ANSI_BLUE = "\u001b[34m";
     public static final String ANSI_MAGENTA = "\u001b[35m";
     public static final String ANSI_CYAN = "\u001b[36m";
-    public static final String ANSI_WHITE = "\u001b[37m";
+
+    public static final String ANSI_BG_RED = "\u001b[41m";
+    public static final String ANSI_BG_GREEN = "\u001b[42m";
+    public static final String ANSI_BG_YELLOW = "\u001b[43m";
+    public static final String ANSI_BG_BLUE = "\u001b[44m";
+    public static final String ANSI_BG_MAGENTA = "\u001b[45m";
+    public static final String ANSI_BG_CYAN = "\u001b[46m";
+
     public static final String ANSI_RESET = "\u001b[0m";
 
     private static final String QUIT_REGEX = "^[qQ](uit)?$";
+    public static final String NON_EMPTY_REGEX = "^(?!\\s*$).+";
+    public static final String CONFIRM_REGEX = "^([yY](es)?|[nN](o)?)$";
+    public static final String CONFIRM_YES_REGEX = "^([yY](es)?)$";
 
     /**
      * Initialize the printer
@@ -41,10 +53,11 @@ public class Printer {
 
     /** Only print the game info */
     private void printInfo() {
-        board.getPlayers();
-        Printer.printInfoMsg("\n\tCurrent Wealth:\n");
+        Printer.printInfoMsg("\n\t|    Current Wealth    |\n");
         for (var player : board.getPlayers()) {
-            Printer.printInfoMsg("\t" + player.getName() + ": $" + player.getMoney() + ".\n");
+            String line =
+                    String.format("\t| %-10s | $%-6d |\n", player.getName(), player.getMoney());
+            Printer.printColoredMsg(Printer.ANSI_CYAN, line);
         }
     }
 
