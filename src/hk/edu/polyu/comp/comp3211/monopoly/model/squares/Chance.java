@@ -5,7 +5,9 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 import java.util.Random;
 
-/** The Chance square of the board */
+/**
+ * The Chance square of the board
+ */
 public class Chance implements ISquare {
     /**
      * Generate an effect to a player
@@ -21,18 +23,18 @@ public class Chance implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        int randomInt = new Random().nextInt(51) - 30;
-        int m = 10 * randomInt;
-        player.addMoney(m);
+        int multiple;
 
-        Printer.printPlayerPrompt(player);
-        Printer.printMsg("lands on Chance Square and ");
-        if (m == 0) {
-            Printer.printConfMsg("nothing happens.\n");
-        } else if (m > 0) {
-            Printer.printConfMsg("get $" + m + " from Chance.\n");
+        if (new Random().nextInt(2) == 0) {
+            multiple = new Random().nextInt(20) + 1;
+            multiple *= 10;
+            Printer.printConfMsg("get $" + multiple + " from Chance.\n");
         } else {
-            Printer.printWarnMsg("lose $" + -m + " from Chance.\n");
+            multiple = new Random().nextInt(30) + 1;
+            multiple *= 10;
+            Printer.printWarnMsg("lose $" + multiple + " from Chance.\n");
+            multiple = -multiple;
         }
+        player.addMoney(multiple);
     }
 }
