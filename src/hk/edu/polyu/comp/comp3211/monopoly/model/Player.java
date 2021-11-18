@@ -41,11 +41,9 @@ public class Player implements Serializable {
         }
         name =
                 Printer.scanValidInput(
-                        () -> {
-                            Printer.printHelpMsg("Please input player name: ");
-                        },
+                        () -> Printer.printHelpMsg("input player name: "),
                         "Should be a non-empty string.",
-                        "^(?!\\s*$).+");
+                        Printer.NON_EMPTY_REGEX);
     }
 
     /**
@@ -196,7 +194,6 @@ public class Player implements Serializable {
      */
     public int rollDice() {
         var rand = new Random();
-        int n = rand.nextInt(4) + 1;
-        return n;
+        return rand.nextInt(4) + 1;
     }
 }

@@ -39,17 +39,15 @@ public class StartMenu implements IBase {
      */
     @Override
     public void terminal() {
-        printStartMenu();
         String option;
 
         // intended infinite loop
         while (true) {
+            printStartMenu();
             // ensure inputs to be valid
             option =
                     Printer.scanValidInput(
-                            () -> {
-                                Printer.printHelpMsg("Please enter option index (1-3): ");
-                            },
+                            () -> Printer.printHelpMsg("Please enter option index (1-3): "),
                             "Should be an integer.",
                             "^[1-3]$");
 
@@ -88,14 +86,8 @@ public class StartMenu implements IBase {
     }
 
     /** New game option */
-    private static void startNewGame() {
-        try {
-            Main.setUI(new Game());
-        } catch (InterruptedException e) {
-            // game init is interrupted by user option
-            Printer.printMsg(e.getMessage());
-            Main.setUI(new StartMenu());
-        }
+    private static void startNewGame() throws InterruptedException {
+        Main.setUI(new Game());
     }
 
     /** Load one of saved game */
@@ -119,22 +111,24 @@ public class StartMenu implements IBase {
         String[] savedGameName = Board.getSavedGameName();
 
         if (savedGameName.length < 1) {
+            Printer.printMsg("No game save available.\n");
             return null;
         } else if (savedGameName.length == 1) {
             return savedGameName[0];
         }
 
-        Printer.printInfoMsg("\nSelect the game save file:\n");
+        Printer.printMsg("Select the game save file from the following:\n");
         for (int i = 0; i < savedGameName.length; i++) {
-            Printer.printInfoMsg((i + 1) + ". " + savedGameName[i] + "\n");
+            Printer.printMsg("\t" + (i + 1) + ". " + savedGameName[i] + "\n");
         }
 
         while (true) {
             String option =
                     Printer.scanValidInputWithQuit(
-                            () -> {
-                                System.out.print("Choose the index of game-save (integer): ");
-                            },
+                            () ->
+                                    Printer.printHelpMsg(
+                                            "Choose the index of game-save (integer), q(uit) to"
+                                                    + " quit to start menu: "),
                             "Should be an integer.",
                             "^\\d+$");
 
@@ -155,7 +149,10 @@ public class StartMenu implements IBase {
 
     /** Quit game */
     private static void quitGame() {
-        Printer.printMsg("\nQuit Game\n");
+        Printer.printMsg("Exiting Monopoly Program...\n");
+        for (String s : ASCII_MONOPOLY) {
+            Printer.printHelpMsg(s + "\n");
+        }
         System.exit(0);
     }
 

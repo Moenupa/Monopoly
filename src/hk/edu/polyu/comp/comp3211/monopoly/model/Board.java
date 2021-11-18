@@ -9,7 +9,7 @@ import java.io.*;
 /** A board, containing players, squares, and game status */
 public class Board implements Serializable {
     /** The array of players in the board */
-    private Player[] players;
+    private final Player[] players;
     /** The array of squares in the board */
     private ISquare[] squares;
     /** Current round index */
@@ -146,10 +146,8 @@ public class Board implements Serializable {
      * Save the board to a local file
      *
      * @param name the path (name) of the local file
-     * @throws IllegalArgumentException if write permission not granted
-     * @throws RuntimeException if other unknown exceptions occur when writing to file
      */
-    public void save(String name) throws Exception {
+    public void save(String name) {
         // creating game-save directory if not exists
         File dir = new File(GAME_SAVE_DIR);
         boolean err = true;
@@ -196,10 +194,8 @@ public class Board implements Serializable {
      * Load the board from a local file
      *
      * @param name the path (name) of the local file
-     * @throws IllegalArgumentException if no such game-save or read permission not granted
-     * @throws RuntimeException if other unknown exceptions occur when reading file
      */
-    public static Board load(String name) throws Exception {
+    public static Board load(String name) {
         File file = new File(GAME_SAVE_DIR + name);
         if (!file.exists()) {
             throw new IllegalArgumentException("No save match");
