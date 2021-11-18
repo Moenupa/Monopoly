@@ -28,6 +28,7 @@ class PlayerTest {
         var player = new Player(s);
         assertEquals(s, player.getName()); // Test if the constructor and getName() works well
         s = "test2";
+        player = new Player();
         player.setName(s);
         assertEquals(s, player.getName()); // Test if setName() works well
     }
@@ -94,8 +95,8 @@ class PlayerTest {
     void bankruptTest() { // Test if bankrupt related functions work well
         var player = new Player("test");
         assertFalse(player.isBankrupted()); // Test if the player is initialized correctly
-        player.setMoney(-10);
-        player.bankrupt();
+        player.setMoney(10);
+        player.addMoney(-100);
         assertTrue(player.isBankrupted()); // Test if bankrupt() works correctly
     }
 

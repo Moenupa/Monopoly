@@ -1,6 +1,5 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model;
 
-import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
@@ -36,9 +35,6 @@ public class Player implements Serializable {
 
     /** initialize a player and scan input from user */
     public Player() {
-        if (Main.TEST) {
-            return;
-        }
         name =
                 Printer.scanValidInput(
                         () -> Printer.printHelpMsg("input player name: "),

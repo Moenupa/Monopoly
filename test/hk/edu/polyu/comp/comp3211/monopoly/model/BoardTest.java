@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.*;
 
 class BoardTest {
-    Board board1, board2;
+    Board board1, board2, board3;
     // --Commented out by Inspection (2021/11/18 16:19):Board test;
     static final String[] PLAYER_NAMES = {
         "player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8"
@@ -52,6 +52,10 @@ class BoardTest {
     void OverallBoardTest() {
         // new Board() should throw error when not initialized with 2-6 players
         Exception exception1 = assertThrows(Exception.class, () -> new Board(7));
+        board3 = new Board(6); // Test if the constructor works
+        String[] ss = new String[1];
+        ss[0] = "";
+        assertThrows(IllegalArgumentException.class, () -> new Board(ss));
 
         // "2-6 players" is one of game constraints
         String expectedMessage = "2-6 players";
@@ -118,6 +122,10 @@ class BoardTest {
         assertEquals(board2.getP_index(), board2_load.getP_index(), "P INDEX NOT EQUAL");
         assertTrue(Arrays.asList(Board.getSavedGameName()).contains(save_name), "NAME NOT EQUAL");
 
+        assertThrows(
+                Exception.class,
+                () -> Board.load("")); // Test if exception is thrown when no file is given
+
         // has the same players with same names, money, etc.
         List<Player> players2_load = Arrays.asList(board2_load.getPlayers());
         List<String> playerNames2_load =
@@ -133,6 +141,11 @@ class BoardTest {
         Player winner = board1.getPlayers()[0];
         winner.addMoney(10000);
         assertEquals(board1.getWinner(), winner, "WRONG WINNER");
+
+        for (var player : board1.getPlayers()) {
+            player.setMoney(-100);
+        }
+        assertNull(board1.getWinner(), "No WINNER");
     }
 
     private boolean hasSamePlayers(List<String> list1, List<String> list2) {
