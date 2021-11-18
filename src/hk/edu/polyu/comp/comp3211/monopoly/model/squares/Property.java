@@ -4,20 +4,32 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
-/** The Property squares of the board */
+import java.util.Scanner;
+
+/**
+ * The Property squares of the board
+ */
 public class Property implements ISquare {
-    /** Name of the property */
+    /**
+     * Name of the property
+     */
     private final String name;
-    /** Selling price of the property */
+    /**
+     * Selling price of the property
+     */
     private final int price;
-    /** Rental price of the property */
+    /**
+     * Rental price of the property
+     */
     private final int rent;
-    /** The owner of the property */
+    /**
+     * The owner of the property
+     */
     private Player owner;
 
     private static final String CONFIRM_PATTERN = "^[nNyY]$";
     private static final String CONFIRM_YES_PATTERN = "^[yY]$";
-    private boolean testBuy;
+    private boolean isBuy;
 
     /**
      * Generate an effect to a player
@@ -37,47 +49,14 @@ public class Property implements ISquare {
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void execute(Player player) {
-        boolean test = Main.TEST;
         Printer.printPlayerPrompt(player);
         Printer.printMsg("is visiting " + name + ".\n");
+
         if (this.owner == null) {
-            boolean buy = false;
-
-            if (test) buy = testBuy;
-            else {
-                String option =
-                        Printer.scanValidInput(
-                                () -> {
-                                    Printer.printPlayerPrompt(player);
-                                    Printer.printHelpMsg(
-                                            "Do you want to buy "
-                                                    + name
-                                                    + " for $"
-                                                    + price
-                                                    + "? (y/n) ");
-                                },
-                                "Should be [y] or [n].",
-                                CONFIRM_PATTERN);
-
-                buy = option.matches(CONFIRM_YES_PATTERN);
-            }
-
-            if (buy) {
-                Printer.printPlayerPrompt(player);
-                Printer.printMsg("bought " + name + " for $" + price + ".\n");
-                this.owner = player;
-                player.addMoney(-this.price);
-                var p = player.getProperties();
-                int i;
-                for (i = 0; p[i] != null; i++)
-                    ;
-                p[i] = this;
-            }
-
+            askToBuy(player);
         } else if (this.owner != player) {
             Printer.printPlayerPrompt(player);
-            Printer.printMsg(
-                    "pays rent to the owner " + this.owner.getName() + " for $" + rent + ".\n");
+            Printer.printMsg("pays rent to the owner " + this.owner.getName() + " for $" + rent + ".\n");
             player.addMoney(-this.rent);
             this.owner.addMoney(this.rent);
         }
@@ -95,6 +74,44 @@ public class Property implements ISquare {
         price = p;
         rent = r;
         owner = null;
+    }
+
+    /**
+     * Ask player whether to buy this property or not
+     *
+     * @param player the player to be asked
+     */
+    private void askToBuy(Player player) {
+        String option;
+
+        if (!Main.TEST) {
+            option = Printer.scanValidInput(
+                    () -> {
+                        Printer.printPlayerPrompt(player);
+                        Printer.printHelpMsg(
+                                "Do you want to buy "
+                                        + name
+                                        + " for $"
+                                        + price
+                                        + "? (y/n) ");
+                    },
+                    "Should be [y] or [n].",
+                    CONFIRM_PATTERN);
+            isBuy = option.matches(CONFIRM_YES_PATTERN);
+        }
+
+        if (isBuy) {
+            Printer.printPlayerPrompt(player);
+            Printer.printMsg("bought " + name + " for $" + price + ".\n");
+            setOwner(player);
+            owner.addMoney(-price);
+            var p = player.getProperties();
+            int i = 0;
+            while (p[i] != null) {
+                i++;
+            }
+            p[i] = this;
+        }
     }
 
     /**
@@ -143,6 +160,6 @@ public class Property implements ISquare {
     }
 
     public void setTest(boolean test) {
-        testBuy = test;
+        isBuy = test;
     }
 }
