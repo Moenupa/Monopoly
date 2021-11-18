@@ -4,27 +4,15 @@ import hk.edu.polyu.comp.comp3211.monopoly.Main;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
-import java.util.Scanner;
-
-/**
- * The Property squares of the board
- */
+/** The Property squares of the board */
 public class Property implements ISquare {
-    /**
-     * Name of the property
-     */
+    /** Name of the property */
     private final String name;
-    /**
-     * Selling price of the property
-     */
+    /** Selling price of the property */
     private final int price;
-    /**
-     * Rental price of the property
-     */
+    /** Rental price of the property */
     private final int rent;
-    /**
-     * The owner of the property
-     */
+    /** The owner of the property */
     private Player owner;
 
     private static final String CONFIRM_PATTERN = "^[nNyY]$";
@@ -56,7 +44,8 @@ public class Property implements ISquare {
             askToBuy(player);
         } else if (this.owner != player) {
             Printer.printPlayerPrompt(player);
-            Printer.printMsg("pays rent to the owner " + this.owner.getName() + " for $" + rent + ".\n");
+            Printer.printMsg(
+                    "pays rent to the owner " + this.owner.getName() + " for $" + rent + ".\n");
             player.addMoney(-this.rent);
             this.owner.addMoney(this.rent);
         }
@@ -85,18 +74,19 @@ public class Property implements ISquare {
         String option;
 
         if (!Main.TEST) {
-            option = Printer.scanValidInput(
-                    () -> {
-                        Printer.printPlayerPrompt(player);
-                        Printer.printHelpMsg(
-                                "Do you want to buy "
-                                        + name
-                                        + " for $"
-                                        + price
-                                        + "? (y/n) ");
-                    },
-                    "Should be [y] or [n].",
-                    CONFIRM_PATTERN);
+            option =
+                    Printer.scanValidInput(
+                            () -> {
+                                Printer.printPlayerPrompt(player);
+                                Printer.printHelpMsg(
+                                        "Do you want to buy "
+                                                + name
+                                                + " for $"
+                                                + price
+                                                + "? (y/n) ");
+                            },
+                            "Should be [y] or [n].",
+                            CONFIRM_PATTERN);
             isBuy = option.matches(CONFIRM_YES_PATTERN);
         }
 
