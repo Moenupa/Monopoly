@@ -32,7 +32,7 @@ COMP3211 Software Engineering Course Project
 
 ### Get Base and Scanner
 
-- Base (UI): Game State
+- Base (curUI): Game State
   - Start Menu
   - Game
   - End Game
@@ -94,3 +94,15 @@ COMP3211 Software Engineering Course Project
 ## End Game
 
 ### Print who win the game, show all players' money
+
+- ANSI color
+  - Help
+    - Yellow
+  - Warn
+    - Red
+  - Info
+    - Blue
+  - Conf
+    - Green
+  - Msg
+    - Reset

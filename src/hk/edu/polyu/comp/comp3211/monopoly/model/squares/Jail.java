@@ -1,20 +1,18 @@
 package hk.edu.polyu.comp.comp3211.monopoly.model.squares;
 
 import hk.edu.polyu.comp.comp3211.monopoly.Main;
+import hk.edu.polyu.comp.comp3211.monopoly.controller.Game;
 import hk.edu.polyu.comp.comp3211.monopoly.model.Player;
 import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
+    private static final int FINE = 150;
+    private static final String CONFIRM_PATTERN = "^[nNyY]$";
+    private static final String CONFIRM_YES_PATTERN = "^[yY]$";
 
-    /** The amount of money to pay to get out of the jail */
-    private static final int FINE = -150;
-    /** Whether Jail is executed for test */
-    private boolean test;
-    /** the result of throwing dices in test */
-    private final int[] diceResult = new int[2];
-    /** the choice of paying or throwing the player made in test */
-    private boolean payResult;
+    private static int[] diceResult = new int[2];
+    private static boolean isPayFine;
 
     /**
      * Generate an effect to a player
@@ -40,90 +38,117 @@ public class Jail implements ISquare {
      */
     @Override
     public void execute(Player player) {
-        int curInJail = player.getInJail();
-        int[] dices = new int[2];
-        boolean pay = false;
-
         // first print a general prompt to notify of the current player
         // then print msgs for each case respectively
 
-        if (curInJail == 0) {
+        // check if in jail
+        if (player.getInJail() == 0) {
             Printer.printPlayerPrompt(player);
             Printer.printMsg("just pass by the jail, nothing to worry about.\n");
             return;
         }
 
-        if (test) {
-            // mock the roll dice result with some given ones
-            dices = diceResult;
-            pay = payResult;
-        } else {
-            dices[0] = player.rollDice();
-            dices[1] = player.rollDice();
+        // pay or not
+        if (player.getInJail() > 1) {
+            askPayFine(player);
         }
 
-        int stepsToMove = dices[0] + dices[1];
-
-        // if not throw doubles
-        if (curInJail == 1) {
-            // if 3rd turn in jail (the last)
-            PayFineAndGetOut(player, stepsToMove);
+        // throw dice
+        if (tryDoubles(player) && !isPayFine) {
             Printer.printPlayerPrompt(player);
-            Printer.printWarnMsg("pays a fine of $150 to get out of jail.\n");
-        } else { // if not 3rd turn in jail
-            // get whether pay
-            if (!Main.TEST) {
-                String inputConfirm;
-                inputConfirm =
-                        Printer.scanValidInput(
-                                () -> {
-                                    Printer.printPlayerPrompt(player);
-                                    Printer.printHelpMsg(
-                                            "opt to pay for getting out of jail? (y/n) ");
-                                },
-                                "Should be [y] or [n].",
-                                Printer.CONFIRM_REGEX);
-                // detect user's option, pay or not
-                pay = inputConfirm.matches(Printer.CONFIRM_YES_REGEX);
-            }
-            if (pay) {
-                // opt to pay fine to get out
-                PayFineAndGetOut(player, stepsToMove);
-            } else {
-                // if lucky to throw a double
-                if (dices[0] == dices[1]) {
-                    Printer.printPlayerPrompt(player);
-                    Printer.printColoredMsg(
-                            Printer.ANSI_MAGENTA,
-                            "good luck in throwing doubles, getting out of jail!\n");
-                    GetOutOfJail(player, stepsToMove);
-                    return;
-                }
-                // else stay in jail
-                player.setInJail(curInJail - 1);
-                Printer.printPlayerPrompt(player);
-                Printer.printMsg("cannot get out of jail.\n");
-            }
+            Printer.printColoredMsg(
+                    Printer.ANSI_MAGENTA, "good luck in throwing doubles, getting out of jail!\n");
+            player.setInJail(0);
+        }
+
+        Printer.printMsg("Your dice result is " + diceResult[0] + " and " + diceResult[1] + "\n");
+
+        if (player.getInJail() == 1) {
+            payFine(player);
+        }
+
+        if (player.getInJail() == 0) {
+            getOutOfJail(player, diceResult[0] + diceResult[1]);
+            return;
+        }
+
+        // else stay in jail
+        player.setInJail(player.getInJail() - 1);
+        Printer.printPlayerPrompt(player);
+        Printer.printMsg("cannot get out of jail.\n");
+    }
+
+    /**
+     * Ask player to pay fine
+     *
+     * @param player player to be asked
+     */
+    private static void askPayFine(Player player) {
+        String option;
+
+        if (!Main.TEST) {
+            option =
+                    Printer.scanValidInput(
+                            () -> {
+                                Printer.printPlayerPrompt(player);
+                                Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
+                            },
+                            "Should be [y] or [n].",
+                            CONFIRM_PATTERN);
+            isPayFine = option.matches(CONFIRM_YES_PATTERN);
+        }
+
+        if (isPayFine) {
+            payFine(player);
         }
     }
 
-    public void setTest(int dice0, int dice1, boolean pay) {
-        this.test = true;
-        this.diceResult[0] = dice0;
-        this.diceResult[1] = dice1;
-        this.payResult = pay;
+    /**
+     * Try to throw doubles to get out of jail or move
+     *
+     * @param player player who throw dice
+     * @return true if is doubles; false if not doubles
+     */
+    private static boolean tryDoubles(Player player) {
+        if (!Main.TEST) {
+            diceResult[0] = player.rollDice();
+            diceResult[1] = player.rollDice();
+        }
+        return diceResult[0] == diceResult[1];
     }
 
-    private static void PayFineAndGetOut(Player player, int stepsToMove) {
-        // pay a fine and then get out of jail
-        player.addMoney(FINE);
-        GetOutOfJail(player, stepsToMove);
-    }
-
-    private static void GetOutOfJail(Player player, int stepsToMove) {
+    /**
+     * Pay fine to get out of jail
+     *
+     * @param player player who to pay fine
+     */
+    private static void payFine(Player player) {
+        player.addMoney(-FINE);
         player.setInJail(0);
+        Printer.printPlayerPrompt(player);
+        Printer.printWarnMsg("pays a fine of $150 to get out of jail.\n");
+    }
+
+    private static void getOutOfJail(Player player, int stepsToMove) {
         player.move(stepsToMove);
         Printer.printPlayerPrompt(player);
         Printer.printInfoMsg("gets out of jail.\n");
+        if (!Main.TEST) {
+            Game.takeEffect(player);
+        }
+    }
+
+    /**
+     * Used for test
+     *
+     * @param dice0 first dice result
+     * @param dice1 second dice result
+     * @param isPay selection of pay fine or not
+     */
+    public void setTest(int dice0, int dice1, boolean isPay) {
+        // mock the roll dice result with some given ones
+        diceResult[0] = dice0;
+        diceResult[1] = dice1;
+        isPayFine = isPay;
     }
 }
