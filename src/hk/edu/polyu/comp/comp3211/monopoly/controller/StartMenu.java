@@ -131,9 +131,9 @@ public class StartMenu implements IBase {
             return savedGameName[0];
         }
 
-        System.out.println("\nSelect the game save file:");
+        Printer.printHelpMsg("\nSelect the game save file:\n");
         for (int i = 0; i < savedGameName.length; i++) {
-            System.out.println((i + 1) + ". " + savedGameName[i]);
+            Printer.printHelpMsg((i + 1) + ". " + savedGameName[i] + "\n");
         }
 
         while (true) {
