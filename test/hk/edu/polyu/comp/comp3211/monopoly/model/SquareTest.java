@@ -64,7 +64,6 @@ class SquareTest {
         assertEquals(oriInJail, curInjail);
         assertEquals(oriBankrupted, curBankrupted);
 
-
         assertTrue(
                 oriMoney + 200 >= curMoney, "Chance: get too much"); // Test if player get too much
         assertTrue(
@@ -75,9 +74,9 @@ class SquareTest {
                 (oriMoney - curMoney) % 10,
                 "Chance: not multiple of 10"); // Test if the result is multiple of 10
 
-        while(player1.getMoney()>=0){
+        while (player1.getMoney() >= 0) {
             chance.execute(player1);
-        }// Show that the player will end up bankrupt
+        } // Show that the player will end up bankrupt
     }
 
     @Test

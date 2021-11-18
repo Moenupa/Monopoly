@@ -29,7 +29,13 @@ public class Printer {
     public static final String ANSI_RESET = "\u001b[0m";
 
     public static final String[] COLORS = {
-            ANSI_BG_RED, ANSI_BG_GREEN, ANSI_BG_YELLOW, ANSI_BG_BLUE, ANSI_BG_MAGENTA, ANSI_BG_CYAN, ANSI_RESET
+        ANSI_BG_RED,
+        ANSI_BG_GREEN,
+        ANSI_BG_YELLOW,
+        ANSI_BG_BLUE,
+        ANSI_BG_MAGENTA,
+        ANSI_BG_CYAN,
+        ANSI_RESET
     };
 
     private static final String QUIT_REGEX = "^[qQ](uit)?$";
@@ -751,7 +757,7 @@ public class Printer {
         String input;
         do {
             prompt.run();
-            if(Main.TEST)return "";
+            if (Main.TEST) return "";
             input = Main.getScanner().nextLine();
 
             if (input.matches(regex)) return input;

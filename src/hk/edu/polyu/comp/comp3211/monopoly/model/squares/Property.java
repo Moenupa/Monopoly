@@ -71,22 +71,18 @@ public class Property implements ISquare {
     private void askToBuy(Player player) {
         String option;
 
-            option =
-                    Printer.scanValidInput(
-                            () -> {
-                                Printer.printPlayerPrompt(player);
-                                Printer.printHelpMsg(
-                                        "Do you want to buy "
-                                                + name
-                                                + " for $"
-                                                + price
-                                                + "? (y/n) ");
-                            },
-                            "Should be [y] or [n].",
-                            Printer.CONFIRM_REGEX);
-            var tmp = isBuy;
-            isBuy = option.matches(Printer.CONFIRM_YES_REGEX);
-            if(Main.TEST)isBuy = tmp;
+        option =
+                Printer.scanValidInput(
+                        () -> {
+                            Printer.printPlayerPrompt(player);
+                            Printer.printHelpMsg(
+                                    "Do you want to buy " + name + " for $" + price + "? (y/n) ");
+                        },
+                        "Should be [y] or [n].",
+                        Printer.CONFIRM_REGEX);
+        var tmp = isBuy;
+        isBuy = option.matches(Printer.CONFIRM_YES_REGEX);
+        if (Main.TEST) isBuy = tmp;
 
         if (isBuy) {
             Printer.printPlayerPrompt(player);
