@@ -68,8 +68,7 @@ public class StartMenu implements IBase {
                 // game init is interrupted by user option
                 Printer.printWarnMsg(e.getMessage());
                 Main.setUI(new StartMenu());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // any error will cause it loop back to ask for option
                 // input 'num' is invalid
                 Printer.printWarnMsg(e.getMessage());
@@ -82,7 +81,7 @@ public class StartMenu implements IBase {
 
     /** New game option */
     private static void startNewGame() throws InterruptedException {
-            Main.setUI(new Game());
+        Main.setUI(new Game());
     }
 
     /** Load one of saved game */
@@ -118,7 +117,10 @@ public class StartMenu implements IBase {
         while (true) {
             String option =
                     Printer.scanValidInputWithQuit(
-                            () -> Printer.printHelpMsg("Choose the index of game-save (integer), q(uit) to quit to start menu: "),
+                            () ->
+                                    Printer.printHelpMsg(
+                                            "Choose the index of game-save (integer), q(uit) to"
+                                                + " quit to start menu: "),
                             "Should be an integer.",
                             "^\\d+$");
 
