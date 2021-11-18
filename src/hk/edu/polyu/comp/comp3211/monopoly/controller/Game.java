@@ -90,7 +90,7 @@ public class Game implements IBase {
 
         ISquare curSquare = squares[curPlayer.getPosition()];
         String curSquareStr =
-                (curSquare.getClass() == Property.class)
+                (curSquare instanceof Property)
                         ? "Property " + ((Property) curSquare).getName()
                         : curSquare.getClass().getSimpleName();
         Printer.printPlayerPrompt(curPlayer);
@@ -140,9 +140,9 @@ public class Game implements IBase {
         movement(curPlayer);
 
         if (checkBankrupt(curPlayer)) {
-            retire(curPlayer);
             Printer.printPlayerPrompt(curPlayer);
             Printer.printMsg("loses all properties.\n");
+            retire(curPlayer);
             numPlayerLeft -= 1;
         }
 
@@ -212,7 +212,8 @@ public class Game implements IBase {
      */
     private static void retire(Player player) {
         for (Property property : player.getProperties()) {
-            property.setOwner(null);
+            if (property != null)
+                property.setOwner(null);
         }
     }
 

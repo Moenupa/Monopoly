@@ -52,9 +52,7 @@ public class Board implements Serializable {
         // first initialize the players
         this.players = new Player[num];
         for (int i = 0; i < num; i++) {
-            if (!Main.TEST) {
                 Printer.printMsg("Player " + (i + 1) + ": ");
-            }
             this.players[i] = new Player();
         }
         // then initialize the squares on the board
@@ -155,7 +153,7 @@ public class Board implements Serializable {
             err = dir.mkdirs();
         }
         if (!err) {
-            throw new RuntimeException("Error when creating the folder. Check the permissions.");
+            throw new RuntimeException("Error when creating the folder. Check the permissions.\n");
         }
 
         // create game save file
@@ -235,12 +233,7 @@ public class Board implements Serializable {
                 throw new RuntimeException("Internal error when creating a save directory");
             }
         }
-
-        if (dir.isDirectory()) {
             return dir.list();
-        }
-
-        throw new IllegalArgumentException(GAME_SAVE_DIR + " is not a directory");
     }
 
     /** Initialize the board's squares according to definitions */

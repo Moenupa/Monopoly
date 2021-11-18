@@ -7,9 +7,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
 
 /** The In-Jail/Just-Visiting square of the board */
 public class Jail implements ISquare {
-    private static final int FINE = 150;
-    private static final String CONFIRM_PATTERN = "^[nNyY]$";
-    private static final String CONFIRM_YES_PATTERN = "^[yY]$";
+    private static final int FINE = -150;
 
     private static int[] diceResult = new int[2];
     private static boolean isPayFine;
@@ -54,7 +52,7 @@ public class Jail implements ISquare {
         }
 
         // throw dice
-        if (tryDoubles(player) && !isPayFine) {
+        if (tryDoubles(player) ) {
             Printer.printPlayerPrompt(player);
             Printer.printColoredMsg(
                     Printer.ANSI_MAGENTA, "good luck in throwing doubles, getting out of jail!\n");
@@ -86,7 +84,6 @@ public class Jail implements ISquare {
     private static void askPayFine(Player player) {
         String option;
 
-        if (!Main.TEST) {
             option =
                     Printer.scanValidInput(
                             () -> {
@@ -94,9 +91,10 @@ public class Jail implements ISquare {
                                 Printer.printHelpMsg("opt to pay for getting out of jail? (y/n) ");
                             },
                             "Should be [y] or [n].",
-                            CONFIRM_PATTERN);
-            isPayFine = option.matches(CONFIRM_YES_PATTERN);
-        }
+                            Printer.CONFIRM_REGEX);
+            var tmp = isPayFine;
+            isPayFine = option.matches(Printer.CONFIRM_YES_REGEX);
+            if(Main.TEST)isPayFine = tmp;
 
         if (isPayFine) {
             payFine(player);
@@ -110,10 +108,11 @@ public class Jail implements ISquare {
      * @return true if is doubles; false if not doubles
      */
     private static boolean tryDoubles(Player player) {
-        if (!Main.TEST) {
-            diceResult[0] = player.rollDice();
-            diceResult[1] = player.rollDice();
-        }
+        int d0 = diceResult[0];
+        int d1 = diceResult[1];
+        diceResult[0] = player.rollDice();
+        diceResult[1] = player.rollDice();
+        if(Main.TEST){diceResult[0] = d0;diceResult[1] = d1;}
         return diceResult[0] == diceResult[1];
     }
 
@@ -123,7 +122,7 @@ public class Jail implements ISquare {
      * @param player player who to pay fine
      */
     private static void payFine(Player player) {
-        player.addMoney(-FINE);
+        player.addMoney(FINE);
         player.setInJail(0);
         Printer.printPlayerPrompt(player);
         Printer.printWarnMsg("pays a fine of $150 to get out of jail.\n");

@@ -11,7 +11,7 @@ import java.util.Random;
 public class Player implements Serializable {
     /** Notice to player when completed a full round (cross 20th and 1st) */
     private static final String COMPLETE_ROUND_NOTICE =
-            "has completed one round of the board and gets a salary of $1500.";
+            "has completed one round of the board and gets a salary of $1500.\n";
     /** The Jail Square's index on board */
     private static final int JAIL_INDEX = 5;
     /** The Jail default cool-down time (in num of rounds) */
@@ -36,9 +36,6 @@ public class Player implements Serializable {
 
     /** initialize a player and scan input from user */
     public Player() {
-        if (Main.TEST) {
-            return;
-        }
         name =
                 Printer.scanValidInput(
                         () -> Printer.printHelpMsg("input player name: "),

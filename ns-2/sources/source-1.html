@@ -1,0 +1,142 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > EndGame</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">hk.edu.polyu.comp.comp3211.monopoly.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: EndGame (hk.edu.polyu.comp.comp3211.monopoly.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EndGame</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package hk.edu.polyu.comp.comp3211.monopoly.controller;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import hk.edu.polyu.comp.comp3211.monopoly.Main;
+<i class="no-highlight">4</i>&nbsp;import hk.edu.polyu.comp.comp3211.monopoly.model.Board;
+<i class="no-highlight">5</i>&nbsp;import hk.edu.polyu.comp.comp3211.monopoly.view.Printer;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;public class EndGame implements IBase {
+<i class="no-highlight">8</i>&nbsp;    private static Board board;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;    /**
+<i class="no-highlight">11</i>&nbsp;     * Check who is the winner if needed Print the game over message, and ask if the player want to
+<i class="no-highlight">12</i>&nbsp;     * restart, load or quit.
+<i class="no-highlight">13</i>&nbsp;     */
+<i class="no-highlight">14</i>&nbsp;    @Override
+<i class="no-highlight">15</i>&nbsp;    public void terminal() {
+<b class="nc"><i class="no-highlight">16</i>&nbsp;        Printer.printWarnMsg(&quot;Game over!\n&quot;);</b>
+<b class="nc"><i class="no-highlight">17</i>&nbsp;        var winner = board.getWinner();</b>
+<b class="nc"><i class="no-highlight">18</i>&nbsp;        if (winner != null) {</b>
+<b class="nc"><i class="no-highlight">19</i>&nbsp;            Printer.printWarnMsg(&quot;Winner is &quot; + winner.getName() + &quot;!\n&quot;);</b>
+<i class="no-highlight">20</i>&nbsp;        } else {
+<b class="nc"><i class="no-highlight">21</i>&nbsp;            Printer.printWarnMsg(&quot;No winner...\n&quot;);</b>
+<i class="no-highlight">22</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        Printer.printHelpMsg(&quot;type anything to go back to Start menu.\n&quot;);</b>
+<i class="no-highlight">24</i>&nbsp;        // intended no return
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        Main.getScanner().nextLine();</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;        Main.setUI(new StartMenu());</b>
+<i class="no-highlight">27</i>&nbsp;    }
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    /**
+<i class="no-highlight">30</i>&nbsp;     * Initialize the end game state
+<i class="no-highlight">31</i>&nbsp;     *
+<i class="no-highlight">32</i>&nbsp;     * @param _board the game board
+<i class="no-highlight">33</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">34</i>&nbsp;    public EndGame(Board _board) {</b>
+<b class="nc"><i class="no-highlight">35</i>&nbsp;        board = _board;</b>
+<i class="no-highlight">36</i>&nbsp;    }
+<i class="no-highlight">37</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-18 22:04</div>
+</div>
+</body>
+</html>

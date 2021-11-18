@@ -1,0 +1,873 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Printer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">hk.edu.polyu.comp.comp3211.monopoly.view</a>
+</div>
+
+<h1>Coverage Summary for Class: Printer (hk.edu.polyu.comp.comp3211.monopoly.view)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Printer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    56.2%
+  </span>
+  <span class="absValue">
+    (9/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4.1%
+  </span>
+  <span class="absValue">
+    (11/268)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package hk.edu.polyu.comp.comp3211.monopoly.view;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import hk.edu.polyu.comp.comp3211.monopoly.Main;
+<i class="no-highlight">4</i>&nbsp;import hk.edu.polyu.comp.comp3211.monopoly.model.*;
+<i class="no-highlight">5</i>&nbsp;import hk.edu.polyu.comp.comp3211.monopoly.model.squares.ISquare;
+<i class="no-highlight">6</i>&nbsp;import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;import java.util.*;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;public class Printer {
+<i class="no-highlight">11</i>&nbsp;    /** current game board */
+<i class="no-highlight">12</i>&nbsp;    private final Board board;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;    public static final String ANSI_BLACK = &quot;\u001b[30m&quot;;
+<i class="no-highlight">15</i>&nbsp;    public static final String ANSI_RED = &quot;\u001b[31m&quot;;
+<i class="no-highlight">16</i>&nbsp;    public static final String ANSI_GREEN = &quot;\u001b[32m&quot;;
+<i class="no-highlight">17</i>&nbsp;    public static final String ANSI_YELLOW = &quot;\u001b[33m&quot;;
+<i class="no-highlight">18</i>&nbsp;    public static final String ANSI_BLUE = &quot;\u001b[34m&quot;;
+<i class="no-highlight">19</i>&nbsp;    public static final String ANSI_MAGENTA = &quot;\u001b[35m&quot;;
+<i class="no-highlight">20</i>&nbsp;    public static final String ANSI_CYAN = &quot;\u001b[36m&quot;;
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    public static final String ANSI_BG_RED = &quot;\u001b[41m&quot;;
+<i class="no-highlight">23</i>&nbsp;    public static final String ANSI_BG_GREEN = &quot;\u001b[42m&quot;;
+<i class="no-highlight">24</i>&nbsp;    public static final String ANSI_BG_YELLOW = &quot;\u001b[43m&quot;;
+<i class="no-highlight">25</i>&nbsp;    public static final String ANSI_BG_BLUE = &quot;\u001b[44m&quot;;
+<i class="no-highlight">26</i>&nbsp;    public static final String ANSI_BG_MAGENTA = &quot;\u001b[45m&quot;;
+<i class="no-highlight">27</i>&nbsp;    public static final String ANSI_BG_CYAN = &quot;\u001b[46m&quot;;
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    public static final String ANSI_RESET = &quot;\u001b[0m&quot;;
+<i class="no-highlight">30</i>&nbsp;
+<b class="fc"><i class="no-highlight">31</i>&nbsp;    public static final String[] COLORS = {</b>
+<i class="no-highlight">32</i>&nbsp;            ANSI_BG_RED, ANSI_BG_GREEN, ANSI_BG_YELLOW, ANSI_BG_BLUE, ANSI_BG_MAGENTA, ANSI_BG_CYAN, ANSI_RESET
+<i class="no-highlight">33</i>&nbsp;    };
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    private static final String QUIT_REGEX = &quot;^[qQ](uit)?$&quot;;
+<i class="no-highlight">36</i>&nbsp;    public static final String NON_EMPTY_REGEX = &quot;^(?!\\s*$).+&quot;;
+<i class="no-highlight">37</i>&nbsp;    public static final String CONFIRM_REGEX = &quot;^([yY](es)?|[nN](o)?)$&quot;;
+<i class="no-highlight">38</i>&nbsp;    public static final String CONFIRM_YES_REGEX = &quot;^([yY](es)?)$&quot;;
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;    /**
+<i class="no-highlight">41</i>&nbsp;     * Initialize the printer
+<i class="no-highlight">42</i>&nbsp;     *
+<i class="no-highlight">43</i>&nbsp;     * @param _board the game board to be printed
+<i class="no-highlight">44</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">45</i>&nbsp;    public Printer(Board _board) {</b>
+<b class="nc"><i class="no-highlight">46</i>&nbsp;        board = _board;</b>
+<i class="no-highlight">47</i>&nbsp;    }
+<i class="no-highlight">48</i>&nbsp;
+<i class="no-highlight">49</i>&nbsp;    /** Print out current game board */
+<i class="no-highlight">50</i>&nbsp;    public void printAll() {
+<b class="nc"><i class="no-highlight">51</i>&nbsp;        printBoard();</b>
+<b class="nc"><i class="no-highlight">52</i>&nbsp;        printInfo();</b>
+<i class="no-highlight">53</i>&nbsp;    }
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;    /**
+<i class="no-highlight">56</i>&nbsp;     * Given a string and a length, return a new string such that the original string is appended
+<i class="no-highlight">57</i>&nbsp;     * with blank spaces while the total length is equal to the given length, and the original
+<i class="no-highlight">58</i>&nbsp;     * string should be centered.
+<i class="no-highlight">59</i>&nbsp;     *
+<i class="no-highlight">60</i>&nbsp;     * @param str the original string
+<i class="no-highlight">61</i>&nbsp;     * @param length the total length of the new string
+<i class="no-highlight">62</i>&nbsp;     * @return the new string
+<i class="no-highlight">63</i>&nbsp;     */
+<i class="no-highlight">64</i>&nbsp;    public String middle(String str, int length) {
+<b class="nc"><i class="no-highlight">65</i>&nbsp;        int len = str.length();</b>
+<b class="nc"><i class="no-highlight">66</i>&nbsp;        int diff = length - len;</b>
+<b class="nc"><i class="no-highlight">67</i>&nbsp;        int right = diff / 2;</b>
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        int left = diff - right;</b>
+<b class="nc"><i class="no-highlight">69</i>&nbsp;        return &quot; &quot;.repeat(Math.max(0, left)) + str + &quot; &quot;.repeat(Math.max(0, right));</b>
+<i class="no-highlight">70</i>&nbsp;    }
+<i class="no-highlight">71</i>&nbsp;
+<i class="no-highlight">72</i>&nbsp;    /** Only print the game board */
+<i class="no-highlight">73</i>&nbsp;    private void printBoard() {
+<b class="nc"><i class="no-highlight">74</i>&nbsp;        String[] squareColor = new String[20];</b>
+<b class="nc"><i class="no-highlight">75</i>&nbsp;        String[][] squarePlayer = new String[20][6];</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        int[] squarePlayerNum = new int[20];</b>
+<b class="nc"><i class="no-highlight">77</i>&nbsp;        ISquare[] squares = board.getSquares();</b>
+<b class="nc"><i class="no-highlight">78</i>&nbsp;        Player[] players = board.getPlayers();</b>
+<b class="nc"><i class="no-highlight">79</i>&nbsp;        String[] inJailPlayers = new String[6];</b>
+<b class="nc"><i class="no-highlight">80</i>&nbsp;        String[] inJailColors = new String[6];</b>
+<b class="nc"><i class="no-highlight">81</i>&nbsp;        int inJailNum = 0;</b>
+<b class="nc"><i class="no-highlight">82</i>&nbsp;        String[] justVisitingPlayer = new String[6];</b>
+<b class="nc"><i class="no-highlight">83</i>&nbsp;        int justVisitingNum = 0;</b>
+<i class="no-highlight">84</i>&nbsp;
+<b class="nc"><i class="no-highlight">85</i>&nbsp;        for (int i = 0; i &lt; squares.length; i++) {</b>
+<i class="no-highlight">86</i>&nbsp;
+<b class="nc"><i class="no-highlight">87</i>&nbsp;            squareColor[i] = COLORS[COLORS.length - 1];</b>
+<i class="no-highlight">88</i>&nbsp;
+<b class="nc"><i class="no-highlight">89</i>&nbsp;            if (squares[i] instanceof Property) {</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;                Property curProp = (Property) squares[i];</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;                Player curOwner = curProp.getOwner();</b>
+<b class="nc"><i class="no-highlight">92</i>&nbsp;                if (curOwner != null) {</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;                    int pi = Arrays.asList(players).indexOf(curOwner);</b>
+<b class="nc"><i class="no-highlight">94</i>&nbsp;                    squareColor[i] = COLORS[pi];</b>
+<i class="no-highlight">95</i>&nbsp;                }
+<i class="no-highlight">96</i>&nbsp;            }
+<i class="no-highlight">97</i>&nbsp;        }
+<i class="no-highlight">98</i>&nbsp;
+<b class="nc"><i class="no-highlight">99</i>&nbsp;        for (int i = 0; i &lt; 20; i++) {</b>
+<b class="nc"><i class="no-highlight">100</i>&nbsp;            for (int j = 0; j &lt; 6; j++) squarePlayer[i][j] = ANSI_BLACK + ANSI_RESET;</b>
+<i class="no-highlight">101</i>&nbsp;        }
+<i class="no-highlight">102</i>&nbsp;
+<b class="nc"><i class="no-highlight">103</i>&nbsp;        for (int i = 0; i &lt; 6; i++) {</b>
+<b class="nc"><i class="no-highlight">104</i>&nbsp;            inJailPlayers[i] = &quot;&quot;;</b>
+<b class="nc"><i class="no-highlight">105</i>&nbsp;            justVisitingPlayer[i] = ANSI_BLACK + ANSI_RESET;</b>
+<b class="nc"><i class="no-highlight">106</i>&nbsp;            inJailColors[i] = ANSI_BLACK;</b>
+<i class="no-highlight">107</i>&nbsp;        }
+<i class="no-highlight">108</i>&nbsp;
+<b class="nc"><i class="no-highlight">109</i>&nbsp;        for (int i = 0; i &lt; players.length; i++) {</b>
+<b class="nc"><i class="no-highlight">110</i>&nbsp;            int curPosition = players[i].getPosition();</b>
+<b class="nc"><i class="no-highlight">111</i>&nbsp;            squarePlayer[curPosition][squarePlayerNum[curPosition]] =</b>
+<b class="nc"><i class="no-highlight">112</i>&nbsp;                    COLORS[i] + players[i].getName() + ANSI_RESET;</b>
+<b class="nc"><i class="no-highlight">113</i>&nbsp;            squarePlayerNum[curPosition]++;</b>
+<i class="no-highlight">114</i>&nbsp;
+<b class="nc"><i class="no-highlight">115</i>&nbsp;            if (curPosition == 5) {</b>
+<b class="nc"><i class="no-highlight">116</i>&nbsp;                if (players[i].getInJail() == 0) {</b>
+<b class="nc"><i class="no-highlight">117</i>&nbsp;                    justVisitingPlayer[justVisitingNum] =</b>
+<b class="nc"><i class="no-highlight">118</i>&nbsp;                            COLORS[i] + players[i].getName() + ANSI_RESET;</b>
+<b class="nc"><i class="no-highlight">119</i>&nbsp;                    justVisitingNum++;</b>
+<i class="no-highlight">120</i>&nbsp;                } else {
+<b class="nc"><i class="no-highlight">121</i>&nbsp;                    inJailPlayers[inJailNum] = players[i].getName();</b>
+<b class="nc"><i class="no-highlight">122</i>&nbsp;                    inJailColors[inJailNum] = COLORS[i];</b>
+<b class="nc"><i class="no-highlight">123</i>&nbsp;                    inJailNum++;</b>
+<i class="no-highlight">124</i>&nbsp;                }
+<i class="no-highlight">125</i>&nbsp;            }
+<i class="no-highlight">126</i>&nbsp;        }
+<i class="no-highlight">127</i>&nbsp;
+<i class="no-highlight">128</i>&nbsp;        // line1
+<b class="nc"><i class="no-highlight">129</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">130</i>&nbsp;                &quot;|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n&quot;);
+<b class="nc"><i class="no-highlight">131</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">132</i>&nbsp;                &quot;|    FREE PARKING    |       Shatin       |       CHANCE       |      Tuen Mun    &quot;
+<i class="no-highlight">133</i>&nbsp;                        + &quot;  |       Tai Po       |     GO TO GAIL     |\n&quot;);
+<b class="nc"><i class="no-highlight">134</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">135</i>&nbsp;                &quot;|                    |                    |                    |                  &quot;
+<i class="no-highlight">136</i>&nbsp;                        + &quot;  |                    |                    |\n&quot;);
+<b class="nc"><i class="no-highlight">137</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">138</i>&nbsp;                &quot;|                    |                    |                    |                  &quot;
+<i class="no-highlight">139</i>&nbsp;                        + &quot;  |                    |                    |\n&quot;);
+<b class="nc"><i class="no-highlight">140</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">141</i>&nbsp;                &quot;|                    |      HKD 700       |                    |      HKD 400     &quot;
+<i class="no-highlight">142</i>&nbsp;                        + &quot;  |      HKD 500       |                    |\n&quot;);
+<b class="nc"><i class="no-highlight">143</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">144</i>&nbsp;                &quot;|                    |                    |                    |                  &quot;
+<i class="no-highlight">145</i>&nbsp;                        + &quot;  |                    |                    |\n&quot;);
+<b class="nc"><i class="no-highlight">146</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">147</i>&nbsp;                &quot;|    player here:    |    player here:    |    player here:    |    player here:  &quot;
+<i class="no-highlight">148</i>&nbsp;                        + &quot;  |    player here:    |    player here:    |\n&quot;);
+<b class="nc"><i class="no-highlight">149</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">150</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<b class="nc"><i class="no-highlight">151</i>&nbsp;                middle(squarePlayer[10][0], 29),</b>
+<b class="nc"><i class="no-highlight">152</i>&nbsp;                middle(squarePlayer[11][0], 29),</b>
+<b class="nc"><i class="no-highlight">153</i>&nbsp;                middle(squarePlayer[12][0], 29),</b>
+<b class="nc"><i class="no-highlight">154</i>&nbsp;                middle(squarePlayer[13][0], 29),</b>
+<b class="nc"><i class="no-highlight">155</i>&nbsp;                middle(squarePlayer[14][0], 29),</b>
+<b class="nc"><i class="no-highlight">156</i>&nbsp;                middle(squarePlayer[15][0], 29));</b>
+<b class="nc"><i class="no-highlight">157</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">158</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<b class="nc"><i class="no-highlight">159</i>&nbsp;                middle(squarePlayer[10][1], 29),</b>
+<b class="nc"><i class="no-highlight">160</i>&nbsp;                middle(squarePlayer[11][1], 29),</b>
+<b class="nc"><i class="no-highlight">161</i>&nbsp;                middle(squarePlayer[12][1], 29),</b>
+<b class="nc"><i class="no-highlight">162</i>&nbsp;                middle(squarePlayer[13][1], 29),</b>
+<b class="nc"><i class="no-highlight">163</i>&nbsp;                middle(squarePlayer[14][1], 29),</b>
+<b class="nc"><i class="no-highlight">164</i>&nbsp;                middle(squarePlayer[15][1], 29));</b>
+<b class="nc"><i class="no-highlight">165</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">166</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<b class="nc"><i class="no-highlight">167</i>&nbsp;                middle(squarePlayer[10][2], 29),</b>
+<b class="nc"><i class="no-highlight">168</i>&nbsp;                middle(squarePlayer[11][2], 29),</b>
+<b class="nc"><i class="no-highlight">169</i>&nbsp;                middle(squarePlayer[12][2], 29),</b>
+<b class="nc"><i class="no-highlight">170</i>&nbsp;                middle(squarePlayer[13][2], 29),</b>
+<b class="nc"><i class="no-highlight">171</i>&nbsp;                middle(squarePlayer[14][2], 29),</b>
+<b class="nc"><i class="no-highlight">172</i>&nbsp;                middle(squarePlayer[15][2], 29));</b>
+<b class="nc"><i class="no-highlight">173</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">174</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<b class="nc"><i class="no-highlight">175</i>&nbsp;                middle(squarePlayer[10][3], 29),</b>
+<b class="nc"><i class="no-highlight">176</i>&nbsp;                middle(squarePlayer[11][3], 29),</b>
+<b class="nc"><i class="no-highlight">177</i>&nbsp;                middle(squarePlayer[12][3], 29),</b>
+<b class="nc"><i class="no-highlight">178</i>&nbsp;                middle(squarePlayer[13][3], 29),</b>
+<b class="nc"><i class="no-highlight">179</i>&nbsp;                middle(squarePlayer[14][3], 29),</b>
+<b class="nc"><i class="no-highlight">180</i>&nbsp;                middle(squarePlayer[15][3], 29));</b>
+<b class="nc"><i class="no-highlight">181</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">182</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<b class="nc"><i class="no-highlight">183</i>&nbsp;                middle(squarePlayer[10][4], 29),</b>
+<b class="nc"><i class="no-highlight">184</i>&nbsp;                middle(squarePlayer[11][4], 29),</b>
+<b class="nc"><i class="no-highlight">185</i>&nbsp;                middle(squarePlayer[12][4], 29),</b>
+<b class="nc"><i class="no-highlight">186</i>&nbsp;                middle(squarePlayer[13][4], 29),</b>
+<b class="nc"><i class="no-highlight">187</i>&nbsp;                middle(squarePlayer[14][4], 29),</b>
+<b class="nc"><i class="no-highlight">188</i>&nbsp;                middle(squarePlayer[15][4], 29));</b>
+<b class="nc"><i class="no-highlight">189</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">190</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<b class="nc"><i class="no-highlight">191</i>&nbsp;                middle(squarePlayer[10][5], 29),</b>
+<b class="nc"><i class="no-highlight">192</i>&nbsp;                middle(squarePlayer[11][5], 29),</b>
+<b class="nc"><i class="no-highlight">193</i>&nbsp;                middle(squarePlayer[12][5], 29),</b>
+<b class="nc"><i class="no-highlight">194</i>&nbsp;                middle(squarePlayer[13][5], 29),</b>
+<b class="nc"><i class="no-highlight">195</i>&nbsp;                middle(squarePlayer[14][5], 29),</b>
+<b class="nc"><i class="no-highlight">196</i>&nbsp;                middle(squarePlayer[15][5], 29));</b>
+<b class="nc"><i class="no-highlight">197</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">198</i>&nbsp;                &quot;|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------%s|\n&quot;,
+<i class="no-highlight">199</i>&nbsp;                squareColor[10],
+<i class="no-highlight">200</i>&nbsp;                squareColor[11],
+<i class="no-highlight">201</i>&nbsp;                squareColor[12],
+<i class="no-highlight">202</i>&nbsp;                squareColor[13],
+<i class="no-highlight">203</i>&nbsp;                squareColor[14],
+<i class="no-highlight">204</i>&nbsp;                squareColor[15],
+<i class="no-highlight">205</i>&nbsp;                ANSI_RESET);
+<i class="no-highlight">206</i>&nbsp;
+<b class="nc"><i class="no-highlight">207</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">208</i>&nbsp;                &quot;|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n&quot;);
+<i class="no-highlight">209</i>&nbsp;
+<i class="no-highlight">210</i>&nbsp;        // line2
+<b class="nc"><i class="no-highlight">211</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">212</i>&nbsp;                &quot;|      Tsing Yi     %s|%s|                                                        &quot;
+<i class="no-highlight">213</i>&nbsp;                        + &quot;                           |%s|%s     Sai Kung      |\n&quot;,
+<i class="no-highlight">214</i>&nbsp;                squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
+<b class="nc"><i class="no-highlight">215</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">216</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">217</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">218</i>&nbsp;                squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
+<b class="nc"><i class="no-highlight">219</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">220</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">221</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">222</i>&nbsp;                squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
+<b class="nc"><i class="no-highlight">223</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">224</i>&nbsp;                &quot;|      HKD 400      %s|%s|                                                        &quot;
+<i class="no-highlight">225</i>&nbsp;                        + &quot;                           |%s|%s     HKD 400       |\n&quot;,
+<i class="no-highlight">226</i>&nbsp;                squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
+<b class="nc"><i class="no-highlight">227</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">228</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">229</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">230</i>&nbsp;                squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
+<b class="nc"><i class="no-highlight">231</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">232</i>&nbsp;                &quot;|    player here:   %s|%s|                                                        &quot;
+<i class="no-highlight">233</i>&nbsp;                        + &quot;                           |%s|%s   player here:    |\n&quot;,
+<i class="no-highlight">234</i>&nbsp;                squareColor[9], ANSI_RESET, squareColor[16], ANSI_RESET);
+<b class="nc"><i class="no-highlight">235</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">236</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">237</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">238</i>&nbsp;                middle(squarePlayer[9][0], 28),</b>
+<i class="no-highlight">239</i>&nbsp;                squareColor[9],
+<i class="no-highlight">240</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">241</i>&nbsp;                squareColor[16],
+<i class="no-highlight">242</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">243</i>&nbsp;                middle(squarePlayer[16][0], 28));</b>
+<b class="nc"><i class="no-highlight">244</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">245</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">246</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">247</i>&nbsp;                middle(squarePlayer[9][1], 28),</b>
+<i class="no-highlight">248</i>&nbsp;                squareColor[9],
+<i class="no-highlight">249</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">250</i>&nbsp;                squareColor[16],
+<i class="no-highlight">251</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">252</i>&nbsp;                middle(squarePlayer[16][1], 28));</b>
+<b class="nc"><i class="no-highlight">253</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">254</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">255</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">256</i>&nbsp;                middle(squarePlayer[9][2], 28),</b>
+<i class="no-highlight">257</i>&nbsp;                squareColor[9],
+<i class="no-highlight">258</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">259</i>&nbsp;                squareColor[16],
+<i class="no-highlight">260</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">261</i>&nbsp;                middle(squarePlayer[16][2], 28));</b>
+<b class="nc"><i class="no-highlight">262</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">263</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">264</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">265</i>&nbsp;                middle(squarePlayer[9][3], 28),</b>
+<i class="no-highlight">266</i>&nbsp;                squareColor[9],
+<i class="no-highlight">267</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">268</i>&nbsp;                squareColor[16],
+<i class="no-highlight">269</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">270</i>&nbsp;                middle(squarePlayer[16][3], 28));</b>
+<b class="nc"><i class="no-highlight">271</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">272</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">273</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">274</i>&nbsp;                middle(squarePlayer[9][4], 28),</b>
+<i class="no-highlight">275</i>&nbsp;                squareColor[9],
+<i class="no-highlight">276</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">277</i>&nbsp;                squareColor[16],
+<i class="no-highlight">278</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">279</i>&nbsp;                middle(squarePlayer[16][4], 28));</b>
+<b class="nc"><i class="no-highlight">280</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">281</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">282</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">283</i>&nbsp;                middle(squarePlayer[9][5], 28),</b>
+<i class="no-highlight">284</i>&nbsp;                squareColor[9],
+<i class="no-highlight">285</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">286</i>&nbsp;                squareColor[16],
+<i class="no-highlight">287</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">288</i>&nbsp;                middle(squarePlayer[16][5], 28));</b>
+<i class="no-highlight">289</i>&nbsp;
+<b class="nc"><i class="no-highlight">290</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">291</i>&nbsp;                &quot;|--------------------|                                                            &quot;
+<i class="no-highlight">292</i>&nbsp;                        + &quot;                       |--------------------|\n&quot;);
+<i class="no-highlight">293</i>&nbsp;
+<i class="no-highlight">294</i>&nbsp;        // line3
+<b class="nc"><i class="no-highlight">295</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">296</i>&nbsp;                &quot;|       CHANCE      %s|%s|                                                        &quot;
+<i class="no-highlight">297</i>&nbsp;                        + &quot;                           |%s|%s    Yuen Long      |\n&quot;,
+<i class="no-highlight">298</i>&nbsp;                squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
+<b class="nc"><i class="no-highlight">299</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">300</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">301</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">302</i>&nbsp;                squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
+<b class="nc"><i class="no-highlight">303</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">304</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">305</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">306</i>&nbsp;                squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
+<b class="nc"><i class="no-highlight">307</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">308</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">309</i>&nbsp;                        + &quot;                           |%s|%s     HKD 400       |\n&quot;,
+<i class="no-highlight">310</i>&nbsp;                squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
+<b class="nc"><i class="no-highlight">311</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">312</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">313</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">314</i>&nbsp;                squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
+<b class="nc"><i class="no-highlight">315</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">316</i>&nbsp;                &quot;|    player here:   %s|%s|                                                        &quot;
+<i class="no-highlight">317</i>&nbsp;                        + &quot;                           |%s|%s   player here:    |\n&quot;,
+<i class="no-highlight">318</i>&nbsp;                squareColor[8], ANSI_RESET, squareColor[17], ANSI_RESET);
+<b class="nc"><i class="no-highlight">319</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">320</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">321</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">322</i>&nbsp;                middle(squarePlayer[8][0], 28),</b>
+<i class="no-highlight">323</i>&nbsp;                squareColor[8],
+<i class="no-highlight">324</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">325</i>&nbsp;                squareColor[17],
+<i class="no-highlight">326</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">327</i>&nbsp;                middle(squarePlayer[17][0], 28));</b>
+<b class="nc"><i class="no-highlight">328</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">329</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">330</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">331</i>&nbsp;                middle(squarePlayer[8][1], 28),</b>
+<i class="no-highlight">332</i>&nbsp;                squareColor[8],
+<i class="no-highlight">333</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">334</i>&nbsp;                squareColor[17],
+<i class="no-highlight">335</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">336</i>&nbsp;                middle(squarePlayer[17][1], 28));</b>
+<b class="nc"><i class="no-highlight">337</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">338</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">339</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">340</i>&nbsp;                middle(squarePlayer[8][2], 28),</b>
+<i class="no-highlight">341</i>&nbsp;                squareColor[8],
+<i class="no-highlight">342</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">343</i>&nbsp;                squareColor[17],
+<i class="no-highlight">344</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">345</i>&nbsp;                middle(squarePlayer[17][2], 28));</b>
+<b class="nc"><i class="no-highlight">346</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">347</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">348</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">349</i>&nbsp;                middle(squarePlayer[8][3], 28),</b>
+<i class="no-highlight">350</i>&nbsp;                squareColor[8],
+<i class="no-highlight">351</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">352</i>&nbsp;                squareColor[17],
+<i class="no-highlight">353</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">354</i>&nbsp;                middle(squarePlayer[17][3], 28));</b>
+<b class="nc"><i class="no-highlight">355</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">356</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">357</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">358</i>&nbsp;                middle(squarePlayer[8][4], 28),</b>
+<i class="no-highlight">359</i>&nbsp;                squareColor[8],
+<i class="no-highlight">360</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">361</i>&nbsp;                squareColor[17],
+<i class="no-highlight">362</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">363</i>&nbsp;                middle(squarePlayer[17][4], 28));</b>
+<b class="nc"><i class="no-highlight">364</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">365</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">366</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">367</i>&nbsp;                middle(squarePlayer[8][5], 28),</b>
+<i class="no-highlight">368</i>&nbsp;                squareColor[8],
+<i class="no-highlight">369</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">370</i>&nbsp;                squareColor[17],
+<i class="no-highlight">371</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">372</i>&nbsp;                middle(squarePlayer[17][5], 28));</b>
+<i class="no-highlight">373</i>&nbsp;
+<b class="nc"><i class="no-highlight">374</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">375</i>&nbsp;                &quot;|--------------------|                                                            &quot;
+<i class="no-highlight">376</i>&nbsp;                        + &quot;                       |--------------------|\n&quot;);
+<i class="no-highlight">377</i>&nbsp;
+<i class="no-highlight">378</i>&nbsp;        // line4
+<b class="nc"><i class="no-highlight">379</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">380</i>&nbsp;                &quot;|      Mong Kok     %s|%s|                                                        &quot;
+<i class="no-highlight">381</i>&nbsp;                        + &quot;                           |%s|%s      CHANCE       |\n&quot;,
+<i class="no-highlight">382</i>&nbsp;                squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
+<b class="nc"><i class="no-highlight">383</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">384</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">385</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">386</i>&nbsp;                squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
+<b class="nc"><i class="no-highlight">387</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">388</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">389</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">390</i>&nbsp;                squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
+<b class="nc"><i class="no-highlight">391</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">392</i>&nbsp;                &quot;|      HKD 500      %s|%s|                                                        &quot;
+<i class="no-highlight">393</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">394</i>&nbsp;                squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
+<b class="nc"><i class="no-highlight">395</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">396</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">397</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">398</i>&nbsp;                squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
+<b class="nc"><i class="no-highlight">399</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">400</i>&nbsp;                &quot;|    player here:   %s|%s|                                                        &quot;
+<i class="no-highlight">401</i>&nbsp;                        + &quot;                           |%s|%s   player here:    |\n&quot;,
+<i class="no-highlight">402</i>&nbsp;                squareColor[7], ANSI_RESET, squareColor[18], ANSI_RESET);
+<b class="nc"><i class="no-highlight">403</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">404</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">405</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">406</i>&nbsp;                middle(squarePlayer[7][0], 28),</b>
+<i class="no-highlight">407</i>&nbsp;                squareColor[7],
+<i class="no-highlight">408</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">409</i>&nbsp;                squareColor[18],
+<i class="no-highlight">410</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">411</i>&nbsp;                middle(squarePlayer[18][0], 28));</b>
+<b class="nc"><i class="no-highlight">412</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">413</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">414</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">415</i>&nbsp;                middle(squarePlayer[7][1], 28),</b>
+<i class="no-highlight">416</i>&nbsp;                squareColor[7],
+<i class="no-highlight">417</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">418</i>&nbsp;                squareColor[18],
+<i class="no-highlight">419</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">420</i>&nbsp;                middle(squarePlayer[18][1], 28));</b>
+<b class="nc"><i class="no-highlight">421</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">422</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">423</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">424</i>&nbsp;                middle(squarePlayer[7][2], 28),</b>
+<i class="no-highlight">425</i>&nbsp;                squareColor[7],
+<i class="no-highlight">426</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">427</i>&nbsp;                squareColor[18],
+<i class="no-highlight">428</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">429</i>&nbsp;                middle(squarePlayer[18][2], 28));</b>
+<b class="nc"><i class="no-highlight">430</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">431</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">432</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">433</i>&nbsp;                middle(squarePlayer[7][3], 28),</b>
+<i class="no-highlight">434</i>&nbsp;                squareColor[7],
+<i class="no-highlight">435</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">436</i>&nbsp;                squareColor[18],
+<i class="no-highlight">437</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">438</i>&nbsp;                middle(squarePlayer[18][3], 28));</b>
+<b class="nc"><i class="no-highlight">439</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">440</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">441</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">442</i>&nbsp;                middle(squarePlayer[7][4], 28),</b>
+<i class="no-highlight">443</i>&nbsp;                squareColor[7],
+<i class="no-highlight">444</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">445</i>&nbsp;                squareColor[18],
+<i class="no-highlight">446</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">447</i>&nbsp;                middle(squarePlayer[18][4], 28));</b>
+<b class="nc"><i class="no-highlight">448</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">449</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">450</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">451</i>&nbsp;                middle(squarePlayer[7][5], 28),</b>
+<i class="no-highlight">452</i>&nbsp;                squareColor[7],
+<i class="no-highlight">453</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">454</i>&nbsp;                squareColor[18],
+<i class="no-highlight">455</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">456</i>&nbsp;                middle(squarePlayer[18][5], 28));</b>
+<i class="no-highlight">457</i>&nbsp;
+<b class="nc"><i class="no-highlight">458</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">459</i>&nbsp;                &quot;|--------------------|                                                            &quot;
+<i class="no-highlight">460</i>&nbsp;                        + &quot;                       |--------------------|\n&quot;);
+<i class="no-highlight">461</i>&nbsp;
+<i class="no-highlight">462</i>&nbsp;        // line5
+<b class="nc"><i class="no-highlight">463</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">464</i>&nbsp;                &quot;|       Shek O      %s|%s|                                                        &quot;
+<i class="no-highlight">465</i>&nbsp;                        + &quot;                           |%s|%s      Tai O        |\n&quot;,
+<i class="no-highlight">466</i>&nbsp;                squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
+<b class="nc"><i class="no-highlight">467</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">468</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">469</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">470</i>&nbsp;                squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
+<b class="nc"><i class="no-highlight">471</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">472</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">473</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">474</i>&nbsp;                squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
+<b class="nc"><i class="no-highlight">475</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">476</i>&nbsp;                &quot;|      HKD 400      %s|%s|                                                        &quot;
+<i class="no-highlight">477</i>&nbsp;                        + &quot;                           |%s|%s     HKD 600       |\n&quot;,
+<i class="no-highlight">478</i>&nbsp;                squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
+<b class="nc"><i class="no-highlight">479</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">480</i>&nbsp;                &quot;|                   %s|%s|                                                        &quot;
+<i class="no-highlight">481</i>&nbsp;                        + &quot;                           |%s|%s                   |\n&quot;,
+<i class="no-highlight">482</i>&nbsp;                squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
+<b class="nc"><i class="no-highlight">483</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">484</i>&nbsp;                &quot;|    player here:   %s|%s|                                                        &quot;
+<i class="no-highlight">485</i>&nbsp;                        + &quot;                           |%s|%s   player here:    |\n&quot;,
+<i class="no-highlight">486</i>&nbsp;                squareColor[6], ANSI_RESET, squareColor[19], ANSI_RESET);
+<b class="nc"><i class="no-highlight">487</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">488</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">489</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">490</i>&nbsp;                middle(squarePlayer[6][0], 28),</b>
+<i class="no-highlight">491</i>&nbsp;                squareColor[6],
+<i class="no-highlight">492</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">493</i>&nbsp;                squareColor[19],
+<i class="no-highlight">494</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">495</i>&nbsp;                middle(squarePlayer[19][0], 28));</b>
+<b class="nc"><i class="no-highlight">496</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">497</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">498</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">499</i>&nbsp;                middle(squarePlayer[6][1], 28),</b>
+<i class="no-highlight">500</i>&nbsp;                squareColor[6],
+<i class="no-highlight">501</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">502</i>&nbsp;                squareColor[19],
+<i class="no-highlight">503</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">504</i>&nbsp;                middle(squarePlayer[19][1], 28));</b>
+<b class="nc"><i class="no-highlight">505</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">506</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">507</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">508</i>&nbsp;                middle(squarePlayer[6][2], 28),</b>
+<i class="no-highlight">509</i>&nbsp;                squareColor[6],
+<i class="no-highlight">510</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">511</i>&nbsp;                squareColor[19],
+<i class="no-highlight">512</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">513</i>&nbsp;                middle(squarePlayer[19][2], 28));</b>
+<b class="nc"><i class="no-highlight">514</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">515</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">516</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">517</i>&nbsp;                middle(squarePlayer[6][3], 28),</b>
+<i class="no-highlight">518</i>&nbsp;                squareColor[6],
+<i class="no-highlight">519</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">520</i>&nbsp;                squareColor[19],
+<i class="no-highlight">521</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">522</i>&nbsp;                middle(squarePlayer[19][3], 28));</b>
+<b class="nc"><i class="no-highlight">523</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">524</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">525</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">526</i>&nbsp;                middle(squarePlayer[6][4], 28),</b>
+<i class="no-highlight">527</i>&nbsp;                squareColor[6],
+<i class="no-highlight">528</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">529</i>&nbsp;                squareColor[19],
+<i class="no-highlight">530</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">531</i>&nbsp;                middle(squarePlayer[19][4], 28));</b>
+<b class="nc"><i class="no-highlight">532</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">533</i>&nbsp;                &quot;|%-28s%s|%s|                                                                      &quot;
+<i class="no-highlight">534</i>&nbsp;                        + &quot;             |%s|%s%-28s|\n&quot;,
+<b class="nc"><i class="no-highlight">535</i>&nbsp;                middle(squarePlayer[6][5], 28),</b>
+<i class="no-highlight">536</i>&nbsp;                squareColor[6],
+<i class="no-highlight">537</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">538</i>&nbsp;                squareColor[19],
+<i class="no-highlight">539</i>&nbsp;                ANSI_RESET,
+<b class="nc"><i class="no-highlight">540</i>&nbsp;                middle(squarePlayer[19][5], 28));</b>
+<i class="no-highlight">541</i>&nbsp;
+<b class="nc"><i class="no-highlight">542</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">543</i>&nbsp;                &quot;|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n&quot;);
+<i class="no-highlight">544</i>&nbsp;
+<i class="no-highlight">545</i>&nbsp;        // line6
+<b class="nc"><i class="no-highlight">546</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">547</i>&nbsp;                &quot;|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------|%s--------------------%s|\n&quot;,
+<i class="no-highlight">548</i>&nbsp;                squareColor[5],
+<i class="no-highlight">549</i>&nbsp;                squareColor[4],
+<i class="no-highlight">550</i>&nbsp;                squareColor[3],
+<i class="no-highlight">551</i>&nbsp;                squareColor[2],
+<i class="no-highlight">552</i>&nbsp;                squareColor[1],
+<i class="no-highlight">553</i>&nbsp;                squareColor[0],
+<i class="no-highlight">554</i>&nbsp;                ANSI_RESET);
+<b class="nc"><i class="no-highlight">555</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">556</i>&nbsp;                &quot;|        JAIL        |       Stanley      |     INCOME TAX     |      Wan Chai    &quot;
+<i class="no-highlight">557</i>&nbsp;                        + &quot;  |       Central      |         GO         |\n&quot;);
+<b class="nc"><i class="no-highlight">558</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">559</i>&nbsp;                &quot;|      in jail:      |                    |                    |                  &quot;
+<i class="no-highlight">560</i>&nbsp;                        + &quot;  |                    |  collect HKD 1500  |\n&quot;);
+<b class="nc"><i class="no-highlight">561</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">562</i>&nbsp;                &quot;|%s%-9s%s  %s%-9s%s|                    |                    |                   &quot;
+<i class="no-highlight">563</i>&nbsp;                        + &quot; |                    |    as your salary  |\n&quot;,
+<i class="no-highlight">564</i>&nbsp;                inJailColors[0],
+<i class="no-highlight">565</i>&nbsp;                inJailPlayers[0],
+<i class="no-highlight">566</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">567</i>&nbsp;                inJailColors[1],
+<i class="no-highlight">568</i>&nbsp;                inJailPlayers[1],
+<i class="no-highlight">569</i>&nbsp;                ANSI_RESET);
+<b class="nc"><i class="no-highlight">570</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">571</i>&nbsp;                &quot;|%s%-9s%s  %s%-9s%s|      HKD 700       |                    |      HKD 400      &quot;
+<i class="no-highlight">572</i>&nbsp;                        + &quot; |      HKD 500       |    when you pass   |\n&quot;,
+<i class="no-highlight">573</i>&nbsp;                inJailColors[2],
+<i class="no-highlight">574</i>&nbsp;                inJailPlayers[2],
+<i class="no-highlight">575</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">576</i>&nbsp;                inJailColors[3],
+<i class="no-highlight">577</i>&nbsp;                inJailPlayers[3],
+<i class="no-highlight">578</i>&nbsp;                ANSI_RESET);
+<b class="nc"><i class="no-highlight">579</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">580</i>&nbsp;                &quot;|%s%-9s%s  %s%-9s%s|                    |                    |                   &quot;
+<i class="no-highlight">581</i>&nbsp;                        + &quot; |                    |        &lt;&lt;----      |\n&quot;,
+<i class="no-highlight">582</i>&nbsp;                inJailColors[4],
+<i class="no-highlight">583</i>&nbsp;                inJailPlayers[4],
+<i class="no-highlight">584</i>&nbsp;                ANSI_RESET,
+<i class="no-highlight">585</i>&nbsp;                inJailColors[5],
+<i class="no-highlight">586</i>&nbsp;                inJailPlayers[5],
+<i class="no-highlight">587</i>&nbsp;                ANSI_RESET);
+<b class="nc"><i class="no-highlight">588</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">589</i>&nbsp;                &quot;|   just visiting:   |    player here:    |    player here:    |    player here:  &quot;
+<i class="no-highlight">590</i>&nbsp;                        + &quot;  |    player here:    |    player here:    |\n&quot;);
+<b class="nc"><i class="no-highlight">591</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">592</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<i class="no-highlight">593</i>&nbsp;                justVisitingPlayer[0],
+<b class="nc"><i class="no-highlight">594</i>&nbsp;                middle(squarePlayer[4][0], 29),</b>
+<b class="nc"><i class="no-highlight">595</i>&nbsp;                middle(squarePlayer[3][0], 29),</b>
+<b class="nc"><i class="no-highlight">596</i>&nbsp;                middle(squarePlayer[2][0], 29),</b>
+<b class="nc"><i class="no-highlight">597</i>&nbsp;                middle(squarePlayer[1][0], 29),</b>
+<b class="nc"><i class="no-highlight">598</i>&nbsp;                middle(squarePlayer[0][0], 29));</b>
+<b class="nc"><i class="no-highlight">599</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">600</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<i class="no-highlight">601</i>&nbsp;                justVisitingPlayer[1],
+<b class="nc"><i class="no-highlight">602</i>&nbsp;                middle(squarePlayer[4][1], 29),</b>
+<b class="nc"><i class="no-highlight">603</i>&nbsp;                middle(squarePlayer[3][1], 29),</b>
+<b class="nc"><i class="no-highlight">604</i>&nbsp;                middle(squarePlayer[2][1], 29),</b>
+<b class="nc"><i class="no-highlight">605</i>&nbsp;                middle(squarePlayer[1][1], 29),</b>
+<b class="nc"><i class="no-highlight">606</i>&nbsp;                middle(squarePlayer[0][1], 29));</b>
+<b class="nc"><i class="no-highlight">607</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">608</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<i class="no-highlight">609</i>&nbsp;                justVisitingPlayer[2],
+<b class="nc"><i class="no-highlight">610</i>&nbsp;                middle(squarePlayer[4][2], 29),</b>
+<b class="nc"><i class="no-highlight">611</i>&nbsp;                middle(squarePlayer[3][2], 29),</b>
+<b class="nc"><i class="no-highlight">612</i>&nbsp;                middle(squarePlayer[2][2], 29),</b>
+<b class="nc"><i class="no-highlight">613</i>&nbsp;                middle(squarePlayer[1][2], 29),</b>
+<b class="nc"><i class="no-highlight">614</i>&nbsp;                middle(squarePlayer[0][2], 29));</b>
+<b class="nc"><i class="no-highlight">615</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">616</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<i class="no-highlight">617</i>&nbsp;                justVisitingPlayer[3],
+<b class="nc"><i class="no-highlight">618</i>&nbsp;                middle(squarePlayer[4][3], 29),</b>
+<b class="nc"><i class="no-highlight">619</i>&nbsp;                middle(squarePlayer[3][3], 29),</b>
+<b class="nc"><i class="no-highlight">620</i>&nbsp;                middle(squarePlayer[2][3], 29),</b>
+<b class="nc"><i class="no-highlight">621</i>&nbsp;                middle(squarePlayer[1][3], 29),</b>
+<b class="nc"><i class="no-highlight">622</i>&nbsp;                middle(squarePlayer[0][3], 29));</b>
+<b class="nc"><i class="no-highlight">623</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">624</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<i class="no-highlight">625</i>&nbsp;                justVisitingPlayer[4],
+<b class="nc"><i class="no-highlight">626</i>&nbsp;                middle(squarePlayer[4][4], 29),</b>
+<b class="nc"><i class="no-highlight">627</i>&nbsp;                middle(squarePlayer[3][4], 29),</b>
+<b class="nc"><i class="no-highlight">628</i>&nbsp;                middle(squarePlayer[2][4], 29),</b>
+<b class="nc"><i class="no-highlight">629</i>&nbsp;                middle(squarePlayer[1][4], 29),</b>
+<b class="nc"><i class="no-highlight">630</i>&nbsp;                middle(squarePlayer[0][4], 29));</b>
+<b class="nc"><i class="no-highlight">631</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">632</i>&nbsp;                &quot;|%-29s|%-29s|%-29s|%-29s|%-29s|%-29s|\n&quot;,
+<i class="no-highlight">633</i>&nbsp;                justVisitingPlayer[5],
+<b class="nc"><i class="no-highlight">634</i>&nbsp;                middle(squarePlayer[4][5], 29),</b>
+<b class="nc"><i class="no-highlight">635</i>&nbsp;                middle(squarePlayer[3][5], 29),</b>
+<b class="nc"><i class="no-highlight">636</i>&nbsp;                middle(squarePlayer[2][5], 29),</b>
+<b class="nc"><i class="no-highlight">637</i>&nbsp;                middle(squarePlayer[1][5], 29),</b>
+<b class="nc"><i class="no-highlight">638</i>&nbsp;                middle(squarePlayer[0][5], 29));</b>
+<b class="nc"><i class="no-highlight">639</i>&nbsp;        System.out.print(</b>
+<i class="no-highlight">640</i>&nbsp;                &quot;|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|\n&quot;);
+<i class="no-highlight">641</i>&nbsp;    }
+<i class="no-highlight">642</i>&nbsp;
+<i class="no-highlight">643</i>&nbsp;    /** Only print the game info */
+<i class="no-highlight">644</i>&nbsp;    private void printInfo() {
+<b class="nc"><i class="no-highlight">645</i>&nbsp;        Printer.printInfoMsg(&quot;\n\t|    Current Wealth    |\n&quot;);</b>
+<b class="nc"><i class="no-highlight">646</i>&nbsp;        for (var player : board.getPlayers()) {</b>
+<b class="nc"><i class="no-highlight">647</i>&nbsp;            String line =</b>
+<b class="nc"><i class="no-highlight">648</i>&nbsp;                    String.format(&quot;\t| %-10s | $%-6d |\n&quot;, player.getName(), player.getMoney());</b>
+<b class="nc"><i class="no-highlight">649</i>&nbsp;            Printer.printColoredMsg(Printer.ANSI_CYAN, line);</b>
+<i class="no-highlight">650</i>&nbsp;        }
+<i class="no-highlight">651</i>&nbsp;    }
+<i class="no-highlight">652</i>&nbsp;
+<i class="no-highlight">653</i>&nbsp;    /**
+<i class="no-highlight">654</i>&nbsp;     * Print a given message in a given color without any line-breaks
+<i class="no-highlight">655</i>&nbsp;     *
+<i class="no-highlight">656</i>&nbsp;     * @param ansi_color color in format &lt;code&gt;[0m&lt;/code&gt;
+<i class="no-highlight">657</i>&nbsp;     * @param msg message to display
+<i class="no-highlight">658</i>&nbsp;     */
+<i class="no-highlight">659</i>&nbsp;    public static void printColoredMsg(String ansi_color, String msg) {
+<b class="fc"><i class="no-highlight">660</i>&nbsp;        System.out.print(ansi_color + msg + ANSI_RESET);</b>
+<b class="fc"><i class="no-highlight">661</i>&nbsp;        System.out.flush();</b>
+<i class="no-highlight">662</i>&nbsp;    }
+<i class="no-highlight">663</i>&nbsp;
+<i class="no-highlight">664</i>&nbsp;    /**
+<i class="no-highlight">665</i>&nbsp;     * Print message for help (&lt;code&gt;ANSI_YELLOW&lt;/code&gt; by default) without any line-breaks
+<i class="no-highlight">666</i>&nbsp;     *
+<i class="no-highlight">667</i>&nbsp;     * @param msg message to display
+<i class="no-highlight">668</i>&nbsp;     */
+<i class="no-highlight">669</i>&nbsp;    public static void printHelpMsg(String msg) {
+<b class="fc"><i class="no-highlight">670</i>&nbsp;        printColoredMsg(ANSI_YELLOW, msg);</b>
+<i class="no-highlight">671</i>&nbsp;    }
+<i class="no-highlight">672</i>&nbsp;
+<i class="no-highlight">673</i>&nbsp;    /**
+<i class="no-highlight">674</i>&nbsp;     * Print message for warning (&lt;code&gt;ANSI_RED&lt;/code&gt; by default) without any line-breaks
+<i class="no-highlight">675</i>&nbsp;     *
+<i class="no-highlight">676</i>&nbsp;     * @param msg message to display
+<i class="no-highlight">677</i>&nbsp;     */
+<i class="no-highlight">678</i>&nbsp;    public static void printWarnMsg(String msg) {
+<b class="fc"><i class="no-highlight">679</i>&nbsp;        printColoredMsg(ANSI_RED, msg);</b>
+<i class="no-highlight">680</i>&nbsp;    }
+<i class="no-highlight">681</i>&nbsp;
+<i class="no-highlight">682</i>&nbsp;    /**
+<i class="no-highlight">683</i>&nbsp;     * Print message for information (&lt;code&gt;ANSI_BLUE&lt;/code&gt; by default) without any line-breaks
+<i class="no-highlight">684</i>&nbsp;     *
+<i class="no-highlight">685</i>&nbsp;     * @param msg message to display
+<i class="no-highlight">686</i>&nbsp;     */
+<i class="no-highlight">687</i>&nbsp;    public static void printInfoMsg(String msg) {
+<b class="fc"><i class="no-highlight">688</i>&nbsp;        printColoredMsg(ANSI_BLUE, msg);</b>
+<i class="no-highlight">689</i>&nbsp;    }
+<i class="no-highlight">690</i>&nbsp;
+<i class="no-highlight">691</i>&nbsp;    /**
+<i class="no-highlight">692</i>&nbsp;     * Print message for confirmation (&lt;code&gt;ANSI_GREEN&lt;/code&gt; by default) without any line-breaks
+<i class="no-highlight">693</i>&nbsp;     *
+<i class="no-highlight">694</i>&nbsp;     * @param msg message to display
+<i class="no-highlight">695</i>&nbsp;     */
+<i class="no-highlight">696</i>&nbsp;    public static void printConfMsg(String msg) {
+<b class="fc"><i class="no-highlight">697</i>&nbsp;        printColoredMsg(ANSI_GREEN, msg);</b>
+<i class="no-highlight">698</i>&nbsp;    }
+<i class="no-highlight">699</i>&nbsp;
+<i class="no-highlight">700</i>&nbsp;    /**
+<i class="no-highlight">701</i>&nbsp;     * Print message for general purposes (&lt;code&gt;ANSI_RESET&lt;/code&gt; by default)
+<i class="no-highlight">702</i>&nbsp;     *
+<i class="no-highlight">703</i>&nbsp;     * @param msg message to display
+<i class="no-highlight">704</i>&nbsp;     */
+<i class="no-highlight">705</i>&nbsp;    public static void printMsg(String msg) {
+<b class="fc"><i class="no-highlight">706</i>&nbsp;        printColoredMsg(ANSI_RESET, msg);</b>
+<i class="no-highlight">707</i>&nbsp;    }
+<i class="no-highlight">708</i>&nbsp;
+<i class="no-highlight">709</i>&nbsp;    /**
+<i class="no-highlight">710</i>&nbsp;     * Print a yellow player prompt in form of &quot;Player [player_name]: &quot;
+<i class="no-highlight">711</i>&nbsp;     *
+<i class="no-highlight">712</i>&nbsp;     * @param player the player
+<i class="no-highlight">713</i>&nbsp;     */
+<i class="no-highlight">714</i>&nbsp;    public static void printPlayerPrompt(Player player) {
+<b class="fc"><i class="no-highlight">715</i>&nbsp;        printInfoMsg(&quot;Player &quot; + player.getName() + &quot;: &quot;);</b>
+<i class="no-highlight">716</i>&nbsp;    }
+<i class="no-highlight">717</i>&nbsp;
+<i class="no-highlight">718</i>&nbsp;    /**
+<i class="no-highlight">719</i>&nbsp;     * Scan an input until it is valid or interrupted by user
+<i class="no-highlight">720</i>&nbsp;     *
+<i class="no-highlight">721</i>&nbsp;     * @param prompt prompt method (lambda)
+<i class="no-highlight">722</i>&nbsp;     * @param fallback_msg msg display to after invalid input
+<i class="no-highlight">723</i>&nbsp;     * @param regex regex of valid prompt
+<i class="no-highlight">724</i>&nbsp;     * @return scanned valid input
+<i class="no-highlight">725</i>&nbsp;     * @throws InterruptedException if user interrupt the input
+<i class="no-highlight">726</i>&nbsp;     */
+<i class="no-highlight">727</i>&nbsp;    public static String scanValidInputWithQuit(Runnable prompt, String fallback_msg, String regex)
+<i class="no-highlight">728</i>&nbsp;            throws InterruptedException {
+<i class="no-highlight">729</i>&nbsp;        String input;
+<i class="no-highlight">730</i>&nbsp;        do {
+<b class="nc"><i class="no-highlight">731</i>&nbsp;            prompt.run();</b>
+<b class="nc"><i class="no-highlight">732</i>&nbsp;            input = Main.getScanner().nextLine();</b>
+<i class="no-highlight">733</i>&nbsp;
+<i class="no-highlight">734</i>&nbsp;            // user type quit, interrupt the process
+<b class="nc"><i class="no-highlight">735</i>&nbsp;            if (input.matches(QUIT_REGEX)) throw new InterruptedException(&quot;Interrupted by user.\n&quot;);</b>
+<b class="nc"><i class="no-highlight">736</i>&nbsp;            if (input.matches(regex)) return input;</b>
+<i class="no-highlight">737</i>&nbsp;
+<b class="nc"><i class="no-highlight">738</i>&nbsp;            Printer.printWarnMsg(&quot;INVALID INPUT! &quot; + fallback_msg + &quot;\n&quot;);</b>
+<b class="nc"><i class="no-highlight">739</i>&nbsp;        } while (true);</b>
+<i class="no-highlight">740</i>&nbsp;    }
+<i class="no-highlight">741</i>&nbsp;
+<i class="no-highlight">742</i>&nbsp;    /**
+<i class="no-highlight">743</i>&nbsp;     * Scan an input until it is valid
+<i class="no-highlight">744</i>&nbsp;     *
+<i class="no-highlight">745</i>&nbsp;     * @param prompt prompt method (lambda)
+<i class="no-highlight">746</i>&nbsp;     * @param fallback_msg msg display to after invalid input
+<i class="no-highlight">747</i>&nbsp;     * @param regex regex of valid prompt
+<i class="no-highlight">748</i>&nbsp;     * @return scanned valid input
+<i class="no-highlight">749</i>&nbsp;     */
+<i class="no-highlight">750</i>&nbsp;    public static String scanValidInput(Runnable prompt, String fallback_msg, String regex) {
+<i class="no-highlight">751</i>&nbsp;        String input;
+<i class="no-highlight">752</i>&nbsp;        do {
+<b class="fc"><i class="no-highlight">753</i>&nbsp;            prompt.run();</b>
+<b class="fc"><i class="no-highlight">754</i>&nbsp;            if(Main.TEST)return &quot;&quot;;</b>
+<b class="nc"><i class="no-highlight">755</i>&nbsp;            input = Main.getScanner().nextLine();</b>
+<i class="no-highlight">756</i>&nbsp;
+<b class="nc"><i class="no-highlight">757</i>&nbsp;            if (input.matches(regex)) return input;</b>
+<i class="no-highlight">758</i>&nbsp;
+<b class="nc"><i class="no-highlight">759</i>&nbsp;            Printer.printWarnMsg(&quot;INVALID INPUT! &quot; + fallback_msg + &quot;\n&quot;);</b>
+<b class="nc"><i class="no-highlight">760</i>&nbsp;        } while (true);</b>
+<i class="no-highlight">761</i>&nbsp;    }
+<i class="no-highlight">762</i>&nbsp;
+<i class="no-highlight">763</i>&nbsp;    public static void main(String[] args) {
+<b class="nc"><i class="no-highlight">764</i>&nbsp;        System.out.printf(</b>
+<i class="no-highlight">765</i>&nbsp;                &quot;|%s--------------------%s|--------------------|--------------------|--------------------|--------------------|--------------------|&quot;,
+<i class="no-highlight">766</i>&nbsp;                ANSI_BLUE, ANSI_RESET);
+<i class="no-highlight">767</i>&nbsp;    }
+<i class="no-highlight">768</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-11-18 22:04</div>
+</div>
+</body>
+</html>
