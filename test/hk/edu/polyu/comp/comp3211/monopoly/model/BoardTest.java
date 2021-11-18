@@ -51,10 +51,7 @@ class BoardTest {
     @Test
     void OverallBoardTest() {
         // new Board() should throw error when not initialized with 2-6 players
-        Exception exception1 =
-                assertThrows(
-                        Exception.class,
-                        () -> new Board(7));
+        Exception exception1 = assertThrows(Exception.class, () -> new Board(7));
 
         // "2-6 players" is one of game constraints
         String expectedMessage = "2-6 players";
@@ -91,9 +88,7 @@ class BoardTest {
         map.put(Free.class, List.of(11));
         map.put(Oops.class, List.of(16));
 
-        map.forEach(
-                (k, v) -> v.forEach(
-                        (e) -> assertEquals(k, squares[e - 1].getClass())));
+        map.forEach((k, v) -> v.forEach((e) -> assertEquals(k, squares[e - 1].getClass())));
 
         for (int i = 0; i < 12; i++) {
             Property cur = (Property) squares[PROPERTY_INDEX[i] - 1];
@@ -133,6 +128,7 @@ class BoardTest {
     }
 
     private boolean hasSamePlayers(List<String> list1, List<String> list2) {
-        return ((Collection<String>) list1).containsAll(list2) && ((Collection<String>) list2).containsAll(list1);
+        return ((Collection<String>) list1).containsAll(list2)
+                && ((Collection<String>) list2).containsAll(list1);
     }
 }
