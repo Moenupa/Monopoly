@@ -133,7 +133,9 @@ public class Jail implements ISquare {
         player.move(stepsToMove);
         Printer.printPlayerPrompt(player);
         Printer.printInfoMsg("gets out of jail.\n");
-        Game.takeEffect(player);
+        if (!Main.TEST) {
+            Game.takeEffect(player);
+        }
     }
 
     /**
