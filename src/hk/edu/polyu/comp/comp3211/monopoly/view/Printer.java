@@ -5,10 +5,7 @@ import hk.edu.polyu.comp.comp3211.monopoly.model.*;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.ISquare;
 import hk.edu.polyu.comp.comp3211.monopoly.model.squares.Property;
 
-import java.util.Arrays;
-
 import java.util.*;
-import java.util.stream.*;
 
 public class Printer {
     /** current game board */
@@ -21,13 +18,6 @@ public class Printer {
     public static final String ANSI_BLUE = "\u001b[34m";
     public static final String ANSI_MAGENTA = "\u001b[35m";
     public static final String ANSI_CYAN = "\u001b[36m";
-
-    public static final String ANSI_BG_RED = "\u001b[41m";
-    public static final String ANSI_BG_GREEN = "\u001b[42m";
-    public static final String ANSI_BG_YELLOW = "\u001b[43m";
-    public static final String ANSI_BG_BLUE = "\u001b[44m";
-    public static final String ANSI_BG_MAGENTA = "\u001b[45m";
-    public static final String ANSI_BG_CYAN = "\u001b[46m";
 
     public static final String ANSI_RESET = "\u001b[0m";
     public static final String[] colors = {

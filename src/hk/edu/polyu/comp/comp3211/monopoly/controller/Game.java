@@ -59,9 +59,8 @@ public class Game implements IBase {
      * Initialize game controller by loading the saved game
      *
      * @param boardName saved board (game) name
-     * @throws Exception if occur error when loading
      */
-    public Game(String boardName) throws Exception {
+    public Game(String boardName) {
         board = Board.load(boardName);
         players = board.getPlayers();
         squares = board.getSquares();
